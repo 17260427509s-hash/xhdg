@@ -1,0 +1,10 @@
+{
+  "name": "galaxy-birthday-cake",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": { "dev": "vite --host 0.0.0.0", "build": "tsc -b && vite build", "preview": "vite preview --host 0.0.0.0", "typecheck": "tsc --noEmit" },
+  "dependencies": { "react": "^19.2.0", "react-dom": "^19.2.0", "three": "^0.181.0", "@react-three/fiber": "^9.4.0", "@react-three/drei": "^10.7.0", "@react-three/postprocessing": "^3.0.4", "postprocessing": "^6.38.0", "gsap": "^3.13.0" },
+  "devDependencies": { "typescript": "^5.9.3", "vite": "^7.2.0", "@vitejs/plugin-react": "^5.1.0", "@types/react": "^19.2.0", "@types/react-dom": "^19.2.0", "@types/three": "^0.181.0" },
+  "packageManager": "pnpm@11.25.0"
+}

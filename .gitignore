@@ -13,3 +13,6 @@ playwright-report/
 *.db
 .DS_Store
 Thumbs.db
+
+# Local optional browser QA tools
+.qa-tools/

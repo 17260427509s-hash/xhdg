@@ -1,0 +1,6 @@
+packages:
+  - .
+verifyDepsBeforeRun: false
+strictPeerDependencies: true
+allowBuilds:
+  esbuild: true

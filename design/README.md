@@ -1,5 +1,7 @@
 # 已确认视觉基准
 
+> 当前以用户最新要求“跟概念图一样，摄影级细节”为准，按整张画面修改，覆盖蛋糕几何、材质、布光、火焰、粒子及构图。最新上传原图保存为 [photographic-reference.png](photographic-reference.png)，当前对照见 [concept-match.md](../docs/concept-match.md)。概念图仅用于验收，不加载为运行时场景。旧的“保留原造型、只精修特效”范围已被本次要求更新。
+
 ## 桌面：增加彩色星点后的修订版
 
 ![桌面视觉基准](desktop-colorful-stars.png)

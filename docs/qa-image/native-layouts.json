@@ -1,0 +1,23 @@
+{
+  "browser": "156.0.8078.76",
+  "layouts": [
+    {
+      "width": 1585,
+      "height": 992,
+      "name": "desktop-native",
+      "errors": [],
+      "scrollWidth": 1585,
+      "points": 8706,
+      "phase": "idle"
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "name": "laptop-1366",
+      "errors": [],
+      "scrollWidth": 1366,
+      "points": 8706,
+      "phase": "idle"
+    }
+  ]
+}

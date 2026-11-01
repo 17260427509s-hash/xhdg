@@ -1,0 +1,333 @@
+{
+  "testedAt": "2026-11-01T10:39:31.146Z",
+  "url": "http://localhost:4173/?qa=1",
+  "browser": "Local Google Chrome / Playwright (Browser plugin unavailable)",
+  "checks": {
+    "identity": true,
+    "nonBlankAndNoOverlay": true,
+    "pauseFreezesAllAnimation": true,
+    "manualRotationWhilePaused": true,
+    "resume": true,
+    "fiveSecondAutoRotateCooldown": true,
+    "fiveReplayCyclesStable": true,
+    "mobileTouchFlow": true,
+    "lowBudget": true,
+    "reducedMotion": true,
+    "visibilityListenerSimulation": true,
+    "automaticLowTierUnderSyntheticLoad": true,
+    "consoleClean": true,
+    "webglFallback": true
+  },
+  "performance": {
+    "desktopIdle": {
+      "fps": 59.72764195269568,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.899999999997817,
+      "frames": 150
+    },
+    "desktopCelebration": {
+      "fps": 59.737156511113696,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.80000000000291,
+      "frames": 180
+    },
+    "mobile390Idle": {
+      "fps": 59.56188039697196,
+      "p50ms": 16.699999999999818,
+      "p95ms": 16.800000000000182,
+      "frames": 149
+    },
+    "mobile390Celebration": {
+      "fps": 59.69753250210792,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.80000000000109,
+      "frames": 180
+    }
+  },
+  "cycles": [
+    {
+      "cycle": 1,
+      "reset": 2,
+      "phase": "message",
+      "geometries": 46,
+      "textures": 23,
+      "budget": {
+        "near": 600,
+        "far": 700,
+        "dust": 2400,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 128,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 2,
+      "reset": 3,
+      "phase": "message",
+      "geometries": 46,
+      "textures": 23,
+      "budget": {
+        "near": 600,
+        "far": 700,
+        "dust": 2400,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 128,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 3,
+      "reset": 4,
+      "phase": "message",
+      "geometries": 46,
+      "textures": 23,
+      "budget": {
+        "near": 600,
+        "far": 700,
+        "dust": 2400,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 128,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 4,
+      "reset": 5,
+      "phase": "message",
+      "geometries": 46,
+      "textures": 23,
+      "budget": {
+        "near": 600,
+        "far": 700,
+        "dust": 2400,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 128,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 5,
+      "reset": 6,
+      "phase": "message",
+      "geometries": 46,
+      "textures": 23,
+      "budget": {
+        "near": 600,
+        "far": 700,
+        "dust": 2400,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 128,
+        "burst": 350,
+        "dpr": 2
+      }
+    }
+  ],
+  "errors": [],
+  "layouts": [
+    {
+      "label": "desktop",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "buttons": [
+        {
+          "text": "暂停",
+          "width": 72.609375,
+          "height": 44,
+          "bottom": 849.5
+        },
+        {
+          "text": "重播",
+          "width": 72.609375,
+          "height": 44,
+          "bottom": 849.5
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 199,
+          "height": 48,
+          "bottom": 851.5
+        }
+      ]
+    },
+    {
+      "label": "mobile-390",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "buttons": [
+        {
+          "text": "暂停",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 753
+        },
+        {
+          "text": "重播",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 753
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 350,
+          "height": 50,
+          "bottom": 817
+        }
+      ]
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "buttons": [
+        {
+          "text": "暂停",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 589
+        },
+        {
+          "text": "重播",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 589
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 335,
+          "height": 50,
+          "bottom": 647
+        }
+      ]
+    },
+    {
+      "label": "android-412",
+      "width": 412,
+      "height": 915,
+      "scrollWidth": 412,
+      "buttons": [
+        {
+          "text": "暂停",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 824
+        },
+        {
+          "text": "重播",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 824
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 372,
+          "height": 50,
+          "bottom": 888
+        }
+      ]
+    }
+  ],
+  "low": {
+    "phase": "idle",
+    "paused": false,
+    "tier": "low",
+    "reduced": false,
+    "time": 5.301600000023838,
+    "phaseTime": 0.8006000000238417,
+    "orbitTime": 5.301600000023838,
+    "motion": {
+      "reveal": 1,
+      "rings": 1,
+      "ignition": 1,
+      "energy": 1,
+      "camera": 0,
+      "messageReveal": 0
+    },
+    "budget": {
+      "near": 150,
+      "far": 300,
+      "dust": 600,
+      "surface": 1000,
+      "orbitDust": 180,
+      "sparks": 48,
+      "burst": 120,
+      "dpr": 1
+    },
+    "resetId": 1,
+    "stats": {
+      "fps": 0,
+      "calls": 48,
+      "points": 2758,
+      "geometries": 45,
+      "textures": 23,
+      "rotation": [
+        -0.3575013780855071,
+        -0.009778445472128097,
+        -0.0036526922230053775
+      ],
+      "camera": [
+        -0.13292647663746357,
+        5.106799238882438,
+        12.733937330545915
+      ],
+      "frames": 314
+    }
+  },
+  "autoLow": {
+    "phase": "idle",
+    "paused": false,
+    "tier": "low",
+    "reduced": false,
+    "time": 13.446399999976157,
+    "phaseTime": 8.937700000017873,
+    "orbitTime": 13.446399999976157,
+    "motion": {
+      "reveal": 1,
+      "rings": 1,
+      "ignition": 1,
+      "energy": 1,
+      "camera": 0,
+      "messageReveal": 0
+    },
+    "budget": {
+      "near": 150,
+      "far": 300,
+      "dust": 600,
+      "surface": 1000,
+      "orbitDust": 180,
+      "sparks": 48,
+      "burst": 120,
+      "dpr": 1
+    },
+    "resetId": 1,
+    "stats": {
+      "fps": 20.63476466505947,
+      "calls": 48,
+      "points": 2758,
+      "geometries": 46,
+      "textures": 23,
+      "rotation": [
+        -0.3597040621311102,
+        -0.1087470816511828,
+        -0.040792773810096855
+      ],
+      "camera": [
+        -1.4754003438335919,
+        5.106799238882437,
+        12.64887438517269
+      ],
+      "frames": 651
+    }
+  }
+}

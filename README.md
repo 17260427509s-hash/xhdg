@@ -2,9 +2,34 @@
 
 这是「星河生日蛋糕」的需求、设计与开发接续仓库。目标是开发一个可真实交互的 React + TypeScript + Vite + Three.js 生日礼物网页。
 
-**当前进度（2026-11-01）：已完成参考视频分析、第一阶段规划和视觉方向确认；尚未开始编写应用代码。** 本仓库目前没有 `package.json`，不能直接执行 `npm install` / `npm run dev` 启动网站，也没有已完成或已验收的网页。
+**当前进度（2026-11-01）：第一阶段八项核心体验已在 `galaxy-cake/` 实现，并完成本机 Chrome 浏览器操作、生产构建、截图对照与多尺寸验收。** 蛋糕、火焰、星轨和粒子均为实时 3D。详情见 [第一阶段验收记录](docs/acceptance-stage-1.md) 与 [实现及视觉对照](docs/implementation-notes.md)。手机实机性能尚未验证；第二、三阶段未开始。
 
-## 在另一台电脑上继续
+**当前视觉任务：** 用户进一步明确要求整张画面向概念图的摄影级细节靠拢，本轮已重建滴落奶油、扭转裱花、珍珠糖粒、蜡烛与底盘，并重新校准比例、灯光、星轨和星点。当前结果见 [概念图对照记录](docs/concept-match.md) 与 `docs/qa-concept/`。摄影级视觉一致性尚未确认通过，先前只精修特效的记录属于历史版本。
+
+## 换电脑继续开发
+
+当前源代码、锁文件、设计图、原始视频和历史/最新验收截图均在此仓库。请先阅读 [CONTINUE-HERE.md](docs/CONTINUE-HERE.md)，其中记录启动方法、最新用户要求、尚未通过的视觉标准和下一步工作。
+
+```powershell
+git clone https://github.com/17260427509s-hash/xhdg.git
+cd xhdg/galaxy-cake
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+已有本仓库时，先在仓库根目录执行 `git pull --ff-only`。本项目不需要 `.env`、数据库、API 密钥或其他本机私有配置。
+
+## 启动已实现的第一阶段
+
+```powershell
+cd galaxy-cake
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+开发地址为 `http://localhost:5173/`。执行 `pnpm build`、`pnpm preview` 可在 `http://localhost:4173/` 检查生产版本。运行要求、操作与验收脚本见 [应用 README](galaxy-cake/README.md)。
+
+## 仓库来源与原始开发接续说明
 
 ```bash
 git clone https://github.com/17260427509s-hash/xhdg.git
@@ -58,4 +83,4 @@ Get-FileHash -Algorithm SHA256 design/mobile-layout.png
 
 概念图由内置 Image Gen 生成，只作为设计参考，不是可运行界面，也不能作为蛋糕贴图、全屏背景图或 UI 截图来替代实时实现。参考视频只用于产品逻辑、氛围和动画节奏分析；不复制原网站的品牌、Logo、UI 布局、文案、图标、配色细节或素材。
 
-本仓库未包含原网站代码、用户数据库、访问凭据、node_modules 或运行日志。应用尚未实现，浏览器和真机验收尚未进行。
+本仓库不包含原网站代码、用户数据库、访问凭据、node_modules 或运行日志。上述接续指令与资料目录保留为最初方案；现在新增 `galaxy-cake/` 应用和 `docs/qa/` 验收证据。浏览器验收已进行，真机验收尚未进行。
