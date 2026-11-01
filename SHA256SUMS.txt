@@ -1,0 +1,3 @@
+74baefe933ae705bcc98cc5d0b25bd3879d0fbb4c03432ecd0eaa13b61ff6b15  reference/13437993356281919.mp4
+bfeec30dd354fe59dd4bf500ecbb83dbb457c89b3c5c640bd74aa40307b4a667  design/desktop-colorful-stars.png
+0221e00968fafbfd109784cf1ad327675155ceb2b07ce97365cb712c450b68ad  design/mobile-layout.png
