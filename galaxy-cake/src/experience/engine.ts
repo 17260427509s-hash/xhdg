@@ -1,6 +1,8 @@
 import gsap from 'gsap'
+import { cakePresets, defaultConfig, normalizeConfig } from '../store/birthdayStore'
+import type { BirthdayConfig, CakeStyle } from '../store/birthdayStore'
 
-export type Phase = 'intro' | 'entering' | 'idle' | 'celebration' | 'message'
+export type Phase = 'intro' | 'entering' | 'idle' | 'wishing' | 'blowout' | 'celebration' | 'message'
 export type Tier = 'desktop' | 'mobile' | 'low'
 export const budgets = {
   desktop: { near: 600, far: 700, dust: 2400, surface: 3200, orbitDust: 400, sparks: 256, burst: 350, dpr: 2 },
@@ -8,7 +10,7 @@ export const budgets = {
   low: { near: 150, far: 300, dust: 600, surface: 1000, orbitDust: 180, sparks: 64, burst: 120, dpr: 1 },
 } as const
 export class ExperienceEngine {
-  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean }
+  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; expanded: boolean; assembling: boolean }
   time = 0
   phaseTime = 0
   orbitTime = 0
@@ -16,39 +18,128 @@ export class ExperienceEngine {
   hidden = false
   dragging = false
   resetId = 0
-  motion = { reveal: 0, rings: 0, ignition: 0, energy: 1, camera: 0, messageReveal: 0 }
-  stats = { fps: 0, calls: 0, points: 0, geometries: 0, textures: 0, rotation: [0, 0, 0], camera: [0, 0, 0], frames: 0 }
+  motion = { reveal: 0, rings: 0, ignition: 0, energy: 1, camera: 0, messageReveal: 0, cakeReveal: 1, creamReveal: 1, decorReveal: 1, flameShake: 0, spread: 0, editorFocus: 0 }
+  blownAt = -1
+  stats = { fps: 0, calls: 0, points: 0, geometries: 0, textures: 0, rotation: [0, 0, 0], camera: [0, 0, 0], frames: 0, flames: 0, smoke: 0, confetti: 0 }
   private timeline: gsap.core.Timeline | undefined
   private timelineTime = 0
+  private switchTimeline: gsap.core.Timeline | undefined
+  private switchTime = 0
+  private flameTimeline: gsap.core.Timeline | undefined
+  private flameTime = 0
+  private editorTimeline: gsap.core.Timeline | undefined
+  private editorTime = 0
   private listeners = new Set<() => void>()
   private sample = { seconds: 0, frames: 0, slow: 0 }
   constructor() {
     const mobile = window.matchMedia('(max-width: 700px)').matches
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const low = new URLSearchParams(location.search).get('quality') === 'low'
-    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced }
+    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: { ...defaultConfig }, wishConfirmed: false, switching: false, lighting: false, editing: false, expanded: true, assembling: false }
   }
   subscribe = (fn: () => void) => { this.listeners.add(fn); return () => { this.listeners.delete(fn) } }
   getSnapshot = () => this.snapshot
   update(patch: Partial<typeof this.snapshot>) { this.snapshot = { ...this.snapshot, ...patch }; this.listeners.forEach(fn => fn()) }
+  getBudget = () => {
+    const base = budgets[this.snapshot.tier]
+    const near = Math.min(base.near, this.snapshot.config.galaxyCount)
+    return { ...base, near, dust: Math.round(base.dust * (.45 + .55 * near / base.near)) }
+  }
+  configure = (patch: Partial<BirthdayConfig>) => {
+    if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
+    if ((patch.cakeShape && patch.cakeShape !== this.snapshot.config.cakeShape) || (patch.cakeLayers && patch.cakeLayers !== this.snapshot.config.cakeLayers)) { this.changeCake(patch); return }
+    this.update({ config: normalizeConfig(this.snapshot.config, patch) })
+  }
+  selectCake = (style: CakeStyle) => {
+    if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.config.cakeStyle === style) return
+    const preset = cakePresets[style]
+    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: preset.shape, cakeLayers: preset.layers })
+  }
+  randomizeCake = () => {
+    const choices = (Object.keys(cakePresets) as CakeStyle[]).filter(style => style !== this.snapshot.config.cakeStyle)
+    const style = choices[Math.floor(Math.random() * choices.length)], preset = cakePresets[style]
+    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: (['round', 'square', 'heart'] as const)[Math.floor(Math.random() * 3)], cakeLayers: (this.snapshot.config.cakeLayers % 3 + 1) as 1 | 2 | 3 })
+  }
+  private changeCake(patch: Partial<BirthdayConfig>) {
+    if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase)) return
+    const apply = () => this.update({ config: normalizeConfig(this.snapshot.config, patch) })
+    if (this.snapshot.phase === 'intro') { apply(); return }
+    this.switchTimeline?.kill()
+    this.switchTime = 0
+    this.update({ switching: true })
+    const r = this.snapshot.reduced ? .25 : 1
+    // Keep the plate and galaxy visible: cream, ornaments and candles reassemble in order.
+    this.switchTimeline = gsap.timeline({ paused: true, onComplete: () => this.update({ switching: false }) })
+      .to(this.motion, { decorReveal: 0, duration: .18 * r }, 0)
+      .to(this.motion, { creamReveal: 0, duration: .18 * r }, .07 * r)
+      .to(this.motion, { cakeReveal: 0, duration: .17 * r, ease: 'power2.in' }, .14 * r)
+      .call(apply, [], .32 * r)
+      .to(this.motion, { cakeReveal: 1, duration: .27 * r, ease: 'power2.out' }, .32 * r)
+      .to(this.motion, { creamReveal: 1, duration: .3 * r, ease: 'power2.out' }, .41 * r)
+      .to(this.motion, { decorReveal: 1, duration: .3 * r, ease: 'power2.out' }, .51 * r)
+  }
+  setEditing = (editing: boolean) => {
+    if (this.snapshot.phase !== 'idle' || this.snapshot.editing === editing) return
+    this.update({ editing, expanded: true })
+    this.animateAssembly(editing, editing)
+  }
+  setExpanded = (expanded: boolean) => {
+    if (!this.snapshot.editing) return
+    this.update({ expanded }); this.animateAssembly(expanded, true)
+  }
+  private animateAssembly(expanded: boolean, focus: boolean) {
+    this.editorTimeline?.kill(); this.editorTime = 0
+    this.update({ assembling: true })
+    this.editorTimeline = gsap.timeline({ paused: true, onComplete: () => this.update({ assembling: false }) })
+      .to(this.motion, { spread: expanded ? 1 : 0, editorFocus: focus ? 1 : 0, duration: this.snapshot.reduced ? .18 : .78, ease: 'power2.inOut' })
+  }
+  setFlame = (enabled: boolean) => {
+    if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
+    this.update({ config: { ...this.snapshot.config, flameEnabled: enabled } })
+    if (this.snapshot.phase === 'intro') return
+    this.flameTimeline?.kill()
+    this.flameTime = 0
+    this.update({ lighting: true })
+    this.flameTimeline = gsap.timeline({ paused: true, onComplete: () => this.update({ lighting: false }) }).to(this.motion, { ignition: enabled ? 1 : 0, duration: .65, ease: enabled ? 'back.out(1.4)' : 'power2.in' })
+  }
+  requestWish = () => {
+    if (this.snapshot.phase !== 'idle' || this.snapshot.paused || this.snapshot.switching || this.snapshot.lighting || this.snapshot.editing || this.snapshot.assembling || this.motion.ignition < .9) return
+    this.update({ phase: 'wishing', wishConfirmed: false })
+  }
+  confirmWish = () => { if (this.snapshot.phase === 'wishing') this.update({ wishConfirmed: true }) }
+  cancelWish = () => { if (this.snapshot.phase === 'wishing') this.update({ phase: 'idle', wishConfirmed: false }) }
+  blowOut = () => {
+    if (this.snapshot.phase !== 'wishing' || !this.snapshot.wishConfirmed) return
+    this.timeline?.kill(); this.flameTimeline?.kill()
+    this.phaseTime = this.timelineTime = 0
+    this.update({ phase: 'blowout' })
+    this.timeline = gsap.timeline({ paused: true, onComplete: () => this.celebrate() })
+      .to(this.motion, { flameShake: 1, duration: .2 }, 0)
+      .to(this.motion, { ignition: 0, flameShake: 0, duration: .5, ease: 'power2.in' }, .2)
+      .to(this.motion, { energy: .55, duration: .7 }, 0)
+      .call(() => { this.blownAt = this.time }, [], .65)
+      .to({}, { duration: .5 }, .7)
+  }
   enter = () => {
-    if (this.snapshot.phase === 'entering' || this.snapshot.phase === 'celebration') return
+    if (['entering', 'celebration', 'blowout'].includes(this.snapshot.phase) || this.snapshot.switching || this.snapshot.editing || this.snapshot.assembling) return
     this.timeline?.kill()
+    this.flameTimeline?.kill()
     this.time = this.orbitTime = this.phaseTime = this.timelineTime = 0
     this.resetId++
     this.lastInteraction = -10
     this.dragging = false
-    Object.assign(this.motion, { reveal: 0, rings: 0, ignition: 0, energy: 1, camera: 0, messageReveal: 0 })
-    this.update({ phase: 'entering', paused: false })
+    this.blownAt = -1
+    Object.assign(this.motion, { reveal: 0, rings: 0, ignition: 0, energy: 1, camera: 0, messageReveal: 0, cakeReveal: 1, creamReveal: 1, decorReveal: 1, flameShake: 0, spread: 0, editorFocus: 0 })
+    this.update({ phase: 'entering', paused: false, wishConfirmed: false, lighting: false })
     const r = this.snapshot.reduced ? .3 : 1
     this.timeline = gsap.timeline({ paused: true, onComplete: () => { this.phaseTime = 0; this.update({ phase: 'idle' }) } })
       .to(this.motion, { reveal: 1, duration: 1.6 * r, ease: 'power2.out' }, .8 * r)
       .to(this.motion, { rings: 1, duration: 1.1 * r, ease: 'power2.out' }, 2.3 * r)
-      .to(this.motion, { ignition: 1, duration: .7 * r, ease: 'back.out(2)' }, 3.5 * r)
+      .to(this.motion, { ignition: this.snapshot.config.flameEnabled ? 1 : 0, duration: .7 * r, ease: 'back.out(2)' }, 3.5 * r)
       .to(this.motion, { energy: 1, duration: .3 * r }, 4.2 * r)
   }
   celebrate = () => {
-    if (this.snapshot.phase !== 'idle' || this.snapshot.paused) return
+    if (this.snapshot.phase !== 'blowout') return
     this.timeline?.kill()
     this.phaseTime = this.timelineTime = 0
     this.update({ phase: 'celebration' })
@@ -60,12 +151,16 @@ export class ExperienceEngine {
   }
   toggle = () => { if (this.snapshot.phase === 'idle') this.update({ paused: !this.snapshot.paused }) }
   tick(delta: number) {
-    if (this.hidden || this.snapshot.paused) return
+    if (this.hidden) return
     // A resumed/backgrounded tab must never jump past an entrance or celebration.
     const dt = Math.min(delta, .06)
+    if (this.snapshot.switching) this.switchTimeline?.time(this.switchTime += dt, false)
+    this.flameTimeline?.time(this.flameTime += dt, false)
+    this.editorTimeline?.time(this.editorTime += dt, false)
+    if (this.snapshot.paused) return
     this.time += dt; this.phaseTime += dt
-    this.orbitTime += dt * this.motion.energy * (this.snapshot.reduced ? .15 : 1)
-    if (this.snapshot.phase === 'entering' || this.snapshot.phase === 'celebration') {
+    this.orbitTime += dt * this.motion.energy * this.snapshot.config.galaxySpeed * (this.snapshot.reduced ? .15 : 1)
+    if (['entering', 'blowout', 'celebration'].includes(this.snapshot.phase)) {
       this.timelineTime += dt
       this.timeline?.time(this.timelineTime, false)
     }
@@ -80,5 +175,5 @@ export class ExperienceEngine {
       }
     }
   }
-  dispose() { this.timeline?.kill(); this.listeners.clear() }
+  dispose() { this.timeline?.kill(); this.switchTimeline?.kill(); this.flameTimeline?.kill(); this.editorTimeline?.kill(); this.listeners.clear() }
 }

@@ -10,6 +10,12 @@ const report = { testedAt: new Date().toISOString(), url: process.env.QA_URL || 
 const save = () => fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify(report, null, 2))
 const state = p => p.evaluate(() => window.__GALAXY__)
 const waitPhase = (p, phase) => p.waitForFunction(phase => window.__GALAXY__?.phase === phase, phase, { timeout: 20000 })
+async function birthdaySurprise(p) {
+  await p.getByRole('button',{name:'开启生日惊喜',exact:true}).click()
+  await p.getByRole('button',{name:'我许好愿了',exact:true}).click()
+  await p.getByRole('button',{name:'吹灭蜡烛',exact:true}).click()
+  await waitPhase(p,'celebration')
+}
 const shot = (p, name) => p.screenshot({ path: path.join(out, name + '.png') })
 async function frames(p, ms = 2500) {
   return p.evaluate(ms => new Promise(resolve => {
@@ -43,7 +49,8 @@ async function layout(p, label) {
   assert.equal(await p.locator('canvas').count(), 1)
   assert.equal(await p.locator('vite-error-overlay').count(), 0)
   report.checks.nonBlankAndNoOverlay = true
-  assert.equal((await state(p)).stats.points, 17412, 'Two desktop geometry passes (color and ambient occlusion), each drawing 8706 Points')
+  const initial=await state(p),budget=initial.budget
+  assert.equal(initial.stats.points,2*(budget.near+budget.far+budget.dust+budget.surface+3*budget.orbitDust+budget.sparks+budget.burst),'Two geometry passes drawing the effective configured particle budget')
   await layout(p,'desktop')
   await p.getByRole('button', { name: '暂停', exact: true }).click()
   const paused = await state(p); await p.waitForTimeout(650); const still = await state(p)
@@ -66,7 +73,7 @@ async function layout(p, label) {
   await shot(p,'desktop')
   for(let i=0;i<5;i++) {
     if(i) {await p.getByRole('button',{name:'再看一次',exact:true}).click();await waitPhase(p,'idle');await p.waitForTimeout(750)}
-    await p.getByRole('button',{name:'开启生日惊喜',exact:true}).click()
+    await birthdaySurprise(p)
     if(i===0) {report.performance.desktopCelebration=await frames(p,3000);await shot(p,'celebration')}
     await waitPhase(p,'message');await p.waitForTimeout(850)
     assert(await p.getByRole('button',{name:'再看一次',exact:true}).isVisible())
@@ -86,7 +93,7 @@ async function layout(p, label) {
       report.performance.mobile390Idle=await frames(m)
       await m.getByRole('button',{name:'暂停',exact:true}).tap(); assert((await state(m)).paused)
       await m.getByRole('button',{name:'继续',exact:true}).tap(); assert(!(await state(m)).paused)
-      await m.getByRole('button',{name:'开启生日惊喜',exact:true}).tap()
+      await birthdaySurprise(m)
       report.performance.mobile390Celebration=await frames(m,3000);await shot(m,'mobile-celebration')
       await waitPhase(m,'message');await m.waitForTimeout(850);await shot(m,'mobile-message')
       await m.getByRole('button',{name:'再看一次',exact:true}).tap();await waitPhase(m,'idle')
@@ -100,7 +107,7 @@ async function layout(p, label) {
   const reduced=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'})
   await start(reduced);assert((await state(reduced)).reduced);const before=await state(reduced);await reduced.waitForTimeout(700);assert.deepEqual((await state(reduced)).stats.camera,before.stats.camera);report.checks.reducedMotion=true
   // Simulate the browser visibility API, exercising the registered listener and timeline.
-  await reduced.getByRole('button',{name:'开启生日惊喜',exact:true}).click();await reduced.waitForTimeout(600)
+  await birthdaySurprise(reduced);await reduced.waitForTimeout(600)
   await reduced.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))})
   const hidden=await state(reduced);await reduced.waitForTimeout(800);assert.equal((await state(reduced)).phaseTime,hidden.phaseTime)
   await reduced.evaluate(()=>{delete document.hidden;document.dispatchEvent(new Event('visibilitychange'))});await reduced.waitForTimeout(500);assert((await state(reduced)).phaseTime>hidden.phaseTime)

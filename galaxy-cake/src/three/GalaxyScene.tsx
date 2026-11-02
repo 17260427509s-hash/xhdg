@@ -1,7 +1,7 @@
 import { Component, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode, ElementRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Environment, Lightformer, OrbitControls, SoftShadows } from '@react-three/drei'
+import { Environment, Lightformer, OrbitControls } from '@react-three/drei'
 import { Bloom, EffectComposer, N8AO } from '@react-three/postprocessing'
 import { Color, Vector3 } from 'three'
 import type { ExperienceEngine, Phase, Tier } from '../experience/engine'
@@ -12,15 +12,17 @@ import { ParticleLayer } from './Particles'
 import { OrbitRings } from './OrbitRings'
 import { Atmosphere } from './Atmosphere'
 import { CandleGlow } from './CandleGlow'
+import { SmokeParticles } from './SmokeParticles'
+import { ConfettiExplosion } from './ConfettiExplosion'
 
 function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onLost:()=>void}) {
-  const controls=useRef<ElementRef<typeof OrbitControls>>(null!),lastReset=useRef(-1),lastPhase=useRef<Phase>('intro'),celebrationCamera=useMemo(()=>new Vector3(),[])
+  const controls=useRef<ElementRef<typeof OrbitControls>>(null!),lastReset=useRef(-1),lastPhase=useRef<Phase>('intro'),celebrationCamera=useMemo(()=>new Vector3(),[]),focusY=useRef(0)
   const {camera,size,gl,scene}=useThree(),mobile=size.width<700
   const introBackground=useMemo(()=>new Color('#050507'),[])
   const litBackground=useMemo(()=>new Color('#050507'),[])
   const distance=mobile?3.3/(Math.tan(20*Math.PI/180)*(size.width/size.height)):9.2
   const target=useMemo(()=>new Vector3(0,mobile?.42:-.08,0),[mobile])
-  const budget=budgets[tier]
+  const budget=engine.getBudget()
   useEffect(()=>{
     const canvas=gl.domElement
     gl.info.autoReset=false
@@ -34,10 +36,14 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
     if(scene.background instanceof Color)scene.background.copy(introBackground).lerp(litBackground,engine.motion.reveal)
     document.documentElement.style.setProperty('--message',String(engine.motion.messageReveal))
     if(lastReset.current!==engine.resetId){
+      focusY.current=0
       camera.position.set(0,target.y+distance*.3,distance*.954)
       controls.current.target.copy(target);controls.current.update();lastReset.current=engine.resetId
     }
-    controls.current.autoRotate=phase==='idle'&&!engine.snapshot.paused&&!engine.snapshot.reduced&&!engine.dragging&&engine.time-engine.lastInteraction>5
+    const focus=engine.motion.editorFocus*(.78+(engine.snapshot.config.cakeLayers-1)*.23)
+    const shift=(focus-focusY.current)*(1-Math.exp(-Math.min(delta,.06)*10))
+    focusY.current+=shift;camera.position.y+=shift;controls.current.target.y+=shift
+    controls.current.autoRotate=phase==='idle'&&!engine.snapshot.editing&&!engine.snapshot.assembling&&!engine.snapshot.paused&&!engine.snapshot.reduced&&!engine.dragging&&engine.time-engine.lastInteraction>5
     if(phase==='celebration'&&lastPhase.current!=='celebration')celebrationCamera.copy(camera.position).sub(target)
     if(phase==='celebration'||phase==='message')camera.position.copy(celebrationCamera).multiplyScalar(1-engine.motion.camera*.12).add(target)
     lastPhase.current=phase
@@ -51,16 +57,15 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
   const active=phase==='idle'||phase==='message'
   return <>
     <color attach="background" args={['#050507']}/>
-    <Environment resolution={128} frames={1} environmentIntensity={.6}>
+    <Environment resolution={128} frames={1} environmentIntensity={.72}>
       <Lightformer form="rect" intensity={2} color="#e0e8ff" position={[-3,4,4]} target={[0,0,0]} scale={4}/>
       <Lightformer form="rect" intensity={1.5} color="#bca0ff" position={[4,2,-3]} target={[0,0,0]} scale={3}/>
       <Lightformer form="circle" intensity={.8} color="#ffd8ad" position={[0,5,1]} target={[0,0,0]} scale={3}/>
     </Environment>
-    <SoftShadows size={18} samples={tier==='desktop'?16:8} focus={0}/>
-    <ambientLight intensity={.15} color="#d5d8ff"/>
-    <hemisphereLight args={['#c6d4ff','#302040',.35]}/>
-    <directionalLight castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.015} shadow-bias={-.0001} shadow-radius={3} position={[-3,5,4]} intensity={2.5} color="#fff2db"/>
-    <directionalLight position={[4,2,-3]} intensity={1.15} color="#af9bff"/>
+    <ambientLight intensity={.22} color="#d5d8ff"/>
+    <hemisphereLight args={['#d6dfff','#392941',.45]}/>
+    <directionalLight castShadow shadow-mapSize={[2048,2048]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.008} shadow-bias={-.0001} shadow-radius={3} position={[-3,5,4]} intensity={1.9} color="#fff2db"/>
+    <directionalLight position={[4,2,-3]} intensity={.95} color="#c1afff"/>
     <directionalLight position={[-4,0,1]} intensity={.3} color="#8aafff"/>
     <Atmosphere engine={engine}/>
     <ParticleLayer engine={engine} layer="far" count={budget.far}/>
@@ -69,9 +74,10 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
     <Cake engine={engine}/><CandleGlow engine={engine}/><Flame engine={engine}/><OrbitRings engine={engine}/>
     <ParticleLayer engine={engine} layer="sparks" count={budget.sparks}/>
     <ParticleLayer engine={engine} layer="burst" count={budget.burst}/>
+    <SmokeParticles engine={engine}/><ConfettiExplosion engine={engine}/>
     <OrbitControls ref={controls} target={target} enablePan={false} enableDamping dampingFactor={.065} enabled={active} enableZoom={active} minDistance={distance*.88} maxDistance={distance*1.2} minPolarAngle={.72} maxPolarAngle={1.48} autoRotateSpeed={.18} rotateSpeed={.55} zoomSpeed={.45} onStart={()=>{engine.dragging=true;engine.lastInteraction=engine.time}} onEnd={()=>{engine.dragging=false;engine.lastInteraction=engine.time}}/>
     <EffectComposer multisampling={tier==='desktop'?2:0} resolutionScale={tier==='low'?.5:mobile?.75:1}>
-      <N8AO enabled={tier==='desktop'} quality="medium" aoRadius={.05} distanceFalloff={1} intensity={.45} halfRes/>
+      <N8AO enabled={tier==='desktop'} quality="medium" aoRadius={.035} distanceFalloff={1} intensity={.25} halfRes/>
       <Bloom intensity={.6} luminanceThreshold={1.2} luminanceSmoothing={.22} mipmapBlur resolutionScale={tier==='low'?.4:.7}/>
     </EffectComposer>
   </>

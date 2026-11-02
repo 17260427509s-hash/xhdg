@@ -1,23 +1,22 @@
-# 换电脑继续开发：从这里开始
+# 换电脑继续：先读这里
 
-更新日期：2026-11-01（Asia/Shanghai）。仓库：<https://github.com/17260427509s-hash/xhdg>。
+更新日期：2026-11-02。仓库：https://github.com/17260427509s-hash/xhdg 。本次资料提交包含之前未推送的视觉精修、五瓣奶油花、第二阶段及最新分层编辑源码和截图。
 
-## 先知道当前状态
+## 最新用户要求与当前结果
 
-应用已在 `galaxy-cake/` 实现，可以安装依赖后直接运行，**不要重新从零生成，也不要只根据最初 README 恢复旧版**。根目录是仓库，`galaxy-cake/` 是应用目录。
+用户要求第二阶段，并确认参考视频中的两种效果都要：编辑时部件分层悬浮；换款时形状、层数、装饰组合变化。已在原应用增量实现，见 [assembly-editor.md](assembly-editor.md)。本机外层生日网站没有修改，所有运行时 3D 均真实渲染。
 
-第一阶段八项核心体验已实现：全屏实时 3D、圆形蛋糕、动态体积火焰、分层星河粒子、三条空间轨道、拖动旋转、入场点燃、生日高潮与祝福。暂停/继续、重播、响应式布局和性能降档保留。第二、三阶段未开始。
+**用户明确否决连续螺旋裱花，必须保留低矮圆润的五瓣奶油花。不要根据历史文档恢复螺旋堆叠。**
 
-用户最新的视觉要求是：**整张画面跟概念图一样，达到摄影级细节，尤其把发光星砂、火焰和粒子做精致。** 用户多次认为之前版本单调、粗糙；不能把“功能能运行”当作视觉完成。最近一轮已重建滴落奶油、扭转裱花、糖珠、蜡烛、弧面底盘、布光和星轨，但**摄影级视觉一致性尚未通过**。当前任务仍是第一阶段视觉打磨，不提前加入设置、许愿、吹蜡烛、音乐或分享。
+五款、颜色、数字蜡烛、寿星和祝福、星河主题／强度／速度、许愿确认、吹灭烟雾、三维爆发和彩纸均已实现。编辑中可拖动、分层／合拢预览，完成后合拢；支持三种形状、三种层数及组合灵感。暂停时主动编辑过渡仍可完成，场景时间保持冻结。
 
-所有 3D 必须实时渲染。概念图、参考视频仅用于对照，禁止用它们替代运行时画面。
+第三阶段尚未实施：音乐、localStorage、分享查看页、Supabase、截图导出和分享卡片。刷新恢复默认，会话内重播保留配置。功能通过不等于摄影级视觉通过，模拟手机不能作为实机性能结论。历史文档里“第二阶段未开始”“不要加入设置”等边界已被用户最新要求更新。
 
-## 在新电脑启动
+## 启动方法
 
-安装 Git、兼容 Vite 7 的 Node.js（20.19+ 或 22.12+；建议使用当前支持的 LTS）及 `pnpm@11.25.0`。项目通过 `packageManager` 固定 pnpm 版本。
+使用兼容 Vite 7 的 Node.js（建议 Node.js 24 LTS）和固定 pnpm 11.25.0，不升级依赖或重写锁文件。
 
 ```powershell
-# 已有 pnpm 时可跳过全局安装
 npm install -g pnpm@11.25.0
 git clone https://github.com/17260427509s-hash/xhdg.git
 cd xhdg/galaxy-cake
@@ -25,63 +24,30 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-打开 <http://localhost:5173/>。生产版验证：
+打开 http://localhost:5173/ 。生产验收单独 `pnpm build` 后 `pnpm preview`，地址 http://localhost:4173/ 。测试期间不要再次构建替换产物。已有副本先保留修改，再 `git pull --ff-only`。
 
-```powershell
-pnpm build
-pnpm preview
-```
+无需 `.env`、数据库、账号、密钥或后端。安装目录、构建产物、日志和外层生日网站不迁移。
 
-打开 <http://localhost:4173/>。改代码后，开发版自动更新；生产预览需要重新 `pnpm build`，再刷新页面。不要在浏览器回归进行期间重新构建，以免替换它正在访问的产物。
+## 开始工作前阅读
 
-如另一台电脑已经克隆此仓库，先保留自己的修改，再在仓库根目录运行 `git pull --ff-only`，随后在 `galaxy-cake/` 重新 `pnpm install --frozen-lockfile`。
+1. README.md、BRIEF.md、PLAN.md：现状、完整需求及历史第一阶段计划。
+2. docs/assembly-editor.md、docs/stage-two.md：最新实现和真实验收范围。
+3. design/README.md 与摄影级概念图：视觉基准；不能把概念图用作运行时替代。
+4. docs/reference-analysis.md 与 reference/13437993356281919.mp4：完整视频和原分析；本次用户已要求分层编辑，原分析里“不采用拆分编辑”的取舍已被更新。
+5. docs/qa-assembly、qa-assembly-stage-two、qa-assembly-regression：最新截图与数据。旧 qa-* 目录保留，不作为最新画面。
 
-无需数据库、后端服务、账号、`.env`、API 密钥或付费素材。`node_modules/` 和 `dist/` 不上传，分别由安装和构建生成。设计图片、原始 MP4、锁文件、源码和验收记录均随仓库提供。
+## 代码入口
 
-## 接续前阅读与查看
+- store/birthdayStore.ts：五款、形状、层数、主题、输入校验。
+- utils/cakeAssembly.ts：层级尺寸与高度、蜡烛安装点和编辑分离位移；utils/cakeShape.ts：圆／圆角方／爱心轮廓。
+- three/Cake.tsx、pastryGeometry.ts：独立糕体／奶油／糖饰／蜡烛组与五瓣奶油花。
+- three/Flame.tsx、Particles.tsx、CandleGlow.tsx：火焰、火星、光池跟随当前层数和编辑位移。
+- experience/engine.ts：统一时钟和 GSAP 时间线，状态机、编辑展开合拢、部件错时换款、冲突操作守卫及性能分档。
+- components/SettingsPanel.tsx：观看时为可继续拖动场景的非模态设置，开场设置与许愿仍为模态；Escape 可关闭。
+- scripts/verify-browser.cjs、verify-stage-two.cjs、verify-assembly.cjs：真实浏览器回归。
 
-1. [BRIEF.md](../BRIEF.md)、[PLAN.md](../PLAN.md)：完整需求与第一阶段边界。
-2. [design/README.md](../design/README.md)：已确认的桌面与手机基准。
-3. [photographic-reference.png](../design/photographic-reference.png)：用户最新再次指定的摄影级概念图；[desktop-colorful-stars.png](../design/desktop-colorful-stars.png) 为原桌面设计；[mobile-layout.png](../design/mobile-layout.png) 为手机布局。手机保留构图并增强彩色星点。
-4. [reference-analysis.md](reference-analysis.md) 与 [原始视频](../reference/13437993356281919.mp4)：原视频 31.37 秒，历史完整观看与分析记录保留。
-5. [concept-match.md](concept-match.md)：最近一次模型/材质修改、当前差距和视觉验收状态。
-6. [qa-concept/desktop-native.png](qa-concept/desktop-native.png)、[手机截图](qa-concept/mobile-390.png) 与 [results.json](qa-concept/results.json)：最新真实浏览器证据。
+## 下一步与工作记录
 
-`qa/`、`qa-refined/`、`qa-image/`、`qa-fine/` 和对应精修文档属于较早版本，保留作对比。不要把它们误当作最新画面。
+后续先复现当前代码，记录浏览器、视口、构建方式、修改前后截图和实际通过／未通过项目，再作定向改动。重点仍是摄影级材质与反射自然度、旋转角度的高光控制、手机实机性能与软键盘布局。不要重新生成简化圆柱版，也不要未经用户要求开展第三阶段。
 
-## 当前代码入口
-
-- `galaxy-cake/src/three/Cake.tsx`、`pastryGeometry.ts`：糕体与材质、滴落奶油、扭转裱花、糖粒、蜡烛、底盘。
-- `Flame.tsx`：三维密度场射线积分火焰。`StarSand.tsx`：视角相关的糕体晶粒；`Particles.tsx` 与 `shaders/particleShaders.ts`：分层星点、星尘、火星和高潮爆发。
-- `GalaxyScene.tsx`：相机、环境柔光、PCSS 阴影、桌面 N8AO、Bloom、OrbitControls。
-- `OrbitRings.tsx`：三个不同倾角的椭圆星轨。`Atmosphere.tsx`、`CandleGlow.tsx`：程序化星云与微弱光晕。
-- `experience/engine.ts`：统一时钟、GSAP 时间线、状态机与三档预算。不要用多个独立计时器破坏暂停/重播。
-- `components/BirthdayExperience.tsx`、`styles.css`：开场、原生中文界面、祝福、底栏与手机布局。
-
-## 下一步优先事项
-
-1. 在 1585×992 下打开真实网页，与摄影级概念图原尺寸对照，继续改善奶油褶皱的自然度、糕体颗粒、奶油光照散射、细小反射和星光层次；保持蓝紫糕体、象牙白奶油、暖金火焰及三条细轨。
-2. 改动后实际旋转查看，确认细节在不同角度成立，不能只调一个静态角度。
-3. 重新检查 390×844、375×667、412×915 等手机尺寸，轨道不裁切、按钮至少 44px；模拟结果不能冒充手机实机性能。
-4. 构建、实际操作、截图、对照、修正差距、记录结果。当前 14 项功能回归通过、五轮重播资源稳定，摄影级视觉标准仍需独立验收。
-
-## 可选浏览器验收工具
-
-正常开发与运行不依赖 Playwright。需要自动回归时，在仓库旁的隔离工具目录安装它；此目录被 Git 忽略。
-
-在 `galaxy-cake/` 执行：
-
-```powershell
-npm install --prefix ../.qa-tools --no-save playwright
-$env:NODE_PATH = (Resolve-Path ../.qa-tools/node_modules).Path
-& ../.qa-tools/node_modules/.bin/playwright install chromium
-# 另一个终端启动 pnpm build / pnpm preview 后运行
-node scripts/verify-browser.cjs
-node scripts/concept-shots.cjs
-```
-
-Windows 上默认优先使用通常路径下已安装的 Google Chrome；其他系统默认使用 Playwright Chromium。`CHROME_PATH` 可指定浏览器绝对路径，`QA_URL` 可指定预览地址，`QA_OUTPUT` 可指定截图/JSON 输出目录；设置不同输出目录可保留已有验收证据。验收脚本不依赖原电脑的用户名、项目盘符或 Codex 缓存位置。
-
-## 可直接给下一台电脑 Codex 的接续指令
-
-> 请先读 docs/CONTINUE-HERE.md、README.md、BRIEF.md、PLAN.md、docs/reference-analysis.md、design/README.md 和 docs/concept-match.md，查看最新摄影级概念图、手机图与 docs/qa-concept 的实际截图，并完整查看 reference 原视频。基于现有 galaxy-cake 继续第一阶段，重点缩小与概念图的摄影级材质和星砂、火焰、粒子细节差距，不要重新生成简化圆柱版本。所有 3D 必须实时渲染。改完启动网页、实际操作、截图对照、继续修正，并如实记录视觉差距；第一阶段确认后再讨论第二、三阶段。
+测试脚本可通过 CHROME_PATH、QA_URL、QA_OUTPUT 指定浏览器、地址和新的独立证据目录。Playwright 的隔离安装方法见 galaxy-cake/README.md。不要覆盖历史证据；不要把合成负载／模拟可见性测试写成真实手机压力测试。

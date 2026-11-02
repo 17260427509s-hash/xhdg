@@ -1,5 +1,9 @@
 # 已确认视觉基准
 
+2026-11-02 第二阶段增加五款、数字蜡烛和设置 UI，见 [stage-two.md](../docs/stage-two.md) 与 [当前草莓款](../docs/qa-stage-two/cake-strawberry.png)、[当前手机爱心款](../docs/qa-stage-two/mobile-375-heart.png)。所有款式沿用低矮五瓣奶油花；被否决的螺旋堆叠不再使用。概念图仍仅为视觉参照，摄影级一致性未标记通过。
+
+2026-11-02 最新实现对照见 [visual-polish.md](../docs/visual-polish.md)、[桌面](../docs/qa-polish/desktop-native.png) 与 [手机](../docs/qa-polish/mobile-390.png)。视觉目标没有重新设计；本轮仍使用下述已确认概念图，摄影级一致性不标记为通过。
+
 > 当前以用户最新要求“跟概念图一样，摄影级细节”为准，按整张画面修改，覆盖蛋糕几何、材质、布光、火焰、粒子及构图。最新上传原图保存为 [photographic-reference.png](photographic-reference.png)，当前对照见 [concept-match.md](../docs/concept-match.md)。概念图仅用于验收，不加载为运行时场景。旧的“保留原造型、只精修特效”范围已被本次要求更新。
 
 ## 桌面：增加彩色星点后的修订版
