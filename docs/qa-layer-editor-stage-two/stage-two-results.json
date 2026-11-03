@@ -1,0 +1,315 @@
+{
+  "testedAt": "2026-11-03T02:25:33.173Z",
+  "url": "http://localhost:4173/?qa=1",
+  "checks": {
+    "pageAndScene": true,
+    "pause": true,
+    "fiveAnimatedCakePresets": true,
+    "liveCakeColor": true,
+    "numberCandlesAndAgeBounds": true,
+    "flameControls": true,
+    "editableBirthdayInformation": true,
+    "particleThemesAndDensity": true,
+    "particleToggle": true,
+    "galaxySpeedUsesSceneClock": true,
+    "wishCancelAndReset": true,
+    "guardedWishBlowoutCelebration": true,
+    "smokeAndConfettiLifetime": true,
+    "personalizedBirthdayMessage": true,
+    "fiveReplayCyclesKeepConfigAndResources": true,
+    "mobileSheetsAndControls": true,
+    "mobileHeartNumberCandlesAndCelebration": true,
+    "performanceCaps": true,
+    "reducedMotionFlow": true,
+    "consoleNoErrors": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero"
+  ],
+  "presets": [
+    {
+      "style": "strawberry",
+      "durationMs": 1058,
+      "color": "#d97c9a",
+      "geometries": 51
+    },
+    {
+      "style": "cream",
+      "durationMs": 843,
+      "color": "#f0dec4",
+      "geometries": 58
+    },
+    {
+      "style": "purple",
+      "durationMs": 853,
+      "color": "#9476ba",
+      "geometries": 66
+    },
+    {
+      "style": "heart",
+      "durationMs": 854,
+      "color": "#e6a3b7",
+      "geometries": 50
+    },
+    {
+      "style": "galaxy",
+      "durationMs": 842,
+      "color": "#3d4192",
+      "geometries": 50
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 1,
+      "geometries": 59,
+      "textures": 39,
+      "flames": 0,
+      "phase": "message"
+    },
+    {
+      "cycle": 2,
+      "geometries": 59,
+      "textures": 39,
+      "flames": 0,
+      "phase": "message"
+    },
+    {
+      "cycle": 3,
+      "geometries": 59,
+      "textures": 39,
+      "flames": 0,
+      "phase": "message"
+    },
+    {
+      "cycle": 4,
+      "geometries": 59,
+      "textures": 39,
+      "flames": 0,
+      "phase": "message"
+    },
+    {
+      "cycle": 5,
+      "geometries": 59,
+      "textures": 39,
+      "flames": 0,
+      "phase": "message"
+    }
+  ],
+  "layouts": [
+    {
+      "label": "desktop-default",
+      "width": 1585,
+      "height": 992,
+      "scrollWidth": 1585,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 72,
+          "height": 44,
+          "bottom": 917.5
+        },
+        {
+          "text": "星河",
+          "width": 72,
+          "height": 44,
+          "bottom": 917.5
+        },
+        {
+          "text": "祝福",
+          "width": 72,
+          "height": 44,
+          "bottom": 917.5
+        },
+        {
+          "text": "蜡烛",
+          "width": 72,
+          "height": 44,
+          "bottom": 917.5
+        },
+        {
+          "text": "暂停",
+          "width": 74.8125,
+          "height": 44,
+          "bottom": 917.5
+        },
+        {
+          "text": "重播",
+          "width": 74.8125,
+          "height": 44,
+          "bottom": 917.5
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 190,
+          "height": 51,
+          "bottom": 921
+        }
+      ]
+    },
+    {
+      "label": "mobile-390",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 85.25,
+          "height": 44,
+          "bottom": 759
+        },
+        {
+          "text": "星河",
+          "width": 85.25,
+          "height": 44,
+          "bottom": 759
+        },
+        {
+          "text": "祝福",
+          "width": 85.25,
+          "height": 44,
+          "bottom": 759
+        },
+        {
+          "text": "蜡烛",
+          "width": 85.25,
+          "height": 44,
+          "bottom": 759
+        },
+        {
+          "text": "暂停",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 704
+        },
+        {
+          "text": "重播",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 704
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 350,
+          "height": 50,
+          "bottom": 820
+        }
+      ]
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 81.5,
+          "height": 44,
+          "bottom": 590.484375
+        },
+        {
+          "text": "星河",
+          "width": 81.5,
+          "height": 44,
+          "bottom": 590.484375
+        },
+        {
+          "text": "祝福",
+          "width": 81.5,
+          "height": 44,
+          "bottom": 590.484375
+        },
+        {
+          "text": "蜡烛",
+          "width": 81.5,
+          "height": 44,
+          "bottom": 590.484375
+        },
+        {
+          "text": "暂停",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 538.828125
+        },
+        {
+          "text": "重播",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 538.828125
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 335,
+          "height": 50,
+          "bottom": 648.15625
+        }
+      ]
+    },
+    {
+      "label": "mobile-412",
+      "width": 412,
+      "height": 915,
+      "scrollWidth": 412,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 90.75,
+          "height": 44,
+          "bottom": 830
+        },
+        {
+          "text": "星河",
+          "width": 90.75,
+          "height": 44,
+          "bottom": 830
+        },
+        {
+          "text": "祝福",
+          "width": 90.75,
+          "height": 44,
+          "bottom": 830
+        },
+        {
+          "text": "蜡烛",
+          "width": 90.75,
+          "height": 44,
+          "bottom": 830
+        },
+        {
+          "text": "暂停",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 775
+        },
+        {
+          "text": "重播",
+          "width": 56.40625,
+          "height": 44,
+          "bottom": 775
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 372,
+          "height": 50,
+          "bottom": 891
+        }
+      ]
+    }
+  ],
+  "performance": {
+    "desktopCelebration": {
+      "fps": 55.59824616914754,
+      "p95ms": 16.799999999995634,
+      "frames": 123
+    },
+    "mobileIdle": {
+      "fps": 59.655624350346244,
+      "p95ms": 16.799999999999272,
+      "frames": 132
+    }
+  },
+  "browser": "155.0.8059.39"
+}

@@ -1,5 +1,7 @@
 # 星河生日蛋糕 · 第二阶段
 
+2026-11-03 增加逐层定制及 40 步撤销／重做。可在编辑范围中选层，或点击场景中的糕体标签；同层的造型、糕体色、奶油色和糖饰独立变化。见 [layer-editor.md](../docs/layer-editor.md)，专项验收运行 `node scripts/verify-layer-editor.cjs`。
+
 最新增加参考视频式的分层编辑与组合切换，见 [assembly-editor.md](../docs/assembly-editor.md)。可拖动编辑中的部件预览，完成自动合拢；三种造型与一至三层可组合。“换一组灵感”一次改变款式／形状／层数。最新验收为 `qa-assembly*`，下方最初第二阶段验收保留为历史。
 
 2026-11-02 按用户要求已实现第二阶段。最新状态以 [第二阶段记录](../docs/stage-two.md) 和 [接续说明](../docs/CONTINUE-HERE.md) 为准。当前是低矮五瓣奶油花，旧版连续螺旋裱花已经弃用。没有恢复 PCSS shader 注入，保留原生柔影与桌面 N8AO。

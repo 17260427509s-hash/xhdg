@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 import { cakePresets, defaultConfig, normalizeConfig } from '../store/birthdayStore'
-import type { BirthdayConfig, CakeStyle } from '../store/birthdayStore'
+import type { BirthdayConfig, CakeStyle, LayerAppearance, LayerSelection, SettingsSection } from '../store/birthdayStore'
 
 export type Phase = 'intro' | 'entering' | 'idle' | 'wishing' | 'blowout' | 'celebration' | 'message'
 export type Tier = 'desktop' | 'mobile' | 'low'
@@ -10,7 +10,7 @@ export const budgets = {
   low: { near: 150, far: 300, dust: 600, surface: 1000, orbitDust: 180, sparks: 64, burst: 120, dpr: 1 },
 } as const
 export class ExperienceEngine {
-  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; expanded: boolean; assembling: boolean }
+  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; expanded: boolean; assembling: boolean; selectedLayer: LayerSelection; canUndo: boolean; canRedo: boolean; settings: SettingsSection | null }
   time = 0
   phaseTime = 0
   orbitTime = 0
@@ -29,13 +29,15 @@ export class ExperienceEngine {
   private flameTime = 0
   private editorTimeline: gsap.core.Timeline | undefined
   private editorTime = 0
+  private undoStack: BirthdayConfig[] = []
+  private redoStack: BirthdayConfig[] = []
   private listeners = new Set<() => void>()
   private sample = { seconds: 0, frames: 0, slow: 0 }
   constructor() {
     const mobile = window.matchMedia('(max-width: 700px)').matches
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const low = new URLSearchParams(location.search).get('quality') === 'low'
-    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: { ...defaultConfig }, wishConfirmed: false, switching: false, lighting: false, editing: false, expanded: true, assembling: false }
+    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: { ...defaultConfig }, wishConfirmed: false, switching: false, lighting: false, editing: false, expanded: true, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
   }
   subscribe = (fn: () => void) => { this.listeners.add(fn); return () => { this.listeners.delete(fn) } }
   getSnapshot = () => this.snapshot
@@ -48,21 +50,79 @@ export class ExperienceEngine {
   configure = (patch: Partial<BirthdayConfig>) => {
     if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
     if ((patch.cakeShape && patch.cakeShape !== this.snapshot.config.cakeShape) || (patch.cakeLayers && patch.cakeLayers !== this.snapshot.config.cakeLayers)) { this.changeCake(patch); return }
-    this.update({ config: normalizeConfig(this.snapshot.config, patch) })
+    this.commitConfig(patch)
+  }
+  private commitConfig(patch: Partial<BirthdayConfig>, record = true) {
+    const previous = this.snapshot.config, config = normalizeConfig(previous, patch)
+    if (JSON.stringify(config) === JSON.stringify(previous)) return
+    if (record) {
+      this.undoStack.push(previous)
+      if (this.undoStack.length > 40) this.undoStack.shift()
+      this.redoStack = []
+    }
+    const selectedLayer = this.snapshot.selectedLayer
+    this.update({ config, selectedLayer: selectedLayer !== 'all' && selectedLayer >= config.cakeLayers ? 'all' : selectedLayer, canUndo: this.undoStack.length > 0, canRedo: this.redoStack.length > 0 })
+    if (previous.flameEnabled !== config.flameEnabled && this.snapshot.phase === 'idle') this.animateFlame(config.flameEnabled)
+  }
+  selectLayer = (selectedLayer: LayerSelection) => {
+    if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching || (selectedLayer !== 'all' && selectedLayer >= this.snapshot.config.cakeLayers)) return
+    this.update({ selectedLayer, settings: 'cake' })
+  }
+  openSettings = (settings: SettingsSection) => {
+    if (!['intro', 'idle'].includes(this.snapshot.phase)) return
+    this.update({ settings })
+    this.setEditing(true)
+  }
+  closeSettings = () => { this.update({ settings: null }); this.setEditing(false) }
+  editLayer = (patch: Partial<LayerAppearance>) => {
+    if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
+    const { config, selectedLayer } = this.snapshot
+    const layerOverrides = { ...config.layerOverrides }
+    const targets = selectedLayer === 'all' ? patch.decoration ? [(config.cakeLayers - 1) as 0 | 1 | 2] : Array.from({ length: config.cakeLayers }, (_, i) => i as 0 | 1 | 2) : [selectedLayer]
+    for (const i of targets) layerOverrides[i] = { ...layerOverrides[i], ...patch }
+    if (selectedLayer === 'all') {
+      // Overall shape/color controls replace older local overrides consistently.
+      for (const i of targets) {
+        if (patch.shape) delete layerOverrides[i]!.shape
+        if (patch.cakeColor) delete layerOverrides[i]!.cakeColor
+      }
+    }
+    const update: Partial<BirthdayConfig> = { layerOverrides }
+    if (selectedLayer === 'all' && patch.shape) update.cakeShape = patch.shape
+    if (selectedLayer === 'all' && patch.cakeColor) update.cakeColor = patch.cakeColor
+    if (patch.shape || patch.decoration) this.changeCake(update)
+    else this.configure(update)
+  }
+  resetLayer = () => {
+    const { config, selectedLayer } = this.snapshot
+    const layerOverrides = { ...config.layerOverrides }
+    if (selectedLayer === 'all') this.changeCake({ layerOverrides: {} })
+    else { delete layerOverrides[selectedLayer]; this.changeCake({ layerOverrides }) }
+  }
+  undo = () => this.restoreHistory(this.undoStack, this.redoStack)
+  redo = () => this.restoreHistory(this.redoStack, this.undoStack)
+  private restoreHistory(source: BirthdayConfig[], target: BirthdayConfig[]) {
+    if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching || this.snapshot.lighting) return
+    const config = source.pop()
+    if (!config) return
+    target.push(this.snapshot.config)
+    this.changeCake(config, false)
   }
   selectCake = (style: CakeStyle) => {
-    if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.config.cakeStyle === style) return
+    if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase)) return
     const preset = cakePresets[style]
-    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: preset.shape, cakeLayers: preset.layers })
+    const current = this.snapshot.config
+    if (current.cakeStyle === style && current.cakeColor === preset.color && current.cakeShape === preset.shape && current.cakeLayers === preset.layers && !Object.keys(current.layerOverrides).length) return
+    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: preset.shape, cakeLayers: preset.layers, layerOverrides: {} })
   }
   randomizeCake = () => {
     const choices = (Object.keys(cakePresets) as CakeStyle[]).filter(style => style !== this.snapshot.config.cakeStyle)
     const style = choices[Math.floor(Math.random() * choices.length)], preset = cakePresets[style]
-    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: (['round', 'square', 'heart'] as const)[Math.floor(Math.random() * 3)], cakeLayers: (this.snapshot.config.cakeLayers % 3 + 1) as 1 | 2 | 3 })
+    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: (['round', 'square', 'heart'] as const)[Math.floor(Math.random() * 3)], cakeLayers: (this.snapshot.config.cakeLayers % 3 + 1) as 1 | 2 | 3, layerOverrides: {} })
   }
-  private changeCake(patch: Partial<BirthdayConfig>) {
+  private changeCake(patch: Partial<BirthdayConfig>, record = true) {
     if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase)) return
-    const apply = () => this.update({ config: normalizeConfig(this.snapshot.config, patch) })
+    const apply = () => this.commitConfig(patch, record)
     if (this.snapshot.phase === 'intro') { apply(); return }
     this.switchTimeline?.kill()
     this.switchTime = 0
@@ -95,8 +155,9 @@ export class ExperienceEngine {
   }
   setFlame = (enabled: boolean) => {
     if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
-    this.update({ config: { ...this.snapshot.config, flameEnabled: enabled } })
-    if (this.snapshot.phase === 'intro') return
+    this.commitConfig({ flameEnabled: enabled })
+  }
+  private animateFlame(enabled: boolean) {
     this.flameTimeline?.kill()
     this.flameTime = 0
     this.update({ lighting: true })

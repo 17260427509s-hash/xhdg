@@ -5,12 +5,12 @@ import { cakePresets, galaxyThemes } from '../store/birthdayStore'
 import type { BirthdayConfig, CakeStyle, GalaxyTheme, SettingsSection } from '../store/birthdayStore'
 import { AgeField } from './AgeField'
 import { Icon } from './Icons'
+import { LayerEditor } from './LayerEditor'
 
 const sections: { id: SettingsSection; label: string }[] = [
   { id: 'cake', label: '蛋糕' }, { id: 'galaxy', label: '星河' },
   { id: 'blessing', label: '祝福' }, { id: 'candles', label: '蜡烛' },
 ]
-const colorChoices = ['#3d4192', '#7793cb', '#d97c9a', '#f0dec4', '#9476ba', '#e6a3b7', '#75b8ad', '#b98968']
 
 export function SettingsPanel({ section, onSection, onClose, engine, config }: {
   section: SettingsSection; onSection: (section: SettingsSection) => void; onClose: () => void; engine: ExperienceEngine; config: BirthdayConfig
@@ -19,6 +19,15 @@ export function SettingsPanel({ section, onSection, onClose, engine, config }: {
   const live=engine.snapshot.phase==='idle'
   useEffect(() => { const element = dialog.current,previous=document.activeElement; if(live)element.show();else element.showModal();return () => {element.close();if(previous instanceof HTMLElement)previous.focus()} }, [live])
   useEffect(()=>{const escape=(e:KeyboardEvent)=>{if(live&&e.key==='Escape'){e.preventDefault();onClose()}};window.addEventListener('keydown',escape);return()=>window.removeEventListener('keydown',escape)},[live,onClose])
+  useEffect(()=>{
+    const history=(event:KeyboardEvent)=>{
+      const target=event.target
+      if(target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target instanceof HTMLElement&&target.isContentEditable)return
+      if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();if(event.shiftKey)engine.redo();else engine.undo()}
+      else if(event.ctrlKey&&event.key.toLowerCase()==='y'){event.preventDefault();engine.redo()}
+    }
+    window.addEventListener('keydown',history);return()=>window.removeEventListener('keydown',history)
+  },[engine])
   const edit = engine.configure
   return <dialog ref={dialog} className={`settings-dialog ${live?'live-editor':''}`} aria-labelledby="settings-title" onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();onClose()}}} onCancel={e => { e.preventDefault(); onClose() }}>
     <header className="settings-header"><div><p className="panel-caption">为你定制</p><h2 id="settings-title">一份专属的生日星河</h2></div><button className="icon-button" aria-label="关闭设置" onClick={onClose}><Icon name="close"/></button></header>
@@ -31,9 +40,8 @@ export function SettingsPanel({ section, onSection, onClose, engine, config }: {
           <div className="setting-field"><span>蛋糕款式</span><div className="cake-preset-grid">{(Object.entries(cakePresets) as [CakeStyle, typeof cakePresets[CakeStyle]][]).map(([id, preset]) => <button key={id} className={`cake-choice ${config.cakeStyle === id ? 'selected' : ''}`} aria-pressed={config.cakeStyle === id} onClick={() => engine.selectCake(id)}>
             <span className={`cake-mini cake-mini-${id}`} style={{ '--cake-swatch': preset.color } as CSSProperties}><span/></span><span>{preset.name}</span>
           </button>)}</div><span className="field-note">{engine.snapshot.switching ? '星光正在换上新的模样…' : cakePresets[config.cakeStyle].description}</span></div>
-          <div className="setting-field"><span>蛋糕造型</span><div className="segmented">{([['round','圆形'],['square','方形'],['heart','爱心']] as const).map(([shape,label])=><button key={shape} aria-pressed={config.cakeShape===shape} onClick={()=>edit({cakeShape:shape})}>{label}</button>)}</div></div>
           <div className="setting-field"><span>蛋糕层数</span><div className="segmented">{([1,2,3] as const).map((layers,i)=><button key={layers} aria-pressed={config.cakeLayers===layers} onClick={()=>edit({cakeLayers:layers})}>{['单层','双层','三层'][i]}</button>)}</div></div>
-          <div className="setting-field"><span>蛋糕颜色</span><div className="color-options">{colorChoices.map(color => <button key={color} className="color-swatch" style={{ background: color }} aria-label={`选择蛋糕颜色 ${color}`} aria-pressed={config.cakeColor.toLowerCase() === color} onClick={() => edit({ cakeColor: color })}/>)}<label className="custom-color" title="自定义蛋糕颜色"><input aria-label="自定义蛋糕颜色" type="color" value={config.cakeColor} onChange={e => edit({ cakeColor: e.target.value })}/><span>自选</span></label></div></div>
+          <LayerEditor engine={engine} config={config}/>
           <p className="panel-note">每款都保留圆润的花瓣奶油，和一点恰到好处的星光。</p>
         </> : section === 'galaxy' ? <>
           <label className="setting-toggle"><span>漂浮星点</span><input type="checkbox" checked={config.galaxyEnabled} onChange={e => edit({ galaxyEnabled: e.target.checked })}/></label>
@@ -53,6 +61,6 @@ export function SettingsPanel({ section, onSection, onClose, engine, config }: {
         </>}
       </fieldset>
     </div>
-    <footer className="settings-footer"><span>修改会实时呈现在蛋糕上</span><button className="primary" onClick={onClose}>完成 <Icon name="check"/></button></footer>
+    <footer className="settings-footer"><div className="edit-history" role="group" aria-label="编辑历史"><button onClick={engine.undo} disabled={!engine.snapshot.canUndo||engine.snapshot.switching||engine.snapshot.lighting} title="撤销（Ctrl+Z）">撤销</button><button onClick={engine.redo} disabled={!engine.snapshot.canRedo||engine.snapshot.switching||engine.snapshot.lighting} title="重做（Ctrl+Shift+Z）">重做</button></div><button className="primary" onClick={onClose}>完成 <Icon name="check"/></button></footer>
   </dialog>
 }

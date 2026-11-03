@@ -4,7 +4,7 @@ import type { CakeShape, CakeStyle } from '../store/birthdayStore'
 import { cakeOutline } from '../utils/cakeShape'
 import { heartShape, starShape } from '../utils/ornaments'
 
-export function CakeDecorations({ style, shape }: { style: CakeStyle; shape: CakeShape }) {
+export function CakeDecorations({ style, shape, rim = false }: { style: CakeStyle; shape: CakeShape; rim?: boolean }) {
   const ornaments = useRef<InstancedMesh>(null!), leaves = useRef<InstancedMesh>(null!)
   const count = style === 'strawberry' ? 6 : style === 'cream' ? 7 : style === 'heart' ? 5 : 4
   const geometry = useMemo(() => {
@@ -19,7 +19,7 @@ export function CakeDecorations({ style, shape }: { style: CakeStyle; shape: Cak
     const dummy = new Object3D()
     for (let i = 0; i < count; i++) {
       const angle = i / count * Math.PI * 2 + .45
-      const [x, z] = cakeOutline(angle, style === 'strawberry' ? .76 : .72, shape)
+      const [x, z] = cakeOutline(angle, rim ? 1.13 : style === 'strawberry' ? .76 : .72, shape)
       dummy.position.set(x, style === 'strawberry' ? .685 : .675, z)
       dummy.rotation.set(-.15, angle * .5, (i % 2 ? 1 : -1) * .12)
       dummy.scale.set(style === 'strawberry' ? .075 : .13, style === 'strawberry' ? .105 : .13, style === 'strawberry' ? .075 : .13)
@@ -35,7 +35,7 @@ export function CakeDecorations({ style, shape }: { style: CakeStyle; shape: Cak
     ornaments.current.instanceMatrix.needsUpdate = true
     ornaments.current.instanceColor!.needsUpdate = true
     if (style === 'strawberry') leaves.current.instanceMatrix.needsUpdate = true
-  }, [style, shape, count])
+  }, [style, shape, count, rim])
   return <>
     <instancedMesh ref={ornaments} args={[geometry, undefined, count]} castShadow>
       <meshPhysicalMaterial roughness={style === 'strawberry' ? .45 : .28} metalness={style === 'cream' || style === 'galaxy' ? .5 : .05} clearcoat={.2}/>

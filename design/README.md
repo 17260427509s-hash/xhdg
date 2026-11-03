@@ -1,5 +1,7 @@
 # 已确认视觉基准
 
+2026-11-03 第二阶段续作加入逐层造型、糕体色、奶油色与糖饰定制，最新画面见 [逐层编辑记录](../docs/layer-editor.md)。五瓣奶油花及摄影级目标保留，功能通过不代替摄影级视觉验收。
+
 2026-11-02 第二阶段增加五款、数字蜡烛和设置 UI，见 [stage-two.md](../docs/stage-two.md) 与 [当前草莓款](../docs/qa-stage-two/cake-strawberry.png)、[当前手机爱心款](../docs/qa-stage-two/mobile-375-heart.png)。所有款式沿用低矮五瓣奶油花；被否决的螺旋堆叠不再使用。概念图仍仅为视觉参照，摄影级一致性未标记通过。
 
 2026-11-02 最新实现对照见 [visual-polish.md](../docs/visual-polish.md)、[桌面](../docs/qa-polish/desktop-native.png) 与 [手机](../docs/qa-polish/mobile-390.png)。视觉目标没有重新设计；本轮仍使用下述已确认概念图，摄影级一致性不标记为通过。

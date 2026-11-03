@@ -7,8 +7,8 @@ import { random } from '../utils/random'
 import type { ExperienceEngine } from '../experience/engine'
 import { StarSand } from './StarSand'
 import { frostingGeometry, creamFlowerGeometry } from './pastryGeometry'
-import { cakePresets } from '../store/birthdayStore'
-import type { CakeShape } from '../store/birthdayStore'
+import { layerAppearance } from '../store/birthdayStore'
+import type { CakeLayerIndex, CakeShape } from '../store/birthdayStore'
 import { cakeOutline, shapeCakeGeometry } from '../utils/cakeShape'
 import { Candles } from './Candles'
 import { CakeDecorations } from './CakeDecorations'
@@ -20,6 +20,8 @@ float noise3(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(m
 float fbm(vec3 p){return noise3(p)*.55+noise3(p*2.03)*.27+noise3(p*4.1)*.13+noise3(p*8.2)*.05;}`
 
 function useBodyMaterial(bodyColor:string){
+  const tint=useMemo(()=>new Color(),[])
+  useLayoutEffect(()=>{tint.set(bodyColor)},[tint,bodyColor])
   const material=useMemo(()=>{
     const rng=random(89),width=512,height=256,pixels=new Uint8Array(width*height*4)
     // Buttercream pores have both soft irregular grains and tiny air bubbles.
@@ -31,7 +33,7 @@ function useBodyMaterial(bodyColor:string){
     bump.magFilter=LinearFilter;bump.minFilter=LinearMipmapLinearFilter;bump.generateMipmaps=true;bump.anisotropy=4;bump.needsUpdate=true
     const mat=new MeshPhysicalMaterial({color:'white',roughness:.62,metalness:0,clearcoat:.04,bumpMap:bump,bumpScale:.013,envMapIntensity:.55})
     mat.onBeforeCompile=shader=>{
-      shader.uniforms.uCakeColor={value:new Color(bodyColor)}
+      shader.uniforms.uCakeColor={value:tint}
       shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vCakePos;').replace('#include <begin_vertex>','#include <begin_vertex>\nvCakePos=position;')
       shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>\nvarying vec3 vCakePos;\nuniform vec3 uCakeColor;\n${noiseGLSL}`)
         .replace('#include <color_fragment>',`#include <color_fragment>
@@ -41,7 +43,7 @@ function useBodyMaterial(bodyColor:string){
           diffuseColor.rgb*=.91+grain*.18;`)
     }
     mat.customProgramCacheKey=()=> 'fine-buttercream-v2';return mat
-  },[bodyColor])
+  },[tint])
   useEffect(()=>()=>{material.bumpMap?.dispose();material.dispose()},[material]);return material
 }
 function CakeBase({color,shape}:{color:string;shape:CakeShape}){
@@ -59,7 +61,7 @@ function Cream({color,shape}:{color:string;shape:CakeShape}){
     for(let i=0;i<pixels.length;i+=4){const v=110+rng()*60;pixels.set([v,v,v,255],i)}
     const bump=new DataTexture(pixels,128,128,RGBAFormat);bump.wrapS=bump.wrapT=RepeatWrapping;bump.repeat.set(3,3)
     bump.magFilter=LinearFilter;bump.minFilter=LinearMipmapLinearFilter;bump.generateMipmaps=true;bump.needsUpdate=true
-    const cream=new MeshPhysicalMaterial({color,roughness:.35,metalness:0,sheen:.22,sheenColor:'#ffe6ce',sheenRoughness:.65,clearcoat:.045,specularIntensity:.4,envMapIntensity:.65,bumpMap:bump,bumpScale:.0007})
+    const cream=new MeshPhysicalMaterial({color:'white',roughness:.35,metalness:0,sheen:.22,sheenColor:'#ffe6ce',sheenRoughness:.65,clearcoat:.045,specularIntensity:.4,envMapIntensity:.65,bumpMap:bump,bumpScale:.0007})
     // A subtle warm wrap approximates shallow cream scattering without glass transmission.
     cream.onBeforeCompile=shader=>{
       shader.fragmentShader=shader.fragmentShader.replace('#include <lights_fragment_end>',`#include <lights_fragment_end>
@@ -72,7 +74,8 @@ function Cream({color,shape}:{color:string;shape:CakeShape}){
       `)
     }
     cream.customProgramCacheKey=()=> 'cream-soft-wrap-v2';return cream
-  },[color])
+  },[])
+  useLayoutEffect(()=>{material.color.set(color)},[material,color])
   useLayoutEffect(()=>{const d=new Object3D(),rng=random(88);for(let i=0;i<10;i++){
     const a=(i+(rng()-.5)*.18)/10*Math.PI*2+.12,r=1.045+(rng()-.5)*.025,s=.93+rng()*.14
     const [x,z]=cakeOutline(a,r,shape)
@@ -142,26 +145,26 @@ function CakePart({engine,kind,index=0,y=0,width=1,height=1,children}:{engine:Ex
 }
 export function Cake({engine}:{engine:ExperienceEngine}){
   const group=useRef<Group>(null!)
-  const config=engine.snapshot.config,preset=cakePresets[config.cakeStyle]
+  const config=engine.snapshot.config
   const tiers=useMemo(()=>cakeAssembly(config),[config.cakeLayers])
   const labels=engine.snapshot.editing&&engine.snapshot.expanded
   useFrame(()=>{
     const r=engine.motion.reveal;group.current.visible=r>.001;group.current.scale.setScalar(.75+.25*r);group.current.position.y=-.15*(1-r);group.current.rotation.y=-.14*(1-r)
   })
   return <group ref={group}>
-    {tiers.map((tier,i)=><group key={i}>
+    {tiers.map((tier,i)=>{const appearance=layerAppearance(config,i);return <group key={i}>
       <CakePart engine={engine} kind="body" index={i} y={tier.y} width={tier.width} height={tier.height}>
-        <CakeBase color={i%2?new Color(config.cakeColor).lerp(new Color(preset.cream),.2).getStyle():config.cakeColor} shape={config.cakeShape}/><Jewels shape={config.cakeShape} part="body" layers={config.cakeLayers}/><StarSand engine={engine} layers={config.cakeLayers} tierIndex={i}/>
-        {labels?<Html position={[1.55,.03,0]} className="cake-part-label" zIndexRange={[6,0]}><span>{tiers.length>1?`第 ${i+1} 层糕体`:'糕体'}</span></Html>:null}
+        <CakeBase color={appearance.cakeColor} shape={appearance.shape}/><Jewels shape={appearance.shape} part="body" layers={config.cakeLayers}/><StarSand engine={engine} layers={config.cakeLayers} tierIndex={i} shape={appearance.shape}/>
+        {labels?<Html position={[1.55,.03,0]} className="cake-part-label selectable-part-label" zIndexRange={[6,0]}><button aria-label={`编辑第 ${i+1} 层`} aria-pressed={engine.snapshot.selectedLayer===i} disabled={engine.snapshot.switching} onClick={()=>engine.selectLayer(i as CakeLayerIndex)}><span>{tiers.length>1?`第 ${i+1} 层糕体`:'糕体'}</span></button></Html>:null}
       </CakePart>
       <CakePart engine={engine} kind="cream" index={i} y={tier.y} width={tier.width} height={tier.height}>
-        <Cream color={preset.cream} shape={config.cakeShape}/>
+        <Cream color={appearance.creamColor} shape={appearance.shape}/>
         {labels&&i===tiers.length-1?<Html position={[1.6,.58,0]} className="cake-part-label" zIndexRange={[6,0]}><span>花瓣奶油</span></Html>:null}
       </CakePart>
       <CakePart engine={engine} kind="decor" index={i} y={tier.y} width={tier.width} height={tier.height}>
-        <Jewels shape={config.cakeShape} part="top" layers={config.cakeLayers}/>{i===tiers.length-1?<CakeDecorations style={config.cakeStyle} shape={config.cakeShape}/>:null}
+        <Jewels shape={appearance.shape} part="top" layers={config.cakeLayers}/>{appearance.decoration!=='none'?<CakeDecorations style={appearance.decoration} shape={appearance.shape} rim={i<tiers.length-1}/>:null}
       </CakePart>
-    </group>)}
+    </group>})}
     <CakePart engine={engine} kind="candle"><Candles config={config}/>{labels?<Html position={[.3,tiers[tiers.length-1].surface+.46,0]} className="cake-part-label candle-part-label" zIndexRange={[6,0]}><span>生日蜡烛</span></Html>:null}</CakePart>
     <Plate/>
     <mesh position={[0,-.559,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.834,.006,12,192]}/><meshStandardMaterial color="#ddb77b" metalness={.8} roughness={.24}/></mesh>

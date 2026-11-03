@@ -2,12 +2,22 @@ export type CakeStyle = 'galaxy' | 'strawberry' | 'cream' | 'purple' | 'heart'
 export type CakeShape = 'round' | 'square' | 'heart'
 export type GalaxyTheme = 'dream' | 'rose' | 'blue' | 'gold' | 'rainbow'
 export type SettingsSection = 'cake' | 'galaxy' | 'blessing' | 'candles'
+export type CakeLayerIndex = 0 | 1 | 2
+export type LayerSelection = 'all' | CakeLayerIndex
+export interface LayerAppearance {
+  shape: CakeShape
+  cakeColor: string
+  creamColor: string
+  decoration: CakeStyle | 'none'
+}
+export type LayerOverrides = Partial<Record<CakeLayerIndex, Partial<LayerAppearance>>>
 
 export interface BirthdayConfig {
   cakeStyle: CakeStyle
   cakeShape: CakeShape
   cakeLayers: 1 | 2 | 3
   cakeColor: string
+  layerOverrides: LayerOverrides
   recipient: string
   birthday: string
   age: number
@@ -39,6 +49,7 @@ export const galaxyThemes: Record<GalaxyTheme, { name: string; colors: string[] 
 
 export const defaultConfig: BirthdayConfig = {
   cakeStyle: 'galaxy', cakeShape: 'round', cakeLayers: 1, cakeColor: cakePresets.galaxy.color,
+  layerOverrides: {},
   recipient: '小雨', birthday: '2026-11-20', age: 22, sender: '小李',
   message: '生日快乐，希望新的一岁继续闪闪发光。',
   candleType: 'regular', flameEnabled: true,
@@ -55,7 +66,28 @@ export function normalizeConfig(current: BirthdayConfig, patch: Partial<Birthday
   next.sender = next.sender.slice(0, 24)
   next.message = next.message.slice(0, 300)
   if (!/^#[0-9a-f]{6}$/i.test(next.cakeColor)) next.cakeColor = current.cakeColor
+  const overrides: LayerOverrides = {}
+  for (const i of [0, 1, 2] as const) {
+    const source = next.layerOverrides[i]
+    if (!source || i >= next.cakeLayers) continue
+    const layer: Partial<LayerAppearance> = {}
+    if (source.shape && ['round', 'square', 'heart'].includes(source.shape)) layer.shape = source.shape
+    if (source.cakeColor && /^#[0-9a-f]{6}$/i.test(source.cakeColor)) layer.cakeColor = source.cakeColor
+    if (source.creamColor && /^#[0-9a-f]{6}$/i.test(source.creamColor)) layer.creamColor = source.creamColor
+    if (source.decoration && (source.decoration === 'none' || source.decoration in cakePresets)) layer.decoration = source.decoration
+    if (Object.keys(layer).length) overrides[i] = layer
+  }
+  next.layerOverrides = overrides
   return next
+}
+
+export function layerAppearance(config: BirthdayConfig, index: number): LayerAppearance {
+  return {
+    shape: config.cakeShape, cakeColor: config.cakeColor,
+    creamColor: cakePresets[config.cakeStyle].cream,
+    decoration: index === config.cakeLayers - 1 ? config.cakeStyle : 'none',
+    ...config.layerOverrides[index as CakeLayerIndex],
+  }
 }
 
 export const recipientName = (config: BirthdayConfig) => config.recipient.trim() || '亲爱的你'

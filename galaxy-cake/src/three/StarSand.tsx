@@ -4,6 +4,7 @@ import { AdditiveBlending, BufferGeometry, Color, Float32BufferAttribute, Shader
 import { random } from '../utils/random'
 import type { ExperienceEngine } from '../experience/engine'
 import { galaxyThemes } from '../store/birthdayStore'
+import type { CakeShape } from '../store/birthdayStore'
 import { cakeOutline } from '../utils/cakeShape'
 
 const vertexShader=/* glsl */ `
@@ -45,9 +46,9 @@ void main(){
   gl_FragColor=vec4(vColor,alpha);
 }`
 
-export function StarSand({engine,layers=1,tierIndex=0}:{engine:ExperienceEngine;layers?:number;tierIndex?:number}) {
+export function StarSand({engine,layers=1,tierIndex=0,shape}:{engine:ExperienceEngine;layers?:number;tierIndex?:number;shape:CakeShape}) {
   const gl=useThree(s=>s.gl)
-  const total=engine.getBudget().surface,count=Math.floor(total/layers)+(tierIndex===0?total%layers:0),shape=engine.snapshot.config.cakeShape,theme=engine.snapshot.config.galaxyTheme
+  const total=engine.getBudget().surface,count=Math.floor(total/layers)+(tierIndex===0?total%layers:0),theme=engine.snapshot.config.galaxyTheme
   const geometry=useMemo(()=>{
     const rng=random(173)
     const positions=new Float32Array(count*3),colors=new Float32Array(count*3)

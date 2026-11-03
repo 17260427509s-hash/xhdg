@@ -124,6 +124,16 @@
 .cake-part-label span:before{content:'';display:inline-block;width:16px;height:1px;background:#b9a5cc88;vertical-align:middle;margin-right:6px}
 .cake-mini-strawberry{border-radius:7px}.cake-mini-strawberry>span{border-radius:5px}
 .intro h1{max-width:calc(100% - 40px);overflow-wrap:anywhere;text-align:center}
+.selectable-part-label{pointer-events:auto!important}
+.selectable-part-label button{display:block;min-width:74px;min-height:44px;padding:0 2px;background:transparent;border:0;border-radius:24px}
+.selectable-part-label button span{color:#d6c9e4;border-color:#bda2e050}
+.selectable-part-label button[aria-pressed=true] span{color:#fff2df;border-color:#ead3a6;background:#3b2b41e0;box-shadow:0 0 18px #d9a8ed24}
+.layer-scope{padding-top:16px;border-top:1px solid #ffffff10}
+.decoration-options{display:flex;flex-wrap:wrap;gap:7px}
+.decoration-options button,.reset-layer,.edit-history button{min-height:44px;min-width:52px;padding:8px 12px;border:1px solid #b99ad62d;border-radius:11px;background:#b99ad608;color:#c6b6d3;font:inherit;font-size:12px}
+.decoration-options button[aria-pressed=true]{color:#f1e2ff;background:#b99ad61b;border-color:#c4a4e66b}
+.reset-layer{width:100%;margin-bottom:18px;border-style:dashed;color:#bbaacb;font-size:11px}
+.edit-history{display:flex;gap:6px}.edit-history button{background:transparent;font-size:12px}
 @media(max-width:700px){
   .live-editor{left:0;right:0;bottom:0;width:100%;height:48dvh;max-height:48dvh;border-radius:22px 22px 0 0}
   .is-editing .scene{right:0;top:12px;bottom:calc(48dvh + 8px)}
@@ -136,4 +146,5 @@
   .live-editor .cake-choice{min-height:80px;gap:8px}.live-editor .setting-field{margin-bottom:17px;gap:8px}
   .live-editor .inspiration-button{margin-bottom:13px;min-height:44px}
   .cake-part-label span{font-size:9px;padding:4px 6px}.cake-part-label span:before{width:8px;margin-right:4px}
+  .selectable-part-label button{min-width:65px}
 }
