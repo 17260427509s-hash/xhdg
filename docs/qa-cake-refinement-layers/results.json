@@ -1,0 +1,2259 @@
+{
+  "testedAt": "2026-11-03T11:47:08.226Z",
+  "url": "http://localhost:4173/?qa=1",
+  "checks": {
+    "independentLayerAppearanceAndPanelSelection": true,
+    "editWhilePaused": true,
+    "undoRedoShortcutsAndLayerReset": true,
+    "layerRemovalUndoAndRedoBranching": true,
+    "overallControlsClearMatchingOverridesOnly": true,
+    "currentPresetRestoresDefaults": true,
+    "liveColorChangesPixelsWithoutResourceGrowth": true,
+    "undoRestoresFlameAnimation": true,
+    "wishBlowoutAndReplayPreserveLayers": true,
+    "mobileLayerEditingAndControls": true,
+    "introCustomizationAndHistory": true,
+    "performanceCapsWithCustomLayers": true,
+    "consoleNoErrors": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "resources": [
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    },
+    {
+      "geometries": 66,
+      "textures": 52
+    }
+  ],
+  "layouts": [
+    {
+      "label": "desktop",
+      "width": 1585,
+      "height": 992,
+      "scroll": 1585,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1175,
+        "height": 968,
+        "top": 0,
+        "right": 1175,
+        "bottom": 968,
+        "left": 0
+      },
+      "panel": {
+        "x": 1191,
+        "y": 24,
+        "width": 370,
+        "height": 944,
+        "top": 24,
+        "right": 1561,
+        "bottom": 968,
+        "left": 1191
+      },
+      "buttons": [
+        {
+          "text": "",
+          "x": 1493,
+          "y": 50.5,
+          "width": 44,
+          "height": 44,
+          "top": 50.5,
+          "right": 1537,
+          "bottom": 94.5,
+          "left": 1493
+        },
+        {
+          "text": "蛋糕",
+          "x": 1215,
+          "y": 112,
+          "width": 77.5,
+          "height": 44,
+          "top": 112,
+          "right": 1292.5,
+          "bottom": 156,
+          "left": 1215
+        },
+        {
+          "text": "星河",
+          "x": 1296.5,
+          "y": 112,
+          "width": 77.5,
+          "height": 44,
+          "top": 112,
+          "right": 1374,
+          "bottom": 156,
+          "left": 1296.5
+        },
+        {
+          "text": "祝福",
+          "x": 1378,
+          "y": 112,
+          "width": 77.5,
+          "height": 44,
+          "top": 112,
+          "right": 1455.5,
+          "bottom": 156,
+          "left": 1378
+        },
+        {
+          "text": "蜡烛",
+          "x": 1459.5,
+          "y": 112,
+          "width": 77.5,
+          "height": 44,
+          "top": 112,
+          "right": 1537,
+          "bottom": 156,
+          "left": 1459.5
+        },
+        {
+          "text": "分层预览",
+          "x": 1212,
+          "y": 167,
+          "width": 68,
+          "height": 44,
+          "top": 167,
+          "right": 1280,
+          "bottom": 211,
+          "left": 1212
+        },
+        {
+          "text": "合拢预览",
+          "x": 1284,
+          "y": 167,
+          "width": 68,
+          "height": 44,
+          "top": 167,
+          "right": 1352,
+          "bottom": 211,
+          "left": 1284
+        },
+        {
+          "text": "换一组灵感\n造型 · 层数 · 装饰",
+          "x": 1215,
+          "y": 233,
+          "width": 322,
+          "height": 48,
+          "top": 233,
+          "right": 1537,
+          "bottom": 281,
+          "left": 1215
+        },
+        {
+          "text": "星河蓝",
+          "x": 1215,
+          "y": 329,
+          "width": 60.390625,
+          "height": 92,
+          "top": 329,
+          "right": 1275.390625,
+          "bottom": 421,
+          "left": 1215
+        },
+        {
+          "text": "草莓粉",
+          "x": 1280.390625,
+          "y": 329,
+          "width": 60.40625,
+          "height": 92,
+          "top": 329,
+          "right": 1340.796875,
+          "bottom": 421,
+          "left": 1280.390625
+        },
+        {
+          "text": "奶油白",
+          "x": 1345.796875,
+          "y": 329,
+          "width": 60.390625,
+          "height": 92,
+          "top": 329,
+          "right": 1406.1875,
+          "bottom": 421,
+          "left": 1345.796875
+        },
+        {
+          "text": "紫色梦境",
+          "x": 1411.1875,
+          "y": 329,
+          "width": 60.40625,
+          "height": 92,
+          "top": 329,
+          "right": 1471.59375,
+          "bottom": 421,
+          "left": 1411.1875
+        },
+        {
+          "text": "情侣爱心",
+          "x": 1476.59375,
+          "y": 329,
+          "width": 60.40625,
+          "height": 92,
+          "top": 329,
+          "right": 1537,
+          "bottom": 421,
+          "left": 1476.59375
+        },
+        {
+          "text": "单层",
+          "x": 1219,
+          "y": 505.6875,
+          "width": 100.65625,
+          "height": 44,
+          "top": 505.6875,
+          "right": 1319.65625,
+          "bottom": 549.6875,
+          "left": 1219
+        },
+        {
+          "text": "双层",
+          "x": 1325.65625,
+          "y": 505.6875,
+          "width": 100.671875,
+          "height": 44,
+          "top": 505.6875,
+          "right": 1426.328125,
+          "bottom": 549.6875,
+          "left": 1325.65625
+        },
+        {
+          "text": "三层",
+          "x": 1432.328125,
+          "y": 505.6875,
+          "width": 100.671875,
+          "height": 44,
+          "top": 505.6875,
+          "right": 1533,
+          "bottom": 549.6875,
+          "left": 1432.328125
+        },
+        {
+          "text": "整体",
+          "x": 1219,
+          "y": 625.6875,
+          "width": 74,
+          "height": 44,
+          "top": 625.6875,
+          "right": 1293,
+          "bottom": 669.6875,
+          "left": 1219
+        },
+        {
+          "text": "第 1 层",
+          "x": 1299,
+          "y": 625.6875,
+          "width": 74,
+          "height": 44,
+          "top": 625.6875,
+          "right": 1373,
+          "bottom": 669.6875,
+          "left": 1299
+        },
+        {
+          "text": "第 2 层",
+          "x": 1379,
+          "y": 625.6875,
+          "width": 74,
+          "height": 44,
+          "top": 625.6875,
+          "right": 1453,
+          "bottom": 669.6875,
+          "left": 1379
+        },
+        {
+          "text": "第 3 层",
+          "x": 1459,
+          "y": 625.6875,
+          "width": 74,
+          "height": 44,
+          "top": 625.6875,
+          "right": 1533,
+          "bottom": 669.6875,
+          "left": 1459
+        },
+        {
+          "text": "圆形",
+          "x": 1219,
+          "y": 758.375,
+          "width": 100.65625,
+          "height": 44,
+          "top": 758.375,
+          "right": 1319.65625,
+          "bottom": 802.375,
+          "left": 1219
+        },
+        {
+          "text": "方形",
+          "x": 1325.65625,
+          "y": 758.375,
+          "width": 100.671875,
+          "height": 44,
+          "top": 758.375,
+          "right": 1426.328125,
+          "bottom": 802.375,
+          "left": 1325.65625
+        },
+        {
+          "text": "爱心",
+          "x": 1432.328125,
+          "y": 758.375,
+          "width": 100.671875,
+          "height": 44,
+          "top": 758.375,
+          "right": 1533,
+          "bottom": 802.375,
+          "left": 1432.328125
+        },
+        {
+          "text": "",
+          "x": 1215,
+          "y": 857.375,
+          "width": 44,
+          "height": 44,
+          "top": 857.375,
+          "right": 1259,
+          "bottom": 901.375,
+          "left": 1215
+        },
+        {
+          "text": "",
+          "x": 1268,
+          "y": 857.375,
+          "width": 44,
+          "height": 44,
+          "top": 857.375,
+          "right": 1312,
+          "bottom": 901.375,
+          "left": 1268
+        },
+        {
+          "text": "",
+          "x": 1321,
+          "y": 857.375,
+          "width": 44,
+          "height": 44,
+          "top": 857.375,
+          "right": 1365,
+          "bottom": 901.375,
+          "left": 1321
+        },
+        {
+          "text": "",
+          "x": 1374,
+          "y": 857.375,
+          "width": 44,
+          "height": 44,
+          "top": 857.375,
+          "right": 1418,
+          "bottom": 901.375,
+          "left": 1374
+        },
+        {
+          "text": "",
+          "x": 1427,
+          "y": 857.375,
+          "width": 44,
+          "height": 44,
+          "top": 857.375,
+          "right": 1471,
+          "bottom": 901.375,
+          "left": 1427
+        },
+        {
+          "text": "",
+          "x": 1480,
+          "y": 857.375,
+          "width": 44,
+          "height": 44,
+          "top": 857.375,
+          "right": 1524,
+          "bottom": 901.375,
+          "left": 1480
+        },
+        {
+          "text": "",
+          "x": 1215,
+          "y": 910.375,
+          "width": 44,
+          "height": 44,
+          "top": 910.375,
+          "right": 1259,
+          "bottom": 954.375,
+          "left": 1215
+        },
+        {
+          "text": "",
+          "x": 1268,
+          "y": 910.375,
+          "width": 44,
+          "height": 44,
+          "top": 910.375,
+          "right": 1312,
+          "bottom": 954.375,
+          "left": 1268
+        },
+        {
+          "text": "",
+          "x": 1215,
+          "y": 1005.375,
+          "width": 44,
+          "height": 44,
+          "top": 1005.375,
+          "right": 1259,
+          "bottom": 1049.375,
+          "left": 1215
+        },
+        {
+          "text": "",
+          "x": 1268,
+          "y": 1005.375,
+          "width": 44,
+          "height": 44,
+          "top": 1005.375,
+          "right": 1312,
+          "bottom": 1049.375,
+          "left": 1268
+        },
+        {
+          "text": "",
+          "x": 1321,
+          "y": 1005.375,
+          "width": 44,
+          "height": 44,
+          "top": 1005.375,
+          "right": 1365,
+          "bottom": 1049.375,
+          "left": 1321
+        },
+        {
+          "text": "",
+          "x": 1374,
+          "y": 1005.375,
+          "width": 44,
+          "height": 44,
+          "top": 1005.375,
+          "right": 1418,
+          "bottom": 1049.375,
+          "left": 1374
+        },
+        {
+          "text": "",
+          "x": 1427,
+          "y": 1005.375,
+          "width": 44,
+          "height": 44,
+          "top": 1005.375,
+          "right": 1471,
+          "bottom": 1049.375,
+          "left": 1427
+        },
+        {
+          "text": "",
+          "x": 1480,
+          "y": 1005.375,
+          "width": 44,
+          "height": 44,
+          "top": 1005.375,
+          "right": 1524,
+          "bottom": 1049.375,
+          "left": 1480
+        },
+        {
+          "text": "金色星星",
+          "x": 1215,
+          "y": 1153.375,
+          "width": 74,
+          "height": 44,
+          "top": 1153.375,
+          "right": 1289,
+          "bottom": 1197.375,
+          "left": 1215
+        },
+        {
+          "text": "小草莓",
+          "x": 1296,
+          "y": 1153.375,
+          "width": 62,
+          "height": 44,
+          "top": 1153.375,
+          "right": 1358,
+          "bottom": 1197.375,
+          "left": 1296
+        },
+        {
+          "text": "水晶糖",
+          "x": 1365,
+          "y": 1153.375,
+          "width": 62,
+          "height": 44,
+          "top": 1153.375,
+          "right": 1427,
+          "bottom": 1197.375,
+          "left": 1365
+        },
+        {
+          "text": "小爱心",
+          "x": 1434,
+          "y": 1153.375,
+          "width": 62,
+          "height": 44,
+          "top": 1153.375,
+          "right": 1496,
+          "bottom": 1197.375,
+          "left": 1434
+        },
+        {
+          "text": "不放糖饰",
+          "x": 1215,
+          "y": 1204.375,
+          "width": 74,
+          "height": 44,
+          "top": 1204.375,
+          "right": 1289,
+          "bottom": 1248.375,
+          "left": 1215
+        },
+        {
+          "text": "恢复各层默认搭配",
+          "x": 1215,
+          "y": 1271.375,
+          "width": 322,
+          "height": 44,
+          "top": 1271.375,
+          "right": 1537,
+          "bottom": 1315.375,
+          "left": 1215
+        },
+        {
+          "text": "撤销",
+          "x": 1215,
+          "y": 903,
+          "width": 52,
+          "height": 44,
+          "top": 903,
+          "right": 1267,
+          "bottom": 947,
+          "left": 1215
+        },
+        {
+          "text": "重做",
+          "x": 1273,
+          "y": 903,
+          "width": 52,
+          "height": 44,
+          "top": 903,
+          "right": 1325,
+          "bottom": 947,
+          "left": 1273
+        },
+        {
+          "text": "完成",
+          "x": 1439.59375,
+          "y": 903,
+          "width": 97.40625,
+          "height": 44,
+          "top": 903,
+          "right": 1537,
+          "bottom": 947,
+          "left": 1439.59375
+        }
+      ]
+    },
+    {
+      "label": "mobile-390",
+      "width": 390,
+      "height": 844,
+      "scroll": 390,
+      "canvas": {
+        "x": 0,
+        "y": 12,
+        "width": 390,
+        "height": 418.890625,
+        "top": 12,
+        "right": 390,
+        "bottom": 430.890625,
+        "left": 0
+      },
+      "panel": {
+        "x": 0,
+        "y": 438.890625,
+        "width": 390,
+        "height": 405.109375,
+        "top": 438.890625,
+        "right": 390,
+        "bottom": 844,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "",
+          "x": 329,
+          "y": 445.890625,
+          "width": 44,
+          "height": 44,
+          "top": 445.890625,
+          "right": 373,
+          "bottom": 489.890625,
+          "left": 329
+        },
+        {
+          "text": "蛋糕",
+          "x": 17,
+          "y": 489.890625,
+          "width": 86,
+          "height": 44,
+          "top": 489.890625,
+          "right": 103,
+          "bottom": 533.890625,
+          "left": 17
+        },
+        {
+          "text": "星河",
+          "x": 107,
+          "y": 489.890625,
+          "width": 86,
+          "height": 44,
+          "top": 489.890625,
+          "right": 193,
+          "bottom": 533.890625,
+          "left": 107
+        },
+        {
+          "text": "祝福",
+          "x": 197,
+          "y": 489.890625,
+          "width": 86,
+          "height": 44,
+          "top": 489.890625,
+          "right": 283,
+          "bottom": 533.890625,
+          "left": 197
+        },
+        {
+          "text": "蜡烛",
+          "x": 287,
+          "y": 489.890625,
+          "width": 86,
+          "height": 44,
+          "top": 489.890625,
+          "right": 373,
+          "bottom": 533.890625,
+          "left": 287
+        },
+        {
+          "text": "分层预览",
+          "x": 17,
+          "y": 537.890625,
+          "width": 68,
+          "height": 44,
+          "top": 537.890625,
+          "right": 85,
+          "bottom": 581.890625,
+          "left": 17
+        },
+        {
+          "text": "合拢预览",
+          "x": 89,
+          "y": 537.890625,
+          "width": 68,
+          "height": 44,
+          "top": 537.890625,
+          "right": 157,
+          "bottom": 581.890625,
+          "left": 89
+        },
+        {
+          "text": "换一组灵感\n造型 · 层数 · 装饰",
+          "x": 17,
+          "y": -175.109375,
+          "width": 356,
+          "height": 44,
+          "top": -175.109375,
+          "right": 373,
+          "bottom": -131.109375,
+          "left": 17
+        },
+        {
+          "text": "星河蓝",
+          "x": 17,
+          "y": -93.109375,
+          "width": 67.1875,
+          "height": 82,
+          "top": -93.109375,
+          "right": 84.1875,
+          "bottom": -11.109375,
+          "left": 17
+        },
+        {
+          "text": "草莓粉",
+          "x": 89.1875,
+          "y": -93.109375,
+          "width": 67.203125,
+          "height": 82,
+          "top": -93.109375,
+          "right": 156.390625,
+          "bottom": -11.109375,
+          "left": 89.1875
+        },
+        {
+          "text": "奶油白",
+          "x": 161.390625,
+          "y": -93.109375,
+          "width": 67.203125,
+          "height": 82,
+          "top": -93.109375,
+          "right": 228.59375,
+          "bottom": -11.109375,
+          "left": 161.390625
+        },
+        {
+          "text": "紫色梦境",
+          "x": 233.59375,
+          "y": -93.109375,
+          "width": 67.203125,
+          "height": 82,
+          "top": -93.109375,
+          "right": 300.796875,
+          "bottom": -11.109375,
+          "left": 233.59375
+        },
+        {
+          "text": "情侣爱心",
+          "x": 305.796875,
+          "y": -93.109375,
+          "width": 67.1875,
+          "height": 82,
+          "top": -93.109375,
+          "right": 372.984375,
+          "bottom": -11.109375,
+          "left": 305.796875
+        },
+        {
+          "text": "单层",
+          "x": 21,
+          "y": 61.578125,
+          "width": 112,
+          "height": 44,
+          "top": 61.578125,
+          "right": 133,
+          "bottom": 105.578125,
+          "left": 21
+        },
+        {
+          "text": "双层",
+          "x": 139,
+          "y": 61.578125,
+          "width": 112,
+          "height": 44,
+          "top": 61.578125,
+          "right": 251,
+          "bottom": 105.578125,
+          "left": 139
+        },
+        {
+          "text": "三层",
+          "x": 257,
+          "y": 61.578125,
+          "width": 112,
+          "height": 44,
+          "top": 61.578125,
+          "right": 369,
+          "bottom": 105.578125,
+          "left": 257
+        },
+        {
+          "text": "整体",
+          "x": 21,
+          "y": 172.578125,
+          "width": 82.5,
+          "height": 44,
+          "top": 172.578125,
+          "right": 103.5,
+          "bottom": 216.578125,
+          "left": 21
+        },
+        {
+          "text": "第 1 层",
+          "x": 109.5,
+          "y": 172.578125,
+          "width": 82.5,
+          "height": 44,
+          "top": 172.578125,
+          "right": 192,
+          "bottom": 216.578125,
+          "left": 109.5
+        },
+        {
+          "text": "第 2 层",
+          "x": 198,
+          "y": 172.578125,
+          "width": 82.5,
+          "height": 44,
+          "top": 172.578125,
+          "right": 280.5,
+          "bottom": 216.578125,
+          "left": 198
+        },
+        {
+          "text": "第 3 层",
+          "x": 286.5,
+          "y": 172.578125,
+          "width": 82.5,
+          "height": 44,
+          "top": 172.578125,
+          "right": 369,
+          "bottom": 216.578125,
+          "left": 286.5
+        },
+        {
+          "text": "圆形",
+          "x": 21,
+          "y": 293.265625,
+          "width": 112,
+          "height": 44,
+          "top": 293.265625,
+          "right": 133,
+          "bottom": 337.265625,
+          "left": 21
+        },
+        {
+          "text": "方形",
+          "x": 139,
+          "y": 293.265625,
+          "width": 112,
+          "height": 44,
+          "top": 293.265625,
+          "right": 251,
+          "bottom": 337.265625,
+          "left": 139
+        },
+        {
+          "text": "爱心",
+          "x": 257,
+          "y": 293.265625,
+          "width": 112,
+          "height": 44,
+          "top": 293.265625,
+          "right": 369,
+          "bottom": 337.265625,
+          "left": 257
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 383.265625,
+          "width": 44,
+          "height": 44,
+          "top": 383.265625,
+          "right": 61,
+          "bottom": 427.265625,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 383.265625,
+          "width": 44,
+          "height": 44,
+          "top": 383.265625,
+          "right": 114,
+          "bottom": 427.265625,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 123,
+          "y": 383.265625,
+          "width": 44,
+          "height": 44,
+          "top": 383.265625,
+          "right": 167,
+          "bottom": 427.265625,
+          "left": 123
+        },
+        {
+          "text": "",
+          "x": 176,
+          "y": 383.265625,
+          "width": 44,
+          "height": 44,
+          "top": 383.265625,
+          "right": 220,
+          "bottom": 427.265625,
+          "left": 176
+        },
+        {
+          "text": "",
+          "x": 229,
+          "y": 383.265625,
+          "width": 44,
+          "height": 44,
+          "top": 383.265625,
+          "right": 273,
+          "bottom": 427.265625,
+          "left": 229
+        },
+        {
+          "text": "",
+          "x": 282,
+          "y": 383.265625,
+          "width": 44,
+          "height": 44,
+          "top": 383.265625,
+          "right": 326,
+          "bottom": 427.265625,
+          "left": 282
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 436.265625,
+          "width": 44,
+          "height": 44,
+          "top": 436.265625,
+          "right": 61,
+          "bottom": 480.265625,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 436.265625,
+          "width": 44,
+          "height": 44,
+          "top": 436.265625,
+          "right": 114,
+          "bottom": 480.265625,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 522.265625,
+          "width": 44,
+          "height": 44,
+          "top": 522.265625,
+          "right": 61,
+          "bottom": 566.265625,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 522.265625,
+          "width": 44,
+          "height": 44,
+          "top": 522.265625,
+          "right": 114,
+          "bottom": 566.265625,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 123,
+          "y": 522.265625,
+          "width": 44,
+          "height": 44,
+          "top": 522.265625,
+          "right": 167,
+          "bottom": 566.265625,
+          "left": 123
+        },
+        {
+          "text": "",
+          "x": 176,
+          "y": 522.265625,
+          "width": 44,
+          "height": 44,
+          "top": 522.265625,
+          "right": 220,
+          "bottom": 566.265625,
+          "left": 176
+        },
+        {
+          "text": "",
+          "x": 229,
+          "y": 522.265625,
+          "width": 44,
+          "height": 44,
+          "top": 522.265625,
+          "right": 273,
+          "bottom": 566.265625,
+          "left": 229
+        },
+        {
+          "text": "",
+          "x": 282,
+          "y": 522.265625,
+          "width": 44,
+          "height": 44,
+          "top": 522.265625,
+          "right": 326,
+          "bottom": 566.265625,
+          "left": 282
+        },
+        {
+          "text": "金色星星",
+          "x": 17,
+          "y": 661.265625,
+          "width": 74,
+          "height": 44,
+          "top": 661.265625,
+          "right": 91,
+          "bottom": 705.265625,
+          "left": 17
+        },
+        {
+          "text": "小草莓",
+          "x": 98,
+          "y": 661.265625,
+          "width": 62,
+          "height": 44,
+          "top": 661.265625,
+          "right": 160,
+          "bottom": 705.265625,
+          "left": 98
+        },
+        {
+          "text": "水晶糖",
+          "x": 167,
+          "y": 661.265625,
+          "width": 62,
+          "height": 44,
+          "top": 661.265625,
+          "right": 229,
+          "bottom": 705.265625,
+          "left": 167
+        },
+        {
+          "text": "小爱心",
+          "x": 236,
+          "y": 661.265625,
+          "width": 62,
+          "height": 44,
+          "top": 661.265625,
+          "right": 298,
+          "bottom": 705.265625,
+          "left": 236
+        },
+        {
+          "text": "不放糖饰",
+          "x": 17,
+          "y": 712.265625,
+          "width": 74,
+          "height": 44,
+          "top": 712.265625,
+          "right": 91,
+          "bottom": 756.265625,
+          "left": 17
+        },
+        {
+          "text": "恢复这一层默认搭配",
+          "x": 17,
+          "y": 773.265625,
+          "width": 356,
+          "height": 44,
+          "top": 773.265625,
+          "right": 373,
+          "bottom": 817.265625,
+          "left": 17
+        },
+        {
+          "text": "撤销",
+          "x": 17,
+          "y": 792,
+          "width": 52,
+          "height": 44,
+          "top": 792,
+          "right": 69,
+          "bottom": 836,
+          "left": 17
+        },
+        {
+          "text": "重做",
+          "x": 75,
+          "y": 792,
+          "width": 52,
+          "height": 44,
+          "top": 792,
+          "right": 127,
+          "bottom": 836,
+          "left": 75
+        },
+        {
+          "text": "完成",
+          "x": 275.59375,
+          "y": 792,
+          "width": 97.40625,
+          "height": 44,
+          "top": 792,
+          "right": 373,
+          "bottom": 836,
+          "left": 275.59375
+        }
+      ]
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "height": 667,
+      "scroll": 375,
+      "canvas": {
+        "x": 0,
+        "y": 12,
+        "width": 375,
+        "height": 326.84375,
+        "top": 12,
+        "right": 375,
+        "bottom": 338.84375,
+        "left": 0
+      },
+      "panel": {
+        "x": 0,
+        "y": 346.84375,
+        "width": 375,
+        "height": 320.15625,
+        "top": 346.84375,
+        "right": 375,
+        "bottom": 667,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "",
+          "x": 314,
+          "y": 353.84375,
+          "width": 44,
+          "height": 44,
+          "top": 353.84375,
+          "right": 358,
+          "bottom": 397.84375,
+          "left": 314
+        },
+        {
+          "text": "蛋糕",
+          "x": 17,
+          "y": 397.84375,
+          "width": 82.25,
+          "height": 44,
+          "top": 397.84375,
+          "right": 99.25,
+          "bottom": 441.84375,
+          "left": 17
+        },
+        {
+          "text": "星河",
+          "x": 103.25,
+          "y": 397.84375,
+          "width": 82.25,
+          "height": 44,
+          "top": 397.84375,
+          "right": 185.5,
+          "bottom": 441.84375,
+          "left": 103.25
+        },
+        {
+          "text": "祝福",
+          "x": 189.5,
+          "y": 397.84375,
+          "width": 82.25,
+          "height": 44,
+          "top": 397.84375,
+          "right": 271.75,
+          "bottom": 441.84375,
+          "left": 189.5
+        },
+        {
+          "text": "蜡烛",
+          "x": 275.75,
+          "y": 397.84375,
+          "width": 82.25,
+          "height": 44,
+          "top": 397.84375,
+          "right": 358,
+          "bottom": 441.84375,
+          "left": 275.75
+        },
+        {
+          "text": "分层预览",
+          "x": 17,
+          "y": 445.84375,
+          "width": 68,
+          "height": 44,
+          "top": 445.84375,
+          "right": 85,
+          "bottom": 489.84375,
+          "left": 17
+        },
+        {
+          "text": "合拢预览",
+          "x": 89,
+          "y": 445.84375,
+          "width": 68,
+          "height": 44,
+          "top": 445.84375,
+          "right": 157,
+          "bottom": 489.84375,
+          "left": 89
+        },
+        {
+          "text": "换一组灵感\n造型 · 层数 · 装饰",
+          "x": 17,
+          "y": -310.15625,
+          "width": 341,
+          "height": 44,
+          "top": -310.15625,
+          "right": 358,
+          "bottom": -266.15625,
+          "left": 17
+        },
+        {
+          "text": "星河蓝",
+          "x": 17,
+          "y": -228.15625,
+          "width": 64.1875,
+          "height": 82,
+          "top": -228.15625,
+          "right": 81.1875,
+          "bottom": -146.15625,
+          "left": 17
+        },
+        {
+          "text": "草莓粉",
+          "x": 86.1875,
+          "y": -228.15625,
+          "width": 64.203125,
+          "height": 82,
+          "top": -228.15625,
+          "right": 150.390625,
+          "bottom": -146.15625,
+          "left": 86.1875
+        },
+        {
+          "text": "奶油白",
+          "x": 155.390625,
+          "y": -228.15625,
+          "width": 64.203125,
+          "height": 82,
+          "top": -228.15625,
+          "right": 219.59375,
+          "bottom": -146.15625,
+          "left": 155.390625
+        },
+        {
+          "text": "紫色梦境",
+          "x": 224.59375,
+          "y": -228.15625,
+          "width": 64.203125,
+          "height": 82,
+          "top": -228.15625,
+          "right": 288.796875,
+          "bottom": -146.15625,
+          "left": 224.59375
+        },
+        {
+          "text": "情侣爱心",
+          "x": 293.796875,
+          "y": -228.15625,
+          "width": 64.1875,
+          "height": 82,
+          "top": -228.15625,
+          "right": 357.984375,
+          "bottom": -146.15625,
+          "left": 293.796875
+        },
+        {
+          "text": "单层",
+          "x": 21,
+          "y": -73.46875,
+          "width": 107,
+          "height": 44,
+          "top": -73.46875,
+          "right": 128,
+          "bottom": -29.46875,
+          "left": 21
+        },
+        {
+          "text": "双层",
+          "x": 134,
+          "y": -73.46875,
+          "width": 107,
+          "height": 44,
+          "top": -73.46875,
+          "right": 241,
+          "bottom": -29.46875,
+          "left": 134
+        },
+        {
+          "text": "三层",
+          "x": 247,
+          "y": -73.46875,
+          "width": 107,
+          "height": 44,
+          "top": -73.46875,
+          "right": 354,
+          "bottom": -29.46875,
+          "left": 247
+        },
+        {
+          "text": "整体",
+          "x": 21,
+          "y": 37.53125,
+          "width": 78.75,
+          "height": 44,
+          "top": 37.53125,
+          "right": 99.75,
+          "bottom": 81.53125,
+          "left": 21
+        },
+        {
+          "text": "第 1 层",
+          "x": 105.75,
+          "y": 37.53125,
+          "width": 78.75,
+          "height": 44,
+          "top": 37.53125,
+          "right": 184.5,
+          "bottom": 81.53125,
+          "left": 105.75
+        },
+        {
+          "text": "第 2 层",
+          "x": 190.5,
+          "y": 37.53125,
+          "width": 78.75,
+          "height": 44,
+          "top": 37.53125,
+          "right": 269.25,
+          "bottom": 81.53125,
+          "left": 190.5
+        },
+        {
+          "text": "第 3 层",
+          "x": 275.25,
+          "y": 37.53125,
+          "width": 78.75,
+          "height": 44,
+          "top": 37.53125,
+          "right": 354,
+          "bottom": 81.53125,
+          "left": 275.25
+        },
+        {
+          "text": "圆形",
+          "x": 21,
+          "y": 158.21875,
+          "width": 107,
+          "height": 44,
+          "top": 158.21875,
+          "right": 128,
+          "bottom": 202.21875,
+          "left": 21
+        },
+        {
+          "text": "方形",
+          "x": 134,
+          "y": 158.21875,
+          "width": 107,
+          "height": 44,
+          "top": 158.21875,
+          "right": 241,
+          "bottom": 202.21875,
+          "left": 134
+        },
+        {
+          "text": "爱心",
+          "x": 247,
+          "y": 158.21875,
+          "width": 107,
+          "height": 44,
+          "top": 158.21875,
+          "right": 354,
+          "bottom": 202.21875,
+          "left": 247
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 248.21875,
+          "width": 44,
+          "height": 44,
+          "top": 248.21875,
+          "right": 61,
+          "bottom": 292.21875,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 248.21875,
+          "width": 44,
+          "height": 44,
+          "top": 248.21875,
+          "right": 114,
+          "bottom": 292.21875,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 123,
+          "y": 248.21875,
+          "width": 44,
+          "height": 44,
+          "top": 248.21875,
+          "right": 167,
+          "bottom": 292.21875,
+          "left": 123
+        },
+        {
+          "text": "",
+          "x": 176,
+          "y": 248.21875,
+          "width": 44,
+          "height": 44,
+          "top": 248.21875,
+          "right": 220,
+          "bottom": 292.21875,
+          "left": 176
+        },
+        {
+          "text": "",
+          "x": 229,
+          "y": 248.21875,
+          "width": 44,
+          "height": 44,
+          "top": 248.21875,
+          "right": 273,
+          "bottom": 292.21875,
+          "left": 229
+        },
+        {
+          "text": "",
+          "x": 282,
+          "y": 248.21875,
+          "width": 44,
+          "height": 44,
+          "top": 248.21875,
+          "right": 326,
+          "bottom": 292.21875,
+          "left": 282
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 301.21875,
+          "width": 44,
+          "height": 44,
+          "top": 301.21875,
+          "right": 61,
+          "bottom": 345.21875,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 301.21875,
+          "width": 44,
+          "height": 44,
+          "top": 301.21875,
+          "right": 114,
+          "bottom": 345.21875,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 387.21875,
+          "width": 44,
+          "height": 44,
+          "top": 387.21875,
+          "right": 61,
+          "bottom": 431.21875,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 387.21875,
+          "width": 44,
+          "height": 44,
+          "top": 387.21875,
+          "right": 114,
+          "bottom": 431.21875,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 123,
+          "y": 387.21875,
+          "width": 44,
+          "height": 44,
+          "top": 387.21875,
+          "right": 167,
+          "bottom": 431.21875,
+          "left": 123
+        },
+        {
+          "text": "",
+          "x": 176,
+          "y": 387.21875,
+          "width": 44,
+          "height": 44,
+          "top": 387.21875,
+          "right": 220,
+          "bottom": 431.21875,
+          "left": 176
+        },
+        {
+          "text": "",
+          "x": 229,
+          "y": 387.21875,
+          "width": 44,
+          "height": 44,
+          "top": 387.21875,
+          "right": 273,
+          "bottom": 431.21875,
+          "left": 229
+        },
+        {
+          "text": "",
+          "x": 282,
+          "y": 387.21875,
+          "width": 44,
+          "height": 44,
+          "top": 387.21875,
+          "right": 326,
+          "bottom": 431.21875,
+          "left": 282
+        },
+        {
+          "text": "金色星星",
+          "x": 17,
+          "y": 526.21875,
+          "width": 74,
+          "height": 44,
+          "top": 526.21875,
+          "right": 91,
+          "bottom": 570.21875,
+          "left": 17
+        },
+        {
+          "text": "小草莓",
+          "x": 98,
+          "y": 526.21875,
+          "width": 62,
+          "height": 44,
+          "top": 526.21875,
+          "right": 160,
+          "bottom": 570.21875,
+          "left": 98
+        },
+        {
+          "text": "水晶糖",
+          "x": 167,
+          "y": 526.21875,
+          "width": 62,
+          "height": 44,
+          "top": 526.21875,
+          "right": 229,
+          "bottom": 570.21875,
+          "left": 167
+        },
+        {
+          "text": "小爱心",
+          "x": 236,
+          "y": 526.21875,
+          "width": 62,
+          "height": 44,
+          "top": 526.21875,
+          "right": 298,
+          "bottom": 570.21875,
+          "left": 236
+        },
+        {
+          "text": "不放糖饰",
+          "x": 17,
+          "y": 577.21875,
+          "width": 74,
+          "height": 44,
+          "top": 577.21875,
+          "right": 91,
+          "bottom": 621.21875,
+          "left": 17
+        },
+        {
+          "text": "恢复这一层默认搭配",
+          "x": 17,
+          "y": 638.21875,
+          "width": 341,
+          "height": 44,
+          "top": 638.21875,
+          "right": 358,
+          "bottom": 682.21875,
+          "left": 17
+        },
+        {
+          "text": "撤销",
+          "x": 17,
+          "y": 615,
+          "width": 52,
+          "height": 44,
+          "top": 615,
+          "right": 69,
+          "bottom": 659,
+          "left": 17
+        },
+        {
+          "text": "重做",
+          "x": 75,
+          "y": 615,
+          "width": 52,
+          "height": 44,
+          "top": 615,
+          "right": 127,
+          "bottom": 659,
+          "left": 75
+        },
+        {
+          "text": "完成",
+          "x": 260.59375,
+          "y": 615,
+          "width": 97.40625,
+          "height": 44,
+          "top": 615,
+          "right": 358,
+          "bottom": 659,
+          "left": 260.59375
+        }
+      ]
+    },
+    {
+      "label": "mobile-412",
+      "width": 412,
+      "height": 915,
+      "scroll": 412,
+      "canvas": {
+        "x": 0,
+        "y": 12,
+        "width": 412,
+        "height": 455.8125,
+        "top": 12,
+        "right": 412,
+        "bottom": 467.8125,
+        "left": 0
+      },
+      "panel": {
+        "x": 0,
+        "y": 475.8125,
+        "width": 412,
+        "height": 439.1875,
+        "top": 475.8125,
+        "right": 412,
+        "bottom": 915,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "",
+          "x": 351,
+          "y": 482.8125,
+          "width": 44,
+          "height": 44,
+          "top": 482.8125,
+          "right": 395,
+          "bottom": 526.8125,
+          "left": 351
+        },
+        {
+          "text": "蛋糕",
+          "x": 17,
+          "y": 526.8125,
+          "width": 91.5,
+          "height": 44,
+          "top": 526.8125,
+          "right": 108.5,
+          "bottom": 570.8125,
+          "left": 17
+        },
+        {
+          "text": "星河",
+          "x": 112.5,
+          "y": 526.8125,
+          "width": 91.5,
+          "height": 44,
+          "top": 526.8125,
+          "right": 204,
+          "bottom": 570.8125,
+          "left": 112.5
+        },
+        {
+          "text": "祝福",
+          "x": 208,
+          "y": 526.8125,
+          "width": 91.5,
+          "height": 44,
+          "top": 526.8125,
+          "right": 299.5,
+          "bottom": 570.8125,
+          "left": 208
+        },
+        {
+          "text": "蜡烛",
+          "x": 303.5,
+          "y": 526.8125,
+          "width": 91.5,
+          "height": 44,
+          "top": 526.8125,
+          "right": 395,
+          "bottom": 570.8125,
+          "left": 303.5
+        },
+        {
+          "text": "分层预览",
+          "x": 17,
+          "y": 574.8125,
+          "width": 68,
+          "height": 44,
+          "top": 574.8125,
+          "right": 85,
+          "bottom": 618.8125,
+          "left": 17
+        },
+        {
+          "text": "合拢预览",
+          "x": 89,
+          "y": 574.8125,
+          "width": 68,
+          "height": 44,
+          "top": 574.8125,
+          "right": 157,
+          "bottom": 618.8125,
+          "left": 89
+        },
+        {
+          "text": "换一组灵感\n造型 · 层数 · 装饰",
+          "x": 17,
+          "y": -68.1875,
+          "width": 378,
+          "height": 44,
+          "top": -68.1875,
+          "right": 395,
+          "bottom": -24.1875,
+          "left": 17
+        },
+        {
+          "text": "星河蓝",
+          "x": 17,
+          "y": 13.8125,
+          "width": 71.59375,
+          "height": 82,
+          "top": 13.8125,
+          "right": 88.59375,
+          "bottom": 95.8125,
+          "left": 17
+        },
+        {
+          "text": "草莓粉",
+          "x": 93.59375,
+          "y": 13.8125,
+          "width": 71.59375,
+          "height": 82,
+          "top": 13.8125,
+          "right": 165.1875,
+          "bottom": 95.8125,
+          "left": 93.59375
+        },
+        {
+          "text": "奶油白",
+          "x": 170.1875,
+          "y": 13.8125,
+          "width": 71.609375,
+          "height": 82,
+          "top": 13.8125,
+          "right": 241.796875,
+          "bottom": 95.8125,
+          "left": 170.1875
+        },
+        {
+          "text": "紫色梦境",
+          "x": 246.796875,
+          "y": 13.8125,
+          "width": 71.59375,
+          "height": 82,
+          "top": 13.8125,
+          "right": 318.390625,
+          "bottom": 95.8125,
+          "left": 246.796875
+        },
+        {
+          "text": "情侣爱心",
+          "x": 323.390625,
+          "y": 13.8125,
+          "width": 71.59375,
+          "height": 82,
+          "top": 13.8125,
+          "right": 394.984375,
+          "bottom": 95.8125,
+          "left": 323.390625
+        },
+        {
+          "text": "单层",
+          "x": 21,
+          "y": 168.5,
+          "width": 119.328125,
+          "height": 44,
+          "top": 168.5,
+          "right": 140.328125,
+          "bottom": 212.5,
+          "left": 21
+        },
+        {
+          "text": "双层",
+          "x": 146.328125,
+          "y": 168.5,
+          "width": 119.34375,
+          "height": 44,
+          "top": 168.5,
+          "right": 265.671875,
+          "bottom": 212.5,
+          "left": 146.328125
+        },
+        {
+          "text": "三层",
+          "x": 271.671875,
+          "y": 168.5,
+          "width": 119.328125,
+          "height": 44,
+          "top": 168.5,
+          "right": 391,
+          "bottom": 212.5,
+          "left": 271.671875
+        },
+        {
+          "text": "整体",
+          "x": 21,
+          "y": 279.5,
+          "width": 88,
+          "height": 44,
+          "top": 279.5,
+          "right": 109,
+          "bottom": 323.5,
+          "left": 21
+        },
+        {
+          "text": "第 1 层",
+          "x": 115,
+          "y": 279.5,
+          "width": 88,
+          "height": 44,
+          "top": 279.5,
+          "right": 203,
+          "bottom": 323.5,
+          "left": 115
+        },
+        {
+          "text": "第 2 层",
+          "x": 209,
+          "y": 279.5,
+          "width": 88,
+          "height": 44,
+          "top": 279.5,
+          "right": 297,
+          "bottom": 323.5,
+          "left": 209
+        },
+        {
+          "text": "第 3 层",
+          "x": 303,
+          "y": 279.5,
+          "width": 88,
+          "height": 44,
+          "top": 279.5,
+          "right": 391,
+          "bottom": 323.5,
+          "left": 303
+        },
+        {
+          "text": "圆形",
+          "x": 21,
+          "y": 400.1875,
+          "width": 119.328125,
+          "height": 44,
+          "top": 400.1875,
+          "right": 140.328125,
+          "bottom": 444.1875,
+          "left": 21
+        },
+        {
+          "text": "方形",
+          "x": 146.328125,
+          "y": 400.1875,
+          "width": 119.34375,
+          "height": 44,
+          "top": 400.1875,
+          "right": 265.671875,
+          "bottom": 444.1875,
+          "left": 146.328125
+        },
+        {
+          "text": "爱心",
+          "x": 271.671875,
+          "y": 400.1875,
+          "width": 119.328125,
+          "height": 44,
+          "top": 400.1875,
+          "right": 391,
+          "bottom": 444.1875,
+          "left": 271.671875
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 61,
+          "bottom": 534.1875,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 114,
+          "bottom": 534.1875,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 123,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 167,
+          "bottom": 534.1875,
+          "left": 123
+        },
+        {
+          "text": "",
+          "x": 176,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 220,
+          "bottom": 534.1875,
+          "left": 176
+        },
+        {
+          "text": "",
+          "x": 229,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 273,
+          "bottom": 534.1875,
+          "left": 229
+        },
+        {
+          "text": "",
+          "x": 282,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 326,
+          "bottom": 534.1875,
+          "left": 282
+        },
+        {
+          "text": "",
+          "x": 335,
+          "y": 490.1875,
+          "width": 44,
+          "height": 44,
+          "top": 490.1875,
+          "right": 379,
+          "bottom": 534.1875,
+          "left": 335
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 543.1875,
+          "width": 44,
+          "height": 44,
+          "top": 543.1875,
+          "right": 61,
+          "bottom": 587.1875,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 17,
+          "y": 629.1875,
+          "width": 44,
+          "height": 44,
+          "top": 629.1875,
+          "right": 61,
+          "bottom": 673.1875,
+          "left": 17
+        },
+        {
+          "text": "",
+          "x": 70,
+          "y": 629.1875,
+          "width": 44,
+          "height": 44,
+          "top": 629.1875,
+          "right": 114,
+          "bottom": 673.1875,
+          "left": 70
+        },
+        {
+          "text": "",
+          "x": 123,
+          "y": 629.1875,
+          "width": 44,
+          "height": 44,
+          "top": 629.1875,
+          "right": 167,
+          "bottom": 673.1875,
+          "left": 123
+        },
+        {
+          "text": "",
+          "x": 176,
+          "y": 629.1875,
+          "width": 44,
+          "height": 44,
+          "top": 629.1875,
+          "right": 220,
+          "bottom": 673.1875,
+          "left": 176
+        },
+        {
+          "text": "",
+          "x": 229,
+          "y": 629.1875,
+          "width": 44,
+          "height": 44,
+          "top": 629.1875,
+          "right": 273,
+          "bottom": 673.1875,
+          "left": 229
+        },
+        {
+          "text": "",
+          "x": 282,
+          "y": 629.1875,
+          "width": 44,
+          "height": 44,
+          "top": 629.1875,
+          "right": 326,
+          "bottom": 673.1875,
+          "left": 282
+        },
+        {
+          "text": "金色星星",
+          "x": 17,
+          "y": 715.1875,
+          "width": 74,
+          "height": 44,
+          "top": 715.1875,
+          "right": 91,
+          "bottom": 759.1875,
+          "left": 17
+        },
+        {
+          "text": "小草莓",
+          "x": 98,
+          "y": 715.1875,
+          "width": 62,
+          "height": 44,
+          "top": 715.1875,
+          "right": 160,
+          "bottom": 759.1875,
+          "left": 98
+        },
+        {
+          "text": "水晶糖",
+          "x": 167,
+          "y": 715.1875,
+          "width": 62,
+          "height": 44,
+          "top": 715.1875,
+          "right": 229,
+          "bottom": 759.1875,
+          "left": 167
+        },
+        {
+          "text": "小爱心",
+          "x": 236,
+          "y": 715.1875,
+          "width": 62,
+          "height": 44,
+          "top": 715.1875,
+          "right": 298,
+          "bottom": 759.1875,
+          "left": 236
+        },
+        {
+          "text": "不放糖饰",
+          "x": 305,
+          "y": 715.1875,
+          "width": 74,
+          "height": 44,
+          "top": 715.1875,
+          "right": 379,
+          "bottom": 759.1875,
+          "left": 305
+        },
+        {
+          "text": "恢复这一层默认搭配",
+          "x": 17,
+          "y": 776.1875,
+          "width": 378,
+          "height": 44,
+          "top": 776.1875,
+          "right": 395,
+          "bottom": 820.1875,
+          "left": 17
+        },
+        {
+          "text": "撤销",
+          "x": 17,
+          "y": 863,
+          "width": 52,
+          "height": 44,
+          "top": 863,
+          "right": 69,
+          "bottom": 907,
+          "left": 17
+        },
+        {
+          "text": "重做",
+          "x": 75,
+          "y": 863,
+          "width": 52,
+          "height": 44,
+          "top": 863,
+          "right": 127,
+          "bottom": 907,
+          "left": 75
+        },
+        {
+          "text": "完成",
+          "x": 297.59375,
+          "y": 863,
+          "width": 97.40625,
+          "height": 44,
+          "top": 863,
+          "right": 395,
+          "bottom": 907,
+          "left": 297.59375
+        }
+      ]
+    }
+  ],
+  "browser": "156.0.8078.80",
+  "lowBudget": {
+    "budget": {
+      "near": 150,
+      "far": 300,
+      "dust": 600,
+      "surface": 1000,
+      "orbitDust": 180,
+      "sparks": 64,
+      "burst": 120,
+      "dpr": 1
+    },
+    "points": 2774
+  }
+}

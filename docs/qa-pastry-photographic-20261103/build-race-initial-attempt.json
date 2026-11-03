@@ -1,0 +1,14 @@
+{
+  "testedAt": "2026-11-03T13:10:33.413Z",
+  "url": "http://localhost:4173/?qa=1",
+  "checks": {},
+  "errors": [],
+  "warnings": [],
+  "presets": [],
+  "transitions": [],
+  "resources": [],
+  "layouts": [],
+  "recordings": [],
+  "browser": "156.0.8078.80",
+  "failure": "page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://localhost:4173/?qa=1\nCall log:\n\u001b[2m  - navigating to \"http://localhost:4173/?qa=1\", waiting until \"load\"\u001b[22m\n\n    at enter (D:\\星河蛋糕\\xhdg\\galaxy-cake\\scripts\\verify-cake-switch.cjs:19:21)\n    at D:\\星河蛋糕\\xhdg\\galaxy-cake\\scripts\\verify-cake-switch.cjs:69:9"
+}

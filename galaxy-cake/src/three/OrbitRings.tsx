@@ -52,11 +52,12 @@ export function OrbitRings({engine}:{engine:ExperienceEngine}) {
   useFrame(()=>{
     group.current.visible=engine.motion.rings>.001;group.current.scale.setScalar(engine.motion.rings)
     halo.current.visible=engine.motion.rings>.1
-    halo.current.scale.setScalar(1+(engine.snapshot.reduced?0:Math.sin(engine.time*1.2)*.006))
+    halo.current.scale.setScalar(engine.visualCake.topWidth*(1+(engine.snapshot.reduced?0:Math.sin(engine.time*1.2)*.004)))
+    halo.current.position.y=engine.visualCake.topSurface+(engine.visualCake.topIndex*.38+.36)*engine.motion.spread+.002
   })
   return <><group ref={group}>{configs.map((_,i)=><Orbit engine={engine} index={i} key={i}/>)}</group>
     <group ref={halo}>
-      <mesh position={[0,.565,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.367,.004,10,192]}/><meshBasicMaterial color={[2.2,.9,3.2]} toneMapped={false}/></mesh>
+      <mesh position={[0,0,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.367,.0025,10,192]}/><meshBasicMaterial color={[2.2,.9,3.2]} toneMapped={false}/></mesh>
 
     </group>
   </>

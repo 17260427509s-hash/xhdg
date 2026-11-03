@@ -3,7 +3,6 @@ import { useFrame } from '@react-three/fiber'
 import { BackSide, Mesh, NormalBlending, PointLight, ShaderMaterial, Vector3 } from 'three'
 import type { ExperienceEngine } from '../experience/engine'
 import { candleAnchors } from '../utils/candles'
-import { candleLift, candlePlacement } from '../utils/cakeAssembly'
 
 const vertexShader = /* glsl */ `
 varying vec3 vLocal;
@@ -68,10 +67,10 @@ void main(){
 }`
 
 /** A procedural density volume: its interior changes with the viewing angle. */
-function FlameVolume({engine,anchor}:{engine:ExperienceEngine;anchor:[number,number,number]}) {
+function FlameVolume({engine,index}:{engine:ExperienceEngine;index:number}) {
   const mesh=useRef<Mesh>(null!)
   const cameraLocal=useMemo(()=>new Vector3(),[])
-  const layers=engine.snapshot.config.cakeLayers,size=useMemo(()=>candlePlacement(engine.snapshot.config).scale,[layers])
+
   const material=useMemo(()=>new ShaderMaterial({
     transparent:true,depthWrite:false,side:BackSide,blending:NormalBlending,toneMapped:false,
     uniforms:{uCamera:{value:new Vector3()},uTime:{value:0},uPower:{value:0},uSteps:{value:40},uShake:{value:0}},
@@ -79,12 +78,13 @@ function FlameVolume({engine,anchor}:{engine:ExperienceEngine;anchor:[number,num
   }),[])
   useEffect(()=>()=>material.dispose(),[material])
   useFrame(({camera})=>{
+    const size=engine.visualCake.candle.scale,anchor=engine.visualCake.candle.anchors[index]
     const ignition=engine.motion.ignition*engine.motion.decorReveal
     const t=engine.snapshot.reduced?0:engine.time
     mesh.current.visible=ignition>.015
     const height=.76*size*(1+Math.sin(t*3.4)*.018+Math.min(engine.motion.energy-1,.8)*.12)*Math.max(ignition,.001)
     mesh.current.scale.set(1.04,height,1.04)
-    mesh.current.position.set(anchor[0],anchor[1]+height*.28+candleLift(engine.snapshot.config,engine.motion.spread),anchor[2])
+    mesh.current.position.set(anchor[0],anchor[1]+height*.28,anchor[2])
     mesh.current.updateWorldMatrix(true,false)
     camera.getWorldPosition(cameraLocal)
     mesh.current.worldToLocal(cameraLocal)
@@ -101,6 +101,6 @@ function FlameVolume({engine,anchor}:{engine:ExperienceEngine;anchor:[number,num
 
 export function Flame({engine}:{engine:ExperienceEngine}) {
   const config=engine.snapshot.config,anchors=useMemo(()=>candleAnchors(config),[config.age,config.candleType,config.cakeLayers]),light=useRef<PointLight>(null!)
-  useFrame(()=>{light.current.position.y=anchors[0][1]+.15+candleLift(config,engine.motion.spread);light.current.intensity=engine.motion.ignition*engine.motion.decorReveal*(.85+Math.sin((engine.snapshot.reduced?0:engine.time)*7.3)*.045)*engine.motion.energy*Math.sqrt(anchors.length);engine.stats.flames=engine.motion.ignition*engine.motion.decorReveal>.015?anchors.length:0})
-  return <>{anchors.map((anchor,i)=><FlameVolume key={i} engine={engine} anchor={anchor}/>)}<pointLight ref={light} position={[0,anchors[0][1]+.15,.04]} color="#ffc16e" distance={3.5} decay={2}/></>
+  useFrame(()=>{light.current.position.y=engine.visualCake.candle.anchors[0][1]+.15;light.current.intensity=engine.motion.ignition*engine.motion.decorReveal*(.85+Math.sin((engine.snapshot.reduced?0:engine.time)*7.3)*.045)*engine.motion.energy*Math.sqrt(anchors.length);engine.stats.flames=engine.motion.ignition*engine.motion.decorReveal>.015?anchors.length:0})
+  return <>{anchors.map((_,i)=><FlameVolume key={i} engine={engine} index={i}/>)}<pointLight ref={light} position={[0,anchors[0][1]+.15,.04]} color="#ffc16e" distance={3.5} decay={2}/></>
 }

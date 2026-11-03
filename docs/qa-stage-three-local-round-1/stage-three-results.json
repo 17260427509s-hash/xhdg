@@ -1,0 +1,75 @@
+{
+  "testedAt": "2026-11-03T15:39:53.464Z",
+  "url": "http://localhost:4173",
+  "backend": "unconfigured; no real cloud project",
+  "checks": {
+    "noAudioBeforeEnter": true,
+    "refreshRestoresDraft": true,
+    "realLocalAudioPlays": true,
+    "pauseAlsoPausesMusic": true,
+    "unconfiguredCloudDoesNotFakeShare": true,
+    "hdRendersAndRestoresCanvas": true,
+    "cardIsRealDownload": true,
+    "repeatedExportResourcesStable": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "exports": [
+    {
+      "file": "scene-hd.png",
+      "width": 3200,
+      "height": 2003,
+      "format": "png"
+    },
+    {
+      "file": "birthday-card.png",
+      "width": 1200,
+      "height": 1800,
+      "format": "png"
+    },
+    {
+      "file": "scene-repeat-1.png",
+      "width": 3200,
+      "height": 2003,
+      "format": "png"
+    },
+    {
+      "file": "scene-repeat-2.png",
+      "width": 3200,
+      "height": 2003,
+      "format": "png"
+    },
+    {
+      "file": "scene-repeat-3.png",
+      "width": 3200,
+      "height": 2003,
+      "format": "png"
+    }
+  ],
+  "layouts": [],
+  "resources": [
+    {
+      "geometries": 52,
+      "textures": 42
+    },
+    {
+      "geometries": 52,
+      "textures": 42
+    },
+    {
+      "geometries": 52,
+      "textures": 42
+    }
+  ],
+  "browser": "156.0.8078.80",
+  "audio": {
+    "paused": false,
+    "duration": 48,
+    "ready": 4,
+    "count": 1
+  },
+  "failure": "TypeError: Cannot read properties of undefined (reading 'config')\n    at D:\\星河蛋糕\\xhdg\\galaxy-cake\\scripts\\verify-stage-three.cjs:66:41"
+}

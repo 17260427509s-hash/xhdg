@@ -57,24 +57,37 @@ export const defaultConfig: BirthdayConfig = {
 }
 
 export function normalizeConfig(current: BirthdayConfig, patch: Partial<BirthdayConfig>): BirthdayConfig {
-  const next = { ...current, ...patch }
-  if (!['round', 'square', 'heart'].includes(next.cakeShape)) next.cakeShape = current.cakeShape
-  if (![1, 2, 3].includes(next.cakeLayers)) next.cakeLayers = current.cakeLayers
+  // Drafts and published records are untrusted JSON. Only copy known, typed fields.
+  const next:BirthdayConfig={...current,layerOverrides:{...current.layerOverrides}}
+  if(!patch||typeof patch!=='object'||Array.isArray(patch))return next
+  if(typeof patch.cakeStyle==='string'&&Object.hasOwn(cakePresets,patch.cakeStyle))next.cakeStyle=patch.cakeStyle
+  if(['round','square','heart'].includes(patch.cakeShape!))next.cakeShape=patch.cakeShape!
+  if([1,2,3].includes(patch.cakeLayers!))next.cakeLayers=patch.cakeLayers!
+  if(typeof patch.cakeColor==='string'&&/^#[0-9a-f]{6}$/i.test(patch.cakeColor))next.cakeColor=patch.cakeColor
+  for(const key of ['recipient','sender','message'] as const)if(typeof patch[key]==='string')next[key]=patch[key].slice(0,key==='message'?300:24)
+  if(typeof patch.birthday==='string'){
+    const date=new Date(patch.birthday)
+    if(patch.birthday===''||/^\d{4}-\d{2}-\d{2}$/.test(patch.birthday)&&Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===patch.birthday)next.birthday=patch.birthday
+  }
+  for(const key of ['flameEnabled','galaxyEnabled'] as const)if(typeof patch[key]==='boolean')next[key]=patch[key]
+  if(patch.candleType==='regular'||patch.candleType==='number')next.candleType=patch.candleType
+  if(typeof patch.galaxyTheme==='string'&&Object.hasOwn(galaxyThemes,patch.galaxyTheme))next.galaxyTheme=patch.galaxyTheme
+  if([.5,1,1.5].includes(patch.galaxySpeed!))next.galaxySpeed=patch.galaxySpeed!
+  if(typeof patch.age==='number')next.age=patch.age
+  if(typeof patch.galaxyCount==='number')next.galaxyCount=patch.galaxyCount
+  if(patch.layerOverrides&&typeof patch.layerOverrides==='object'&&!Array.isArray(patch.layerOverrides))next.layerOverrides=patch.layerOverrides
   next.age = Number.isFinite(next.age) ? Math.max(0, Math.min(120, Math.round(next.age))) : current.age
   next.galaxyCount = Number.isFinite(next.galaxyCount) ? Math.max(100, Math.min(600, Math.round(next.galaxyCount))) : current.galaxyCount
-  next.recipient = next.recipient.slice(0, 24)
-  next.sender = next.sender.slice(0, 24)
-  next.message = next.message.slice(0, 300)
   if (!/^#[0-9a-f]{6}$/i.test(next.cakeColor)) next.cakeColor = current.cakeColor
   const overrides: LayerOverrides = {}
   for (const i of [0, 1, 2] as const) {
     const source = next.layerOverrides[i]
-    if (!source || i >= next.cakeLayers) continue
+    if (!source || typeof source!=='object'||Array.isArray(source)|| i >= next.cakeLayers) continue
     const layer: Partial<LayerAppearance> = {}
     if (source.shape && ['round', 'square', 'heart'].includes(source.shape)) layer.shape = source.shape
     if (source.cakeColor && /^#[0-9a-f]{6}$/i.test(source.cakeColor)) layer.cakeColor = source.cakeColor
     if (source.creamColor && /^#[0-9a-f]{6}$/i.test(source.creamColor)) layer.creamColor = source.creamColor
-    if (source.decoration && (source.decoration === 'none' || source.decoration in cakePresets)) layer.decoration = source.decoration
+    if (typeof source.decoration==='string' && (source.decoration === 'none' || Object.hasOwn(cakePresets,source.decoration))) layer.decoration = source.decoration
     if (Object.keys(layer).length) overrides[i] = layer
   }
   next.layerOverrides = overrides

@@ -34,7 +34,7 @@ export function SettingsPanel({ section, onSection, onClose, engine, config }: {
     <div className="settings-tabs" role="tablist" aria-label="设置分类">{sections.map((item,index) => <button key={item.id} role="tab" tabIndex={section === item.id ? 0 : -1} id={`tab-${item.id}`} aria-controls="settings-content" aria-selected={section === item.id} onClick={() => onSection(item.id)} onKeyDown={e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=(index+(e.key==='ArrowRight'?1:3))%4;onSection(sections[next].id);e.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role=tab]')[next].focus()}}}>{item.label}</button>)}</div>
     {live?<div className="assembly-controls" aria-label="蛋糕预览方式"><button aria-pressed={engine.snapshot.expanded} onClick={()=>engine.setExpanded(true)}>分层预览</button><button aria-pressed={!engine.snapshot.expanded} onClick={()=>engine.setExpanded(false)}>合拢预览</button><span>可拖动旋转</span></div>:null}
     <div className="settings-scroll" role="tabpanel" id="settings-content" aria-labelledby={`tab-${section}`}>
-      <fieldset disabled={engine.snapshot.switching}>
+      <fieldset>
         {section === 'cake' ? <>
           <button className="inspiration-button" aria-label="换一组灵感" onClick={engine.randomizeCake}><Icon name="replay"/><span>换一组灵感</span><small>造型 · 层数 · 装饰</small></button>
           <div className="setting-field"><span>蛋糕款式</span><div className="cake-preset-grid">{(Object.entries(cakePresets) as [CakeStyle, typeof cakePresets[CakeStyle]][]).map(([id, preset]) => <button key={id} className={`cake-choice ${config.cakeStyle === id ? 'selected' : ''}`} aria-pressed={config.cakeStyle === id} onClick={() => engine.selectCake(id)}>

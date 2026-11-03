@@ -1,14 +1,18 @@
-# 星河生日蛋糕 · 第二阶段
+# 星河生日蛋糕 · 第三阶段本机版本
 
-2026-11-03 增加逐层定制及 40 步撤销／重做。可在编辑范围中选层，或点击场景中的糕体标签；同层的造型、糕体色、奶油色和糖饰独立变化。见 [layer-editor.md](../docs/layer-editor.md)，专项验收运行 `node scripts/verify-layer-editor.cjs`。
+2026-11-04 最新：草稿保存／恢复、原创音乐、高清实时 PNG、分享卡片及独立观看页已加入；云端接入代码和 RLS 迁移已准备，按用户安排稍后连接真实 Supabase。先读 [第三阶段与验收](../docs/stage-three.md)。
 
-最新增加参考视频式的分层编辑与组合切换，见 [assembly-editor.md](../docs/assembly-editor.md)。可拖动编辑中的部件预览，完成自动合拢；三种造型与一至三层可组合。“换一组灵感”一次改变款式／形状／层数。最新验收为 `qa-assembly*`，下方最初第二阶段验收保留为历史。
+2026-11-03 后续蛋糕近景精修：五瓣褶皱、连续滴边、蓝紫微表面、实体糖粒、薄金箔与蜡体旋纹，最新对照和证据见 [蛋糕视觉续修](../docs/pastry-photographic.md)。
+
+2026-11-03 最新修订移除全部三维部件标签，通过设置面板选层。五款采用不同几何与精细糖饰，合拢 650 ms／展开 750 ms 连续 morph 换款；保留逐层定制、40 步撤销／重做及许愿流程。见 [本轮实现与验收](../docs/cake-refinement.md)。
+
+最新增加参考视频式的分层编辑与组合切换，见 [assembly-editor.md](../docs/assembly-editor.md)。可拖动编辑中的部件预览，完成自动合拢；三种造型与一至三层可组合。“换一组灵感”一次改变款式／形状／层数。最新验收为 `qa-cake-refinement-final*`，下方最初第二阶段验收保留为历史。
 
 2026-11-02 按用户要求已实现第二阶段。最新状态以 [第二阶段记录](../docs/stage-two.md) 和 [接续说明](../docs/CONTINUE-HERE.md) 为准。当前是低矮五瓣奶油花，旧版连续螺旋裱花已经弃用。没有恢复 PCSS shader 注入，保留原生柔影与桌面 N8AO。
 
 独立的 React 19 + TypeScript + Vite + Three.js + R3F 9 + drei 应用。默认寿星“小雨”、单层蓝紫蛋糕、普通蜡烛。蛋糕、奶油、蜡烛、火焰、轨道、星空、光晕和庆祝粒子均实时生成；运行时不加载 `design/` 概念图或 `reference/` 视频。
 
-蓝紫糕体、连续滴落奶油、五瓣奶油花、糖珠、蜡烛和薄底盘采用柔光、原生柔影与桌面环境遮蔽。火焰为真实体积密度场，星砂与粒子为实时 GPU Points。最新证据见 [第二阶段记录](../docs/stage-two.md)，[概念图对照记录](../docs/concept-match.md) 保留为历史；功能通过与摄影级视觉一致性分开记录。
+蓝紫糕体、连续滴落奶油、五瓣奶油花、糖珠、蜡烛和薄底盘采用柔光、原生柔影与桌面环境遮蔽。火焰为真实体积密度场，星砂与粒子为实时 GPU Points。最新证据见 [蛋糕精修记录](../docs/cake-refinement.md)，[概念图对照记录](../docs/concept-match.md) 保留为历史；功能通过与摄影级视觉一致性分开记录。
 
 ## 本机运行
 
@@ -37,7 +41,8 @@ pnpm preview
 3. “暂停”冻结火焰、星轨及所有粒子，仍可手动查看；“继续”恢复。
 4. “重播”重置镜头和时间线。
 5. 底栏“蛋糕／星河／祝福／蜡烛”打开设置，修改立即生效：五款、颜色、星河主题／强度／速度、昵称／生日／年龄／发送人／祝福、普通或数字蜡烛、点燃或关闭火焰。手机使用底部抽屉。
-6. “开启生日惊喜”→“我许好愿了”→“吹灭蜡烛”。火焰摇摆熄灭、烟雾上升，随后播放约 7 秒高潮、三维中心爆发、四类彩纸、Happy Birthday 和定制祝福。“再看一次”重新开始并保留会话配置。刷新恢复默认，持久保存属第三阶段。
+6. 顶部音乐按钮控制原创配乐；“保存与分享”中保存草稿、打开本机只读预览、导出高清 PNG 与卡片。云端连接后可生成不可变观看快照并撤回。
+7. “开启生日惊喜”→“我许好愿了”→“吹灭蜡烛”。火焰摇摆熄灭、烟雾上升，随后播放约 7 秒高潮、三维中心爆发、四类彩纸、Happy Birthday 和定制祝福。“再看一次”重新开始并保留会话配置。刷新恢复本机草稿；本机草稿不跨设备同步。
 
 入场和高潮期间锁定冲突操作，暂停时先继续再开启惊喜。页面隐藏时冻结动画时钟；遵循减少动态效果偏好。WebGL 2 不可用或上下文丢失时显示说明及重试。
 
@@ -57,21 +62,24 @@ pnpm preview
 
 ## 浏览器验收
 
-最新结果见 [stage-two.md](../docs/stage-two.md)；首次实现的历史记录见 [acceptance-stage-1.md](../docs/acceptance-stage-1.md)。测试使用真实本机 Chrome，通过 Playwright 操作原生按钮、拖动与触摸。机器可通过 `NODE_PATH` 使用 Codex 自带 Playwright；其他机器请先在可用环境中安装 Playwright。
+最新结果见 [cake-refinement.md](../docs/cake-refinement.md)；首次实现的历史记录见 [acceptance-stage-1.md](../docs/acceptance-stage-1.md)。测试使用真实本机 Chrome，通过 Playwright 操作原生按钮、拖动与触摸。机器可通过 `NODE_PATH` 使用 Codex 自带 Playwright；其他机器请先在可用环境中安装 Playwright。
 
 ```powershell
 # 可选：安装验收脚本所需依赖（不写入项目锁文件）
 npm install --prefix ../.qa-tools --no-save playwright
 $env:NODE_PATH = (Resolve-Path ../.qa-tools/node_modules).Path
 # 安装 Chromium；Windows 上也可直接使用已安装的 Chrome
-& ../.qa-tools/node_modules/.bin/playwright install chromium
+& ../.qa-tools/node_modules/.bin/playwright install chromium ffmpeg
 # 在另一个终端保持 pnpm build / pnpm preview 运行
 node scripts/verify-browser.cjs
 node scripts/verify-stage-two.cjs
 node scripts/verify-assembly.cjs
+node scripts/verify-layer-editor.cjs
+node scripts/verify-stage-three.cjs
+node scripts/verify-cake-switch.cjs
 node scripts/concept-shots.cjs
 ```
 
-两份脚本均可配置 `CHROME_PATH`、`QA_URL`、`QA_OUTPUT`。详见 [换电脑接续说明](../docs/CONTINUE-HERE.md)。脚本保存实际浏览器截图及 `results.json`，检查五次重播、暂停与恢复、旋转、自动旋转冷却、小屏布局、触摸、低档及减少动态偏好。开发环境或 URL 带 `?qa=1` 时提供只读 `window.__GALAXY__` 验收信息。
+脚本均可配置 `CHROME_PATH`、`QA_URL`、`QA_OUTPUT`。详见 [换电脑接续说明](../docs/CONTINUE-HERE.md)。脚本保存实际浏览器截图及 `results.json`，检查五次重播、暂停与恢复、旋转、自动旋转冷却、小屏布局、触摸、低档及减少动态偏好。开发环境或 URL 带 `?qa=1` 时提供只读 `window.__GALAXY__` 验收信息。
 
-本阶段未加入音乐、持久保存、分享、截图导出或后端。手机模拟结果不能替代 iPhone／安卓真机测试。生产验收期间不要重新构建；使用不同的 `QA_OUTPUT` 保留历史证据。暂停冻结场景，主动编辑时换款／点燃过渡仍会完成。弹窗支持 Escape 和焦点限制，设置分类支持方向键。
+第三阶段本机实现及 Supabase 接入说明见 [stage-three.md](../docs/stage-three.md)；目前不连接真实云端，也不伪造可跨设备分享的 localhost 链接。手机模拟结果不能替代 iPhone／安卓真机测试。生产验收期间不要重新构建；使用不同的 `QA_OUTPUT` 保留历史证据。暂停冻结场景，主动编辑时换款／点燃过渡仍会完成。弹窗支持 Escape 和焦点限制，设置分类支持方向键。

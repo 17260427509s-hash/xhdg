@@ -1,0 +1,15 @@
+{
+  "testedAt": "2026-11-03T15:35:46.314Z",
+  "backend": "PGlite PostgreSQL, isolated in-memory database; Supabase auth.uid is emulated; not a live Supabase project",
+  "checks": {
+    "migrationApplies": true,
+    "ownerCreateAndRead": true,
+    "otherOwnerCannotListDeleteOrForge": true,
+    "publishedSnapshotImmutable": true,
+    "publicKnownIdReadWithoutListOrOwnerData": true,
+    "malformedPayloadsRejected": true,
+    "layerOverridesAccepted": true,
+    "ownerQuotaAndTimestampCannotBeBypassed": true,
+    "revokedLinkStopsReading": true
+  }
+}

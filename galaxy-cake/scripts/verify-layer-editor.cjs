@@ -24,12 +24,12 @@ async function enter(p, target = url) {
 }
 async function open(p) { await p.getByRole('button', { name: '蛋糕', exact: true }).click(); await settle(p) }
 async function click(p, name) { await p.getByRole('dialog').getByRole('button', { name, exact: true }).click(); await settle(p) }
-async function layer(p, n) { await p.getByRole('button', { name: `编辑第 ${n} 层`, exact: true }).click(); assert.equal((await state(p)).selectedLayer, n - 1); assert.equal((await state(p)).settings, 'cake') }
+async function layer(p, n) { await p.getByRole('tab', { name: '蛋糕', exact: true }).click(); await p.getByRole('group', { name: '编辑范围', exact: true }).getByRole('button', { name: `第 ${n} 层`, exact: true }).click(); assert.equal((await state(p)).selectedLayer, n - 1); assert.equal((await state(p)).settings, 'cake') }
 async function close(p) { await click(p, '完成'); await p.waitForTimeout(500); assert.equal((await state(p)).motion.spread, 0) }
 async function layout(p, label) {
   const b = await p.evaluate(() => ({ width: innerWidth, height: innerHeight, scroll: document.documentElement.scrollWidth,
     canvas: document.querySelector('canvas').getBoundingClientRect().toJSON(), panel: document.querySelector('dialog[open]').getBoundingClientRect().toJSON(),
-    buttons: [...document.querySelectorAll('dialog[open] button,.selectable-part-label button')].map(el => ({ text: el.innerText, ...el.getBoundingClientRect().toJSON() })) }))
+    buttons: [...document.querySelectorAll('dialog[open] button')].map(el => ({ text: el.innerText, ...el.getBoundingClientRect().toJSON() })) }))
   report.layouts.push({ label, ...b }); save()
   assert(b.scroll <= b.width)
   assert(b.panel.left >= 0 && b.panel.right <= b.width + .01 && b.panel.bottom <= b.height + .01)
@@ -55,7 +55,7 @@ async function config(p) { return (await state(p)).config }
   const designed = await config(p)
   await shot(p, 'desktop-mixed-layers')
   assert.equal((await state(p)).time, frozen)
-  report.checks.independentLayerAppearanceAnd3dSelection = true
+  report.checks.independentLayerAppearanceAndPanelSelection = true
   report.checks.editWhilePaused = true
   await click(p, '撤销'); assert.notEqual((await config(p)).layerOverrides[2].decoration, 'heart')
   await click(p, '重做'); assert.deepEqual(await config(p), designed)

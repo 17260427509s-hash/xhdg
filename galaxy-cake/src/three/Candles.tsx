@@ -1,7 +1,8 @@
-import { useEffect, useMemo } from 'react'
-import { CatmullRomCurve3, TubeGeometry, Vector3 } from 'three'
-import type { BirthdayConfig } from '../store/birthdayStore'
+import { useEffect, useMemo, useRef } from 'react'
+import { Group, LatheGeometry, Vector2 } from 'three'
 import { candlePlacement } from '../utils/cakeAssembly'
+import type { ExperienceEngine } from '../experience/engine'
+import { useFrame } from '@react-three/fiber'
 import { candleAnchors, digitGeometry } from '../utils/candles'
 
 function NumberCandle({ digit, x }: { digit: string; x: number }) {
@@ -17,23 +18,39 @@ function NumberCandle({ digit, x }: { digit: string; x: number }) {
 }
 
 function RegularCandle() {
-  const coil = useMemo(() => new TubeGeometry(new CatmullRomCurve3(Array.from({ length: 160 }, (_, i) => {
-    const t = i / 159
-    return new Vector3(Math.cos(t * Math.PI * 15) * .047, .605 + t * .78, Math.sin(t * Math.PI * 15) * .047)
-  })), 160, .006, 8, false), [])
-  useEffect(() => () => coil.dispose(), [coil])
+  const wax=useMemo(()=>{
+    const profile=[new Vector2(0,.597)]
+    for(let i=0;i<=192;i++){
+      const t=i/192,bevel=Math.min(1,t*65,(1-t)*65)
+      profile.push(new Vector2(.042+.004*Math.sin(Math.max(0,bevel)*Math.PI/2),.597+t*.797))
+    }
+    profile.push(new Vector2(.034,1.393),new Vector2(.02,1.382),new Vector2(0,1.382))
+    const g=new LatheGeometry(profile,96),p=g.getAttribute('position')
+    for(let i=0;i<p.count;i++){
+      const x=p.getX(i),y=p.getY(i),z=p.getZ(i),r=Math.hypot(x,z)
+      if(r>.04){
+        const phase=Math.atan2(z,x)-(y-.597)*54
+        const envelope=Math.min(1,(y-.597)*65,(1.394-y)*65)
+        const ridge=(.0038*Math.cos(phase)+.0008*Math.cos(phase*2))*Math.max(0,envelope)
+        p.setXYZ(i,x*(1+ridge/r),y,z*(1+ridge/r))
+      }
+    }
+    g.computeVertexNormals();return g
+  },[])
+  useEffect(() => () => wax.dispose(), [wax])
   return <>
-    <mesh castShadow position={[0, .994, 0]}><cylinderGeometry args={[.046, .05, .8, 48]}/><meshPhysicalMaterial color="#ffebcb" roughness={.4} sheen={.3}/></mesh>
-    <mesh geometry={coil}><meshStandardMaterial color="#ffebcb" roughness={.4}/></mesh>
+    <mesh castShadow geometry={wax}><meshPhysicalMaterial color="#ffe3ad" roughness={.29} sheen={.35} sheenColor="#ffd49a" specularIntensity={.45} clearcoat={.08}/></mesh>
     <mesh position={[0, .601, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[.073, .009, 12, 48]}/><meshStandardMaterial color="#c49242" metalness={.8} roughness={.25}/></mesh>
   </>
 }
 
-export function Candles({ config }: { config: BirthdayConfig }) {
+export function Candles({ engine }: { engine: ExperienceEngine }) {
+  const config=engine.snapshot.config,group=useRef<Group>(null!)
   const anchors = candleAnchors(config)
   const placement = candlePlacement(config)
-  return <>
-    <group position-y={placement.y} scale={placement.scale}>{config.candleType === 'regular' ? <RegularCandle/> : [...String(config.age)].map((digit, i) => <NumberCandle key={i} digit={digit} x={anchors[i][0] / placement.scale}/>)}</group>
-    {anchors.map(([x, y, z], i) => <mesh key={i} position={[x, y - .005, z]}><cylinderGeometry args={[.003, .005, .035, 10]}/><meshStandardMaterial color="#382016"/></mesh>)}
-  </>
+  useFrame(()=>{group.current.position.y=engine.visualCake.candle.y+engine.visualCake.candle.lift;group.current.scale.setScalar(engine.visualCake.candle.scale)})
+  return <group ref={group}>
+    <group>{config.candleType === 'regular' ? <RegularCandle/> : [...String(config.age)].map((digit, i) => <NumberCandle key={i} digit={digit} x={(i-(String(config.age).length-1)/2)*.51}/>)}</group>
+    {anchors.map(([x, y, z], i) => <mesh key={i} position={[x/placement.scale, (y-placement.y)/placement.scale-.005, z/placement.scale]}><cylinderGeometry args={[.003, .005, .035, 10]}/><meshStandardMaterial color="#382016"/></mesh>)}
+  </group>
 }

@@ -1,4 +1,6 @@
 import gsap from 'gsap'
+import { createVisualCake, partProgress, updateVisualCake, visualLayout } from '../utils/cakeTransition'
+import type { CakeTransition } from '../utils/cakeTransition'
 import { cakePresets, defaultConfig, normalizeConfig } from '../store/birthdayStore'
 import type { BirthdayConfig, CakeStyle, LayerAppearance, LayerSelection, SettingsSection } from '../store/birthdayStore'
 
@@ -25,6 +27,11 @@ export class ExperienceEngine {
   private timelineTime = 0
   private switchTimeline: gsap.core.Timeline | undefined
   private switchTime = 0
+  transition: CakeTransition | null = null
+  visualCake = createVisualCake()
+  private sourceLayout = visualLayout(defaultConfig)
+  private targetLayout = visualLayout(defaultConfig)
+  private queuedCake: { config: BirthdayConfig; record: boolean } | null = null
   private flameTimeline: gsap.core.Timeline | undefined
   private flameTime = 0
   private editorTimeline: gsap.core.Timeline | undefined
@@ -33,12 +40,18 @@ export class ExperienceEngine {
   private redoStack: BirthdayConfig[] = []
   private listeners = new Set<() => void>()
   private sample = { seconds: 0, frames: 0, slow: 0 }
-  constructor() {
+  readonly readOnly:boolean
+  captureScene:((longEdge:number)=>Promise<Blob>)|null=null
+  constructor(initialConfig:BirthdayConfig=defaultConfig,readOnly=false) {
+    this.readOnly=readOnly
     const mobile = window.matchMedia('(max-width: 700px)').matches
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const low = new URLSearchParams(location.search).get('quality') === 'low'
-    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: { ...defaultConfig }, wishConfirmed: false, switching: false, lighting: false, editing: false, expanded: true, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
+    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: normalizeConfig(defaultConfig,initialConfig), wishConfirmed: false, switching: false, lighting: false, editing: false, expanded: true, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
+    this.sourceLayout=this.targetLayout=visualLayout(this.snapshot.config)
+    this.refreshVisualCake()
   }
+  refreshVisualCake = () => { updateVisualCake(this.visualCake, this.sourceLayout, this.targetLayout, this.snapshot.config, partProgress(this.transition, 'body'), this.motion.spread) }
   subscribe = (fn: () => void) => { this.listeners.add(fn); return () => { this.listeners.delete(fn) } }
   getSnapshot = () => this.snapshot
   update(patch: Partial<typeof this.snapshot>) { this.snapshot = { ...this.snapshot, ...patch }; this.listeners.forEach(fn => fn()) }
@@ -48,7 +61,9 @@ export class ExperienceEngine {
     return { ...base, near, dust: Math.round(base.dust * (.45 + .55 * near / base.near)) }
   }
   configure = (patch: Partial<BirthdayConfig>) => {
-    if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
+    if(this.readOnly)return
+    if (!['intro', 'idle'].includes(this.snapshot.phase)) return
+    if (this.snapshot.switching) { this.changeCake(patch); return }
     if ((patch.cakeShape && patch.cakeShape !== this.snapshot.config.cakeShape) || (patch.cakeLayers && patch.cakeLayers !== this.snapshot.config.cakeLayers)) { this.changeCake(patch); return }
     this.commitConfig(patch)
   }
@@ -62,6 +77,9 @@ export class ExperienceEngine {
     }
     const selectedLayer = this.snapshot.selectedLayer
     this.update({ config, selectedLayer: selectedLayer !== 'all' && selectedLayer >= config.cakeLayers ? 'all' : selectedLayer, canUndo: this.undoStack.length > 0, canRedo: this.redoStack.length > 0 })
+    this.targetLayout = visualLayout(config)
+    if (!this.transition) this.sourceLayout = this.targetLayout
+    this.refreshVisualCake()
     if (previous.flameEnabled !== config.flameEnabled && this.snapshot.phase === 'idle') this.animateFlame(config.flameEnabled)
   }
   selectLayer = (selectedLayer: LayerSelection) => {
@@ -69,6 +87,7 @@ export class ExperienceEngine {
     this.update({ selectedLayer, settings: 'cake' })
   }
   openSettings = (settings: SettingsSection) => {
+    if(this.readOnly)return
     if (!['intro', 'idle'].includes(this.snapshot.phase)) return
     this.update({ settings })
     this.setEditing(true)
@@ -109,9 +128,9 @@ export class ExperienceEngine {
     this.changeCake(config, false)
   }
   selectCake = (style: CakeStyle) => {
-    if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase)) return
+    if (!['intro', 'idle'].includes(this.snapshot.phase)) return
     const preset = cakePresets[style]
-    const current = this.snapshot.config
+    const current = this.queuedCake?.config ?? this.snapshot.config
     if (current.cakeStyle === style && current.cakeColor === preset.color && current.cakeShape === preset.shape && current.cakeLayers === preset.layers && !Object.keys(current.layerOverrides).length) return
     this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: preset.shape, cakeLayers: preset.layers, layerOverrides: {} })
   }
@@ -121,22 +140,31 @@ export class ExperienceEngine {
     this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: (['round', 'square', 'heart'] as const)[Math.floor(Math.random() * 3)], cakeLayers: (this.snapshot.config.cakeLayers % 3 + 1) as 1 | 2 | 3, layerOverrides: {} })
   }
   private changeCake(patch: Partial<BirthdayConfig>, record = true) {
-    if (this.snapshot.switching || !['intro', 'idle'].includes(this.snapshot.phase)) return
-    const apply = () => this.commitConfig(patch, record)
-    if (this.snapshot.phase === 'intro') { apply(); return }
-    this.switchTimeline?.kill()
+    if(this.readOnly)return
+    if (!['intro', 'idle'].includes(this.snapshot.phase)) return
+    const config = normalizeConfig(this.queuedCake?.config ?? this.snapshot.config, patch)
+    if (this.snapshot.switching) { this.queuedCake = { config, record }; return }
+    if (JSON.stringify(config) === JSON.stringify(this.snapshot.config)) return
+    if (this.snapshot.phase === 'intro') { this.commitConfig(config, record); return }
+    const from = this.snapshot.config
+    this.transition = { from, to: config, progress: 0, mode: this.snapshot.editing && this.snapshot.expanded ? 'exploded' : 'assembled' }
+    this.sourceLayout = visualLayout(from)
+    this.targetLayout = visualLayout(config)
     this.switchTime = 0
     this.update({ switching: true })
-    const r = this.snapshot.reduced ? .25 : 1
-    // Keep the plate and galaxy visible: cream, ornaments and candles reassemble in order.
-    this.switchTimeline = gsap.timeline({ paused: true, onComplete: () => this.update({ switching: false }) })
-      .to(this.motion, { decorReveal: 0, duration: .18 * r }, 0)
-      .to(this.motion, { creamReveal: 0, duration: .18 * r }, .07 * r)
-      .to(this.motion, { cakeReveal: 0, duration: .17 * r, ease: 'power2.in' }, .14 * r)
-      .call(apply, [], .32 * r)
-      .to(this.motion, { cakeReveal: 1, duration: .27 * r, ease: 'power2.out' }, .32 * r)
-      .to(this.motion, { creamReveal: 1, duration: .3 * r, ease: 'power2.out' }, .41 * r)
-      .to(this.motion, { decorReveal: 1, duration: .3 * r, ease: 'power2.out' }, .51 * r)
+    this.commitConfig(config, record)
+    const duration = this.snapshot.reduced ? .18 : this.transition.mode === 'exploded' ? .75 : .65
+    this.switchTimeline?.kill()
+    this.switchTimeline = gsap.timeline({ paused: true, onComplete: () => {
+      this.transition = null
+      this.sourceLayout = this.targetLayout
+      const queued = this.queuedCake
+      this.queuedCake = null
+      if (queued && JSON.stringify(queued.config) !== JSON.stringify(this.snapshot.config)) {
+        this.update({ switching: false })
+        this.changeCake(queued.config, queued.record)
+      } else this.update({ switching: false })
+    } }).to(this.transition, { progress: 1, duration, ease: 'none' })
   }
   setEditing = (editing: boolean) => {
     if (this.snapshot.phase !== 'idle' || this.snapshot.editing === editing) return
@@ -218,6 +246,7 @@ export class ExperienceEngine {
     if (this.snapshot.switching) this.switchTimeline?.time(this.switchTime += dt, false)
     this.flameTimeline?.time(this.flameTime += dt, false)
     this.editorTimeline?.time(this.editorTime += dt, false)
+    this.refreshVisualCake()
     if (this.snapshot.paused) return
     this.time += dt; this.phaseTime += dt
     this.orbitTime += dt * this.motion.energy * this.snapshot.config.galaxySpeed * (this.snapshot.reduced ? .15 : 1)

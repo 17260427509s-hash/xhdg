@@ -4,8 +4,6 @@ import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Group, Shader
 import { colorArray, random } from '../utils/random'
 import type { ExperienceEngine } from '../experience/engine'
 import { galaxyThemes } from '../store/birthdayStore'
-import { candleAnchors } from '../utils/candles'
-import { candleLift } from '../utils/cakeAssembly'
 
 import { particleVertex as vertexShader, particleFragment as fragmentShader } from './shaders/particleShaders'
 
@@ -14,7 +12,6 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
   const group=useRef<Group>(null!), gl=useThree(s=>s.gl),size=useThree(s=>s.size)
   const mode={near:0,far:1,sparks:2,burst:3,dust:4}[layer]
   const theme=engine.snapshot.config.galaxyTheme
-  const config=engine.snapshot.config,anchors=useMemo(()=>candleAnchors(config),[config.age,config.candleType,config.cakeLayers])
   const geometry=useMemo(()=>{
     const rng=random(43+mode),p=new Float32Array(count*3),s=new Float32Array(count),seed=new Float32Array(count),velocity=new Float32Array(count*3)
     for(let i=0;i<count;i++) {
@@ -44,8 +41,8 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
     const gather=engine.snapshot.phase==='entering'?Math.max(0,Math.min(1,(engine.phaseTime-2.8)/.7)):1
     material.uniforms.uReveal.value=engine.motion.reveal
     material.uniforms.uGather.value=gather
-    material.uniforms.uCandleCount.value=anchors.length
-    for(let i=0;i<3;i++){material.uniforms.uCandles.value[i].fromArray(anchors[i%anchors.length]);material.uniforms.uCandles.value[i].y+=candleLift(config,engine.motion.spread)}
+    material.uniforms.uCandleCount.value=engine.visualCake.candle.count
+    for(let i=0;i<3;i++)material.uniforms.uCandles.value[i].fromArray(engine.visualCake.candle.anchors[i])
     material.uniforms.uOpacity.value=layer==='far'?.8:layer==='sparks'?engine.snapshot.phase==='entering'?Math.max(gather*.8,engine.motion.ignition):engine.motion.ignition:layer==='burst'?(engine.snapshot.reduced?.35:1):engine.snapshot.phase==='intro'?0:Math.min(engine.time*.7,1)
     material.uniforms.uAge.value=engine.snapshot.phase==='celebration'||engine.snapshot.phase==='message'?engine.phaseTime-1.7:-1
     if(layer==='near'||layer==='dust'||layer==='burst')material.uniforms.uOpacity.value*=Math.min(engine.motion.energy,1.6)

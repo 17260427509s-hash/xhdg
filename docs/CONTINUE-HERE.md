@@ -1,8 +1,20 @@
 # 换电脑继续：先读这里
 
+## 2026-11-04 第三阶段最新接续
+
+用户已授权第三阶段，并确认先完成代码和本机验收、稍后再接云端；完成后上传本仓库供另一台电脑继续。最新实现、证据、启动和可复现命令先读 [stage-three.md](stage-three.md)，再读 [独立 Supabase 接入](../galaxy-cake/supabase/README.md)。
+
+已加入草稿自动保存／刷新恢复、原创音乐、高清 PNG、分享卡片、制作与只读观看路由、Supabase SDK 与 RLS 脚本。当前没有真实云端项目或公网部署；不得把本机协议联调说成已上线。音频已在仓库，运行无需 Python。
+
+换电脑按原固定 pnpm 命令启动，`pnpm install --frozen-lockfile` 后 `pnpm dev`。本机无云端配置也可使用草稿、音乐、导出和预览。浏览器草稿及会话不上传 Git，不能靠克隆同步个人草稿。
+
+下方第二阶段记录保留历史，其中“第三阶段未实施”“刷新默认”等说明已被本节替代。五瓣奶油花、无模型标签、实时 3D 及已有换款仍要保留。
+
+2026-11-03 后续蛋糕近景精修：五瓣褶皱、连续滴边、蓝紫微表面、实体糖粒、薄金箔与蜡体旋纹，最新对照和证据见 [蛋糕视觉续修](pastry-photographic.md)。
+
 ## 2026-11-03 最新续作
 
-第二阶段继续完善为逐层定制：可点击展开场景中的糕体标签选层，独立改造型、糕体色、奶油色和糖饰；新增 40 步会话内撤销／重做，支持删层后恢复及火焰状态恢复。再次点击当前款式可恢复预设，连续改色复用材质纹理。最新实现、截图与验收见 [layer-editor.md](layer-editor.md) 及 `qa-layer-editor*`；下方 2026-11-02 内容保留为前一轮基线。
+已按确认方案移除全部三维部件标签和引线，通过设置面板选层；五款使用不同糕体、奶油边和实体糖饰。合拢约 650 ms、悬浮约 750 ms 原生 morph 连续换款，最新目标排队；暂停时主动编辑仍完成。逐层定制、40 步撤销／重做与许愿吹灭保留。最新实现、原尺寸截图、两种换款实录与验收见 [cake-refinement.md](cake-refinement.md) 及 `qa-cake-refinement-final*`。下方早期记录保留历史；旧文档里的“点击场景标签”已取消。
 
 更新日期：2026-11-02。仓库：https://github.com/17260427509s-hash/xhdg 。本次资料提交包含之前未推送的视觉精修、五瓣奶油花、第二阶段及最新分层编辑源码和截图。
 
@@ -35,20 +47,20 @@ pnpm dev
 ## 开始工作前阅读
 
 1. README.md、BRIEF.md、PLAN.md：现状、完整需求及历史第一阶段计划。
-2. docs/assembly-editor.md、docs/stage-two.md：最新实现和真实验收范围。
+2. docs/cake-refinement.md：本轮实现和真实验收；docs/layer-editor.md、docs/assembly-editor.md、docs/stage-two.md 为历史演进。
 3. design/README.md 与摄影级概念图：视觉基准；不能把概念图用作运行时替代。
 4. docs/reference-analysis.md 与 reference/13437993356281919.mp4：完整视频和原分析；本次用户已要求分层编辑，原分析里“不采用拆分编辑”的取舍已被更新。
-5. docs/qa-assembly、qa-assembly-stage-two、qa-assembly-regression：最新截图与数据。旧 qa-* 目录保留，不作为最新画面。
+5. docs/qa-cake-refinement-final*：最新截图、录屏与数据。旧 qa-* 目录保留，不作为最新画面。
 
 ## 代码入口
 
 - store/birthdayStore.ts：五款、形状、层数、主题、输入校验。
 - utils/cakeAssembly.ts：层级尺寸与高度、蜡烛安装点和编辑分离位移；utils/cakeShape.ts：圆／圆角方／爱心轮廓。
-- three/Cake.tsx、pastryGeometry.ts：独立糕体／奶油／糖饰／蜡烛组与五瓣奶油花。
+- three/Cake.tsx、pastryGeometry.ts、pastryMorph.ts、pastryMaterials.ts、cakeRecipes.ts：原生几何 morph、配方、精细材质与五瓣花；utils/cakeTransition.ts：共享层级及蜡烛姿态。
 - three/Flame.tsx、Particles.tsx、CandleGlow.tsx：火焰、火星、光池跟随当前层数和编辑位移。
-- experience/engine.ts：统一时钟和 GSAP 时间线，状态机、编辑展开合拢、部件错时换款、冲突操作守卫及性能分档。
+- experience/engine.ts：统一时钟和 GSAP 时间线，状态机、编辑展开合拢、连续换款队列、冲突操作守卫及性能分档。
 - components/SettingsPanel.tsx：观看时为可继续拖动场景的非模态设置，开场设置与许愿仍为模态；Escape 可关闭。
-- scripts/verify-browser.cjs、verify-stage-two.cjs、verify-assembly.cjs：真实浏览器回归。
+- scripts/verify-cake-switch.cjs、verify-layer-editor.cjs、verify-browser.cjs、verify-stage-two.cjs、verify-assembly.cjs：换款实录、面板选层与真实浏览器回归。
 
 ## 下一步与工作记录
 

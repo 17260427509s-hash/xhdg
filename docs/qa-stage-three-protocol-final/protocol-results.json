@@ -1,0 +1,49 @@
+{
+  "testedAt": "2026-11-03T16:33:02.369Z",
+  "url": "http://127.0.0.1:4174",
+  "backend": "Loopback Supabase HTTP protocol fixture with PGlite PostgreSQL/RLS; emulated identity; no real cloud account",
+  "checks": {
+    "publishThroughSdkAndOwnerRls": true,
+    "publishedLinkAndPublisherSessionSurviveReload": true,
+    "realShareCardQrDecodesToGiftLink": true,
+    "isolatedViewerLoadsDatabaseRecordWithoutPublisherIdentity": true,
+    "remoteViewerWishAndBlowoutWorks": true,
+    "publishedGiftDoesNotChangeWithLaterEdits": true,
+    "ownerRevocationStopsOtherBrowserReading": true,
+    "consoleNoErrors": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "browser": "156.0.8078.80",
+  "shareUrl": "https://gift.example.test/birthday/ac50364d-3f07-4765-a342-fb3e34e25901",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/auth/v1/signup"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/v1/birthday_gifts"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/v1/rpc/read_birthday_gift"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/v1/rpc/read_birthday_gift"
+    },
+    {
+      "method": "DELETE",
+      "path": "/rest/v1/birthday_gifts"
+    },
+    {
+      "method": "POST",
+      "path": "/rest/v1/rpc/read_birthday_gift"
+    }
+  ]
+}
