@@ -29,9 +29,9 @@ function RegularCandle() {
     for(let i=0;i<p.count;i++){
       const x=p.getX(i),y=p.getY(i),z=p.getZ(i),r=Math.hypot(x,z)
       if(r>.04){
-        const phase=Math.atan2(z,x)-(y-.597)*54
+        const phase=Math.atan2(z,x)*3-(y-.597)*54
         const envelope=Math.min(1,(y-.597)*65,(1.394-y)*65)
-        const ridge=(.0038*Math.cos(phase)+.0008*Math.cos(phase*2))*Math.max(0,envelope)
+        const ridge=(.0016*Math.cos(phase)+.0005*Math.cos(phase*2))*Math.max(0,envelope)
         p.setXYZ(i,x*(1+ridge/r),y,z*(1+ridge/r))
       }
     }

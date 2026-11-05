@@ -19,11 +19,11 @@ function smoothSeam(geometry: BufferGeometry, rows: number, columns: number) {
 export function frostingGeometry(style: CakeStyle = 'galaxy') {
   const edge = recipes[style].edge
   const rng = random(451), segments = 512
-  const drips = Array.from({ length: 15 }, (_, i) => {
-    const angle=(i+(rng()-.5)*.22)/15*Math.PI*2
-    const depth=.095+Math.pow(rng(),.8)*.205
+  const drips = Array.from({ length: 18 }, (_, i) => {
+    const angle=(i+(rng()-.5)*.38)/18*Math.PI*2
+    const depth=.09+Math.pow(rng(),.8)*.25
     // Deeper drops keep the same rounded tip curvature instead of becoming cones.
-    return {angle,depth,width:Math.sqrt(depth/50)*(.95+rng()*.1),lean:(rng()-.5)*.012}
+    return {angle,depth,width:.14+rng()*.04,lean:(rng()-.5)*.025}
   })
   const radius = [0, .3, .7, 1.05, 1.23, 1.32, 1.365, 1.388, 1.397, 1.399, 1.396, 1.389, 1.375, 1.358, 1.343, 1.338]
   const height = [.584, .587, .588, .586, .582, .575, .563, .548, .532, .518, .501, .489, .487, .497, .519, .54]
@@ -37,7 +37,7 @@ export function frostingGeometry(style: CakeStyle = 'galaxy') {
       let drip = 0, lean = 0
       for (const d of drips) {
         const delta = Math.atan2(Math.sin(angle - d.angle), Math.cos(angle - d.angle))
-        const influence = Math.exp(-.5*(delta/d.width)**2)
+        const influence = Math.abs(delta)<d.width?Math.pow(Math.max(0,.5+.5*Math.cos(Math.PI*delta/d.width)),.6):0
         drip += d.depth * influence
         lean += d.lean * influence * w
       }
@@ -62,18 +62,18 @@ export function frostingGeometry(style: CakeStyle = 'galaxy') {
   return geometry
 }
 
-/** One continuous piped blossom: five folded lobes, rounded crown, no stacked spiral. */
+/** Low five-petal blossom with fine folded nozzle ridges, without a stacked coil. */
 export function creamFlowerGeometry(detail = 1) {
   const vertices:number[]=[],uvs:number[]=[],indices:number[]=[]
   const rows=Math.round(64*detail),columns=Math.round(160*detail)
   for(let i=0;i<=rows;i++)for(let j=0;j<=columns;j++){
     const v=i/rows,angle=j/columns*Math.PI*2
-    const profile=.148*Math.pow(Math.sin(Math.PI*v),.55)*(1-.43*v)
-    const fold=angle*5-2.1*v
-    const lobes=1+.24*Math.cos(fold)+.038*Math.cos(fold*2)
+    const profile=.17*Math.pow(Math.sin(Math.PI*v),.49)*(1-.48*v)
+    const fold=angle*5-2.8*v
+    const lobes=1+.21*Math.cos(fold)+.055*Math.cos(fold*3)
     const radius=profile*lobes
-    const y=.008+.164*v
-    vertices.push(Math.cos(angle)*radius+.021*v*v,y,Math.sin(angle)*radius+.009*v*v)
+    const y=.008+.132*v
+    vertices.push(Math.cos(angle)*radius+.037*v*v,y,Math.sin(angle)*radius+.012*v*v)
     uvs.push(j/columns,v)
   }
   for(let i=0;i<rows;i++)for(let j=0;j<columns;j++){

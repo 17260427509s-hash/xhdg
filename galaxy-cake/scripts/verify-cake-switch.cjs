@@ -25,7 +25,7 @@ async function noLabels(p) {
   assert.equal(await p.locator('.cake-part-label,.selectable-part-label,[aria-label^="编辑第 "]').count(), 0)
   assert.equal(await p.locator('canvas').count(), 1)
 }
-async function open(p) { await p.getByRole('button', { name: '蛋糕', exact: true }).click(); await settle(p); await noLabels(p) }
+async function open(p) { await p.getByRole('button', { name: '蛋糕', exact: true }).click(); await settle(p); await noLabels(p); assert.equal((await state(p)).motion.spread, 0); assert.equal(await button(p, '分层预览').count(), 0); assert.equal(await button(p, '合拢预览').count(), 0) }
 async function choose(p, name) { await button(p, name).click(); await settle(p) }
 async function close(p) { await button(p, '完成').click(); await settle(p); await noLabels(p) }
 async function sampleSwitch(p, name, mode) {
@@ -71,13 +71,13 @@ let browser
   await shot(p, 'pastry-detail', { clip: { x: 565, y: 325, width: 460, height: 355 } })
   await open(p)
   const frozen = (await state(p)).time
-  await sampleSwitch(p, '紫色梦境', 'exploded'); assert.equal((await state(p)).time, frozen)
-  assert.equal((await state(p)).motion.spread, 1)
-  await shot(p, 'desktop-exploded')
-  await choose(p, '合拢预览'); await sampleSwitch(p, '草莓粉', 'assembled')
+  await sampleSwitch(p, '紫色梦境', 'assembled'); assert.equal((await state(p)).time, frozen)
+  assert.equal((await state(p)).motion.spread, 0)
+  await shot(p, 'desktop-editor')
+  await sampleSwitch(p, '草莓粉', 'assembled')
   assert.equal((await state(p)).motion.spread, 0)
   await shot(p, 'desktop-assembled-editor')
-  report.checks.twoModesContinuousWhilePaused = true
+  report.checks.assembledSwitchesContinuousWhilePaused = true
   for (let i = 0; i < presets.length; i++) {
     await choose(p, presets[i]); await close(p); await p.waitForTimeout(250)
     await noLabels(p); await shot(p, `preset-${['galaxy', 'strawberry', 'cream', 'purple', 'heart'][i]}`)
@@ -87,7 +87,7 @@ let browser
       await p.mouse.move(785, 570); await p.mouse.down(); await p.mouse.move(985, 585, { steps: 24 }); await p.mouse.up(); await p.waitForTimeout(600)
       await shot(p, `${i === 0 ? 'galaxy' : 'strawberry'}-oblique`)
     }
-    report.presets.push({ name: presets[i], config: (await state(p)).config }); await open(p); await choose(p, '合拢预览')
+    report.presets.push({ name: presets[i], config: (await state(p)).config }); await open(p)
   }
   report.checks.fiveDistinctPastryRecipesAndNoLabels = true
   await button(p, '紫色梦境').click({ force: true }); await button(p, '情侣爱心').click({ force: true }); await button(p, '草莓粉').click({ force: true }); await settle(p)
@@ -98,7 +98,7 @@ let browser
   await button(p, '紫色梦境').click(); await button(p, '完成').click(); await settle(p)
   assert.equal((await state(p)).editing, false); assert.equal((await state(p)).motion.spread, 0)
   assert.equal((await state(p)).config.cakeStyle, 'purple'); report.checks.finishDuringSwitch = true
-  await open(p); await choose(p, '合拢预览')
+  await open(p)
   for (let i = 0; i < 5; i++) {
     for (const preset of presets) await choose(p, preset)
     await p.waitForTimeout(500)
@@ -114,12 +114,12 @@ let browser
     const layout = await mobile.evaluate(() => ({ width: innerWidth, height: innerHeight, scroll: document.documentElement.scrollWidth, canvas: document.querySelector('canvas').getBoundingClientRect().toJSON(), panel: document.querySelector('dialog[open]').getBoundingClientRect().toJSON(), buttons: [...document.querySelectorAll('dialog[open] button')].map(b => b.getBoundingClientRect().toJSON()) }))
     assert(layout.scroll <= width); assert(layout.canvas.bottom <= layout.panel.top); assert(layout.panel.bottom <= height)
     assert(layout.buttons.every(b => b.width >= 44 && b.height >= 44)); report.layouts.push(layout)
-    await shot(mobile, `mobile-${width}-exploded`); await choose(mobile, '合拢预览'); await shot(mobile, `mobile-${width}-assembled-editor`)
+    await shot(mobile, `mobile-${width}-assembled-editor`)
     await close(mobile); await shot(mobile, `mobile-${width}`); await mobile.close()
   }
   report.checks.threePhoneLayouts = true
   const reduced = await browser.newPage({ viewport: { width: 1440, height: 900 } })
-  await reduced.emulateMedia({ reducedMotion: 'reduce' }); await enter(reduced); await open(reduced); await choose(reduced, '合拢预览')
+  await reduced.emulateMedia({ reducedMotion: 'reduce' }); await enter(reduced); await open(reduced)
   await sampleSwitch(reduced, '紫色梦境', 'assembled')
   const reducedFrames = report.transitions.at(-1).frames.filter(f => f.transition)
   assert(reducedFrames.at(-1).at - reducedFrames[0].at < 260, 'Reduced motion transition is brief')
@@ -127,12 +127,11 @@ let browser
   const low = await browser.newPage({ viewport: { width: 1440, height: 900 } })
   watch(low); await low.goto(url + '&quality=low'); await low.getByRole('button', { name: '开启星河', exact: true }).click()
   await low.waitForFunction(() => window.__GALAXY__?.phase === 'idle'); await low.waitForTimeout(800)
-  await open(low); await sampleSwitch(low, '紫色梦境', 'exploded')
+  await open(low); await sampleSwitch(low, '紫色梦境', 'assembled')
   assert.equal((await state(low)).stats.points, 2774); await low.close(); report.checks.lowTierSurfacePool = true
-  for (const mode of ['assembled', 'exploded']) {
+  for (const mode of ['assembled']) {
     const context = await browser.newContext({ viewport: { width: 1585, height: 992 }, recordVideo: { dir: out, size: { width: 1585, height: 992 } } })
     const page = await context.newPage(); await enter(page); await open(page)
-    if (mode === 'assembled') await choose(page, '合拢预览')
     for (const preset of presets.slice(1)) { await choose(page, preset); await page.waitForTimeout(500) }
     const video = page.video(); await context.close(); await video.saveAs(path.join(out, `switch-${mode}.webm`))
     fs.unlinkSync(await video.path()); report.recordings.push(`switch-${mode}.webm`); save()

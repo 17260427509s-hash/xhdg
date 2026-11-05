@@ -15,6 +15,8 @@ import { Candles } from './Candles'
 import { CakeDecorations } from './CakeDecorations'
 import { recipes } from './cakeRecipes'
 import { SidePiping } from './SidePiping'
+import { useTexture } from '@react-three/drei'
+import { SRGBColorSpace } from 'three'
 
 const noiseGLSL=`
 float hash3(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
@@ -22,16 +24,19 @@ float noise3(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(m
 float fbm(vec3 p){return noise3(p)*.55+noise3(p*2.03)*.27+noise3(p*4.1)*.13+noise3(p*8.2)*.05;}`
 
 function Plate(){
+  const map=useTexture('/textures/galaxy-icing.webp')
   const geometry=useMemo(()=>new LatheGeometry([new Vector2(0,-.647),new Vector2(1.59,-.647),new Vector2(1.76,-.616),new Vector2(1.835,-.581),new Vector2(1.846,-.565),new Vector2(1.825,-.555),new Vector2(1.75,-.561),new Vector2(1.5,-.565),new Vector2(0,-.565)],192),[])
   const material=useMemo(()=>{
-    const m=new MeshPhysicalMaterial({color:'white',roughness:.27,metalness:.3,clearcoat:.18,clearcoatRoughness:.28,specularIntensity:.45,envMapIntensity:.45})
+    map.colorSpace=SRGBColorSpace
+    const m=new MeshPhysicalMaterial({color:'white',roughness:.36,metalness:.12,clearcoat:.08,clearcoatRoughness:.34,specularIntensity:.25,envMapIntensity:.3})
     m.onBeforeCompile=shader=>{
+      shader.uniforms.uPlateMap={value:map}
       shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vPlatePos;').replace('#include <begin_vertex>','#include <begin_vertex>\nvPlatePos=position;')
-      shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>\nvarying vec3 vPlatePos;\n${noiseGLSL}`).replace('#include <color_fragment>',`#include <color_fragment>
- float n=fbm(vPlatePos*8.);diffuseColor.rgb=mix(vec3(.008,.006,.018),vec3(.032,.021,.065),n);`).replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+      shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>\nvarying vec3 vPlatePos;uniform sampler2D uPlateMap;\n${noiseGLSL}`).replace('#include <color_fragment>',`#include <color_fragment>
+ diffuseColor.rgb=texture2D(uPlateMap,vPlatePos.xz*.28+.5).rgb*.75;`).replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
  totalEmissiveRadiance+=vec3(.007,.004,.018)*fbm(vPlatePos*8.);`)
-    };m.customProgramCacheKey=()=> 'dark-glazed-porcelain-v2';return m
-  },[])
+    };m.customProgramCacheKey=()=> 'galaxy-glazed-porcelain-v3';return m
+  },[map])
   useEffect(()=>()=>{geometry.dispose();material.dispose()},[geometry,material])
   return <mesh receiveShadow geometry={geometry} material={material}/>
 }
@@ -58,7 +63,7 @@ function PastryMesh({engine,kind,from,to,index,material}:{engine:ExperienceEngin
     if(mesh.current.morphTargetInfluences)mesh.current.morphTargetInfluences[0]=t
     sourceColor.set(kind==='body'?a.cakeColor:a.creamColor);targetColor.set(kind==='body'?b.cakeColor:b.creamColor)
     material.color.copy(sourceColor).lerp(targetColor,t)
-    if(kind==='cream')material.color.multiplyScalar(.86)
+    if(kind==='cream')material.color.multiplyScalar(.96)
     if(kind==='body'){
       material.roughness=recipes[from.cakeStyle].bodyRoughness+(recipes[to.cakeStyle].bodyRoughness-recipes[from.cakeStyle].bodyRoughness)*t
       const source=from.cakeStyle==='galaxy'?1:0,target=to.cakeStyle==='galaxy'?1:0
@@ -75,7 +80,7 @@ function CakeLayer({engine,index,from,to,flower}:{engine:ExperienceEngine;index:
   return <>
     <CakePart engine={engine} index={index} kind="body">
       <PastryMesh engine={engine} kind="body" from={from} to={to} index={index} material={bodyMaterial}/>
-      <SidePiping engine={engine} index={index} from={from} to={to}/><PastryDetails {...detailProps} kind="foot"/><PastryDetails {...detailProps} kind="gold-body"/><PastryDetails {...detailProps} kind="sugar"/>
+      <SidePiping engine={engine} index={index} from={from} to={to}/><PastryDetails {...detailProps} kind="foot"/><PastryDetails {...detailProps} kind="gold-body"/><PastryDetails {...detailProps} kind="stars"/><PastryDetails {...detailProps} kind="sugar"/>
     </CakePart>
     <CakePart engine={engine} index={index} kind="cream">
       <PastryMesh engine={engine} kind="cream" from={from} to={to} index={index} material={creamMaterial}/>
@@ -112,7 +117,9 @@ export function Cake({engine}:{engine:ExperienceEngine}) {
   })
   return <group ref={group}>
     {[0,1,2].map(index=><CakeLayer key={index} engine={engine} index={index} from={from} to={to} flower={flower}/>)}
-    <StarSand engine={engine}/><Candles engine={engine}/><Plate/>
-    <mesh position={[0,-.559,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.834,.006,12,192]}/><meshStandardMaterial color="#ddb77b" metalness={.8} roughness={.24}/></mesh>
+    <StarSand engine={engine}/><Candles engine={engine}/>
+    <group scale={[1,1,.87]}><Plate/>
+      <mesh position={[0,-.559,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.834,.006,12,192]}/><meshStandardMaterial color="#edc785" metalness={.7} roughness={.22}/></mesh>
+    </group>
   </group>
 }

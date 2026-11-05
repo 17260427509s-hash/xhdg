@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "width": 1585,
+      "height": 992,
+      "previewButtonsRemoved": true,
+      "assembledWhileEditing": true,
+      "independentLayerColor": true,
+      "rotation": true,
+      "reopenStaysAssembled": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "previewButtonsRemoved": true,
+      "assembledWhileEditing": true,
+      "independentLayerColor": true,
+      "rotation": true,
+      "reopenStaysAssembled": true,
+      "noHorizontalOverflow": true
+    }
+  ],
+  "errors": []
+}

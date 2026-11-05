@@ -3,6 +3,7 @@ import { createVisualCake, partProgress, updateVisualCake, visualLayout } from '
 import type { CakeTransition } from '../utils/cakeTransition'
 import { cakePresets, defaultConfig, normalizeConfig } from '../store/birthdayStore'
 import type { BirthdayConfig, CakeStyle, LayerAppearance, LayerSelection, SettingsSection } from '../store/birthdayStore'
+import { GalaxyAppearance } from '../utils/galaxyAppearance'
 
 export type Phase = 'intro' | 'entering' | 'idle' | 'wishing' | 'blowout' | 'celebration' | 'message'
 export type Tier = 'desktop' | 'mobile' | 'low'
@@ -12,7 +13,7 @@ export const budgets = {
   low: { near: 150, far: 300, dust: 600, surface: 1000, orbitDust: 180, sparks: 64, burst: 120, dpr: 1 },
 } as const
 export class ExperienceEngine {
-  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; expanded: boolean; assembling: boolean; selectedLayer: LayerSelection; canUndo: boolean; canRedo: boolean; settings: SettingsSection | null }
+  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; assembling: boolean; selectedLayer: LayerSelection; canUndo: boolean; canRedo: boolean; settings: SettingsSection | null }
   time = 0
   phaseTime = 0
   orbitTime = 0
@@ -29,13 +30,12 @@ export class ExperienceEngine {
   private switchTime = 0
   transition: CakeTransition | null = null
   visualCake = createVisualCake()
+  readonly sky = new GalaxyAppearance()
   private sourceLayout = visualLayout(defaultConfig)
   private targetLayout = visualLayout(defaultConfig)
   private queuedCake: { config: BirthdayConfig; record: boolean } | null = null
   private flameTimeline: gsap.core.Timeline | undefined
   private flameTime = 0
-  private editorTimeline: gsap.core.Timeline | undefined
-  private editorTime = 0
   private undoStack: BirthdayConfig[] = []
   private redoStack: BirthdayConfig[] = []
   private listeners = new Set<() => void>()
@@ -47,9 +47,10 @@ export class ExperienceEngine {
     const mobile = window.matchMedia('(max-width: 700px)').matches
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const low = new URLSearchParams(location.search).get('quality') === 'low'
-    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: normalizeConfig(defaultConfig,initialConfig), wishConfirmed: false, switching: false, lighting: false, editing: false, expanded: true, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
+    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: normalizeConfig(defaultConfig,initialConfig), wishConfirmed: false, switching: false, lighting: false, editing: false, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
     this.sourceLayout=this.targetLayout=visualLayout(this.snapshot.config)
     this.refreshVisualCake()
+    this.sky.update(this.snapshot.config,null,this.visualCake,0,1,true)
   }
   refreshVisualCake = () => { updateVisualCake(this.visualCake, this.sourceLayout, this.targetLayout, this.snapshot.config, partProgress(this.transition, 'body'), this.motion.spread) }
   subscribe = (fn: () => void) => { this.listeners.add(fn); return () => { this.listeners.delete(fn) } }
@@ -147,7 +148,7 @@ export class ExperienceEngine {
     if (JSON.stringify(config) === JSON.stringify(this.snapshot.config)) return
     if (this.snapshot.phase === 'intro') { this.commitConfig(config, record); return }
     const from = this.snapshot.config
-    this.transition = { from, to: config, progress: 0, mode: this.snapshot.editing && this.snapshot.expanded ? 'exploded' : 'assembled' }
+    this.transition = { from, to: config, progress: 0, mode: 'assembled' }
     this.sourceLayout = visualLayout(from)
     this.targetLayout = visualLayout(config)
     this.switchTime = 0
@@ -168,18 +169,10 @@ export class ExperienceEngine {
   }
   setEditing = (editing: boolean) => {
     if (this.snapshot.phase !== 'idle' || this.snapshot.editing === editing) return
-    this.update({ editing, expanded: true })
-    this.animateAssembly(editing, editing)
-  }
-  setExpanded = (expanded: boolean) => {
-    if (!this.snapshot.editing) return
-    this.update({ expanded }); this.animateAssembly(expanded, true)
-  }
-  private animateAssembly(expanded: boolean, focus: boolean) {
-    this.editorTimeline?.kill(); this.editorTime = 0
-    this.update({ assembling: true })
-    this.editorTimeline = gsap.timeline({ paused: true, onComplete: () => this.update({ assembling: false }) })
-      .to(this.motion, { spread: expanded ? 1 : 0, editorFocus: focus ? 1 : 0, duration: this.snapshot.reduced ? .18 : .78, ease: 'power2.inOut' })
+    this.motion.spread=0
+    this.motion.editorFocus=0
+    this.update({ editing, assembling: false })
+    this.refreshVisualCake()
   }
   setFlame = (enabled: boolean) => {
     if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
@@ -245,8 +238,8 @@ export class ExperienceEngine {
     const dt = Math.min(delta, .06)
     if (this.snapshot.switching) this.switchTimeline?.time(this.switchTime += dt, false)
     this.flameTimeline?.time(this.flameTime += dt, false)
-    this.editorTimeline?.time(this.editorTime += dt, false)
     this.refreshVisualCake()
+    this.sky.update(this.snapshot.config,this.transition,this.visualCake,this.orbitTime,dt,this.snapshot.reduced)
     if (this.snapshot.paused) return
     this.time += dt; this.phaseTime += dt
     this.orbitTime += dt * this.motion.energy * this.snapshot.config.galaxySpeed * (this.snapshot.reduced ? .15 : 1)
@@ -265,5 +258,5 @@ export class ExperienceEngine {
       }
     }
   }
-  dispose() { this.timeline?.kill(); this.switchTimeline?.kill(); this.flameTimeline?.kill(); this.editorTimeline?.kill(); this.listeners.clear() }
+  dispose() { this.timeline?.kill(); this.switchTimeline?.kill(); this.flameTimeline?.kill(); this.listeners.clear() }
 }

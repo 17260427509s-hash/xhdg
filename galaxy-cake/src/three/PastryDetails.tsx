@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { BufferGeometry, Color, DoubleSide, Float32BufferAttribute, InstancedMesh, MeshPhysicalMaterial, Object3D } from 'three'
+import { BufferGeometry, Color, DoubleSide, ExtrudeGeometry, Float32BufferAttribute, InstancedMesh, MeshPhysicalMaterial, Object3D, Shape } from 'three'
 import type { CakeShape, CakeStyle } from '../store/birthdayStore'
 import type { ExperienceEngine } from '../experience/engine'
 import { cakeOutline } from '../utils/cakeShape'
@@ -8,8 +8,14 @@ import { partProgress } from '../utils/cakeTransition'
 import { random } from '../utils/random'
 import { recipes } from './cakeRecipes'
 
-type Detail = 'flowers' | 'foot' | 'pearls' | 'gold-body' | 'gold-top' | 'sugar'
-const capacity: Record<Detail, number> = { flowers: 10, foot: 84, pearls: 64, 'gold-body': 760, 'gold-top': 240, sugar:1200 }
+type Detail = 'flowers' | 'foot' | 'pearls' | 'gold-body' | 'gold-top' | 'sugar' | 'stars'
+const capacity: Record<Detail, number> = { flowers: 14, foot: 84, pearls: 64, 'gold-body': 760, 'gold-top': 240, sugar:1200, stars:13 }
+function emblemGeometry(){
+  const shape=new Shape()
+  for(let i=0;i<8;i++){const a=i/8*Math.PI*2,r=i%2?.28:1,x=Math.sin(a)*r,y=Math.cos(a)*r*(i%2?1:1.2);if(i===0)shape.moveTo(x,y);else shape.lineTo(x,y)}
+  shape.closePath()
+  return new ExtrudeGeometry(shape,{depth:.1,bevelEnabled:true,bevelSegments:3,bevelSize:.04,bevelThickness:.035,steps:1})
+}
 function foilGeometry(){
   const outline=[[-1,-.45],[-.6,.72],[.25,1],[.9,.42],[.7,-.68],[-.1,-.86]],positions:number[]=[]
   for(let i=0;i<outline.length;i++){
@@ -26,11 +32,15 @@ function layout(kind: Detail, shape: CakeShape, style: CakeStyle, cakeColor:stri
     const a = i % n / n * Math.PI * 2 + .12
     let turn=a+rng()*2
     let radius = 1.325, y = -.509, size = .025 + rng() * .016, color = '#eed8bd'
-    if (kind === 'flowers') { radius = recipe.flowerRadius+(rng()-.5)*.025; y = .586; size = i < n ? .85+rng()*.25 : 0; color = '#fff0df' }
+    if (kind === 'flowers') { radius = recipe.flowerRadius+(rng()-.5)*.035; y = .586; size = i < n ? .85+rng()*.25 : 0; color = '#fff0df' }
+    if(kind==='foot'){size=i%5===0?.05+rng()*.02:.016+rng()*.021;y=-.514+size*.4;color=['#ead6ab','#d0bded','#faf0dc','#a9bfe9','#c6a2ce'][i%5]}
     if (kind === 'pearls') {
       radius = n > 30 ? 1.316 : style === 'strawberry' ? 1.3 : 1.115
-      size = i < n ? (n > 30 ? .019 + rng() * .004 : style === 'strawberry' ? .018 : .035 + rng() * .012) : 0
+      size = i < n ? (n > 30 ? .019 + rng() * .004 : style === 'strawberry' ? .018 : .034 + rng() * .027) : 0
       y = .594 + size * .8; color = style === 'galaxy' ? ['#718dc6','#b481d5','#cca5ee','#b7cbe4'][i%4] : recipe.pearlColor
+    }
+    if(kind==='stars'){
+      radius=1.357;y=-.37+rng()*.59;size=style==='galaxy'?.035+Math.pow(rng(),1.4)*.06:0;turn=Math.atan2(Math.cos(a),Math.sin(a));color='#e9bb78'
     }
     if (kind.startsWith('gold')||kind==='sugar') {
       const angle = rng() * Math.PI * 2, top = kind === 'gold-top'
@@ -38,7 +48,7 @@ function layout(kind: Detail, shape: CakeShape, style: CakeStyle, cakeColor:stri
       const [x, z] = cakeOutline(angle, radius, shape)
       p.set([x, top ? .594 : -.47 + rng() * .84, z], i * 3)
       turn=top?rng()*Math.PI*2:Math.atan2(x,z)
-      size = kind==='sugar' ? .004+Math.pow(rng(),2)*.013 : .003 + Math.pow(rng(), 2) * .009
+      size = kind==='sugar' ? .002+Math.pow(rng(),2)*.005 : .002 + Math.pow(rng(), 2) * .007
       scale.set([size, size * (kind==='sugar'?.75+rng()*.5:1.1+rng()), size * (kind==='sugar'?.55:.3)], i * 3)
       color = i % 5 ? '#e0b368' : '#f6dfba'
     } else {
@@ -56,13 +66,13 @@ export function PastryDetails({ engine, index, kind, fromShape, toShape, fromSty
   engine: ExperienceEngine; index: number; kind: Detail; fromShape: CakeShape; toShape: CakeShape; fromStyle: CakeStyle; toStyle: CakeStyle; fromCakeColor:string; toCakeColor:string; flower?: BufferGeometry; creamMaterial?: MeshPhysicalMaterial
 }) {
   const mesh = useRef<InstancedMesh>(null!), dummy = useMemo(() => new Object3D(), []), color = useMemo(() => new Color(), [])
-  const foil=useMemo(()=>kind.startsWith('gold')?foilGeometry():undefined,[kind])
+  const foil=useMemo(()=>kind==='stars'?emblemGeometry():kind.startsWith('gold')?foilGeometry():undefined,[kind])
   useEffect(()=>()=>foil?.dispose(),[foil])
   const from = useMemo(() => layout(kind, fromShape, fromStyle,fromCakeColor), [kind, fromShape, fromStyle,fromCakeColor])
   const to = useMemo(() => layout(kind, toShape, toStyle,toCakeColor), [kind, toShape, toStyle,toCakeColor])
   const previous = useRef({ t: -1, from, to, count: -1 })
   useFrame(() => {
-    const part = kind === 'gold-body' || kind === 'sugar' || kind === 'foot' ? 'body' : kind === 'flowers' ? 'cream' : 'decor'
+    const part = kind === 'gold-body' || kind === 'sugar' || kind === 'foot' || kind==='stars' ? 'body' : kind === 'flowers' ? 'cream' : 'decor'
     const t = partProgress(engine.transition, part), max = capacity[kind]
     const total = engine.visualCake.tiers.reduce((sum, tier) => sum + tier.active, 0)
     const coverage=kind==='sugar'?(fromStyle==='galaxy'?1:.12)+((toStyle==='galaxy'?1:.12)-(fromStyle==='galaxy'?1:.12))*t:1
@@ -88,6 +98,6 @@ export function PastryDetails({ engine, index, kind, fromShape, toShape, fromSty
   useLayoutEffect(() => { previous.current.t = -1 }, [from, to, flower])
   return <instancedMesh ref={mesh} args={[flower??foil, creamMaterial, capacity[kind]]} castShadow={kind === 'flowers'} receiveShadow={kind === 'flowers'} frustumCulled={false}>
     {!flower&&!foil ? kind==='sugar'?<icosahedronGeometry args={[1,1]}/>:<sphereGeometry args={[1, 24, 16]}/> : null}
-    {!creamMaterial ? <meshPhysicalMaterial roughness={kind==='sugar'?.64:kind.startsWith('gold') ? .38 : .22} metalness={kind==='sugar'?0:kind.startsWith('gold') ? .5 : .08} clearcoat={kind==='sugar'?0:kind.startsWith('gold') ? .1 : .75} envMapIntensity={kind==='sugar'?.6:1.6} side={DoubleSide}/> : null}
+    {!creamMaterial ? <meshPhysicalMaterial roughness={kind==='sugar'?.64:kind.startsWith('gold')||kind==='stars' ? .3 : .18} metalness={kind==='sugar'?0:kind.startsWith('gold')||kind==='stars' ? .7 : .12} clearcoat={kind==='sugar'?0:kind.startsWith('gold') ? .1 : .75} envMapIntensity={kind==='sugar'?.6:1.6} side={DoubleSide}/> : null}
   </instancedMesh>
 }

@@ -1,0 +1,133 @@
+{
+  "testedAt": "2026-11-05T01:44:03.445Z",
+  "url": "http://localhost:4173",
+  "checks": {
+    "pageIdentityAndRendering": true,
+    "backgroundActuallyMoves": true,
+    "pauseFreezesRenderedBackground": true,
+    "presetChangesBackgroundPixels": true,
+    "customColorChangesBackgroundPixels": true,
+    "neutralColorDesaturatesSky": true,
+    "layerColorsAndUndoRedoFollowWhilePaused": true,
+    "recolorDoesNotAllocateTextures": true,
+    "resumeRestartsSky": true,
+    "draftRestoresSkyColor": true,
+    "hdIncludesColoredSkyAndRestoresState": true,
+    "mobileFullPageMotionColorAndNoSeams": true,
+    "reducedMotionDisablesDrift": true,
+    "lowBudgetUnchanged": true,
+    "realMotionRecording": true,
+    "noRuntimeErrors": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero",
+    "THREE.WebGLProgram: Program Info Log: (221,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero"
+  ],
+  "colors": {
+    "blue": [
+      36.836630769230766,
+      31.8868,
+      53.41969230769231
+    ],
+    "pink": [
+      56.30778461538461,
+      30.581107692307693,
+      28.669461538461537
+    ],
+    "teal": [
+      20.790292307692308,
+      39.83610769230769,
+      47.89567692307692
+    ],
+    "neutral": [
+      38.573446153846156,
+      35.34755384615384,
+      34.22226153846154
+    ]
+  },
+  "layouts": [
+    {
+      "width": 390,
+      "height": 844,
+      "seamError": 2.728627450980392
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "seamError": 5.3882352941176475
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "seamError": 2.8811204481792716
+    }
+  ],
+  "resources": [
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    },
+    {
+      "geometries": 77,
+      "textures": 55
+    }
+  ],
+  "browser": "155.0.8059.39",
+  "motionDifference": 14.398102564102564,
+  "export": {
+    "width": 3200,
+    "height": 2003,
+    "sky": {
+      "hue": 1.1092636028103047,
+      "saturation": 0.7015504187009928,
+      "time": 5.433699999999951,
+      "panX": 0.008455904143043792,
+      "panY": -0.0005898633434694966,
+      "rotation": 0.0023553977551316117,
+      "zoom": 1.0566013855898717,
+      "color": "#b274b1"
+    }
+  }
+}

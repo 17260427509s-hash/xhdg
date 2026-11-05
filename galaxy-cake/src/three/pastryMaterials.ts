@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react'
-import { DataTexture, LinearFilter, LinearMipmapLinearFilter, MeshPhysicalMaterial, RepeatWrapping, RGBAFormat } from 'three'
+import { DataTexture, LinearFilter, LinearMipmapLinearFilter, MeshPhysicalMaterial, RepeatWrapping, RGBAFormat, SRGBColorSpace } from 'three'
+import { useTexture } from '@react-three/drei'
 import { random } from '../utils/random'
 
 function pastryTexture(cream: boolean) {
@@ -23,12 +24,14 @@ function pastryTexture(cream: boolean) {
 }
 
 export function usePastryMaterial(cream: boolean) {
+  const galaxyMap=useTexture('/textures/galaxy-icing.webp')
   const material = useMemo(() => {
+    galaxyMap.colorSpace=SRGBColorSpace;galaxyMap.wrapS=RepeatWrapping;galaxyMap.anisotropy=8
     const bump = pastryTexture(cream)
-    const mat = new MeshPhysicalMaterial({ color: 'white', roughness: cream ? .28 : .57, metalness: 0,
-      bumpMap: bump, bumpScale: cream ? .025 : .12, clearcoat: cream ? .12 : .025,
-      clearcoatRoughness: .4, sheen: cream ? .3 : .08, sheenColor: '#fff0df', sheenRoughness: .65,
-      specularIntensity: cream ? .48 : .26, envMapIntensity: cream ? 1.05 : .55 })
+    const mat = new MeshPhysicalMaterial({ color: 'white', roughness: cream ? .22 : .57, metalness: 0,
+      bumpMap: bump, bumpScale: cream ? .004 : .035, clearcoat: cream ? .5 : .06,
+      clearcoatRoughness: cream?.18:.4, sheen: cream ? .3 : .08, sheenColor: '#fff0df', sheenRoughness: .65,
+      specularIntensity: cream ? .8 : .32, envMapIntensity: cream ? 1.1 : .65 })
     const nebula={value:0}
     mat.userData.nebula=nebula
     if (cream) {
@@ -47,18 +50,24 @@ export function usePastryMaterial(cream: boolean) {
     }
     if(!cream)mat.onBeforeCompile=shader=>{
       shader.uniforms.uPastryNebula=nebula
-      shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vPastryPosition;').replace('#include <morphtarget_vertex>','#include <morphtarget_vertex>\nvPastryPosition=transformed;')
+      shader.uniforms.uGalaxyMap={value:galaxyMap}
+      shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vPastryPosition;varying vec2 vPastryUv;').replace('#include <morphtarget_vertex>','#include <morphtarget_vertex>\nvPastryPosition=transformed;vPastryUv=uv;')
       shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
         varying vec3 vPastryPosition;
+        varying vec2 vPastryUv;
+        uniform sampler2D uGalaxyMap;
         uniform float uPastryNebula;
         float pastryHash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
         float pastryNoise(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(pastryHash(i),pastryHash(i+vec3(1,0,0)),f.x),mix(pastryHash(i+vec3(0,1,0)),pastryHash(i+vec3(1,1,0)),f.x),f.y),mix(mix(pastryHash(i+vec3(0,0,1)),pastryHash(i+vec3(1,0,1)),f.x),mix(pastryHash(i+vec3(0,1,1)),pastryHash(i+vec3(1,1,1)),f.x),f.y),f.z);}
       `).replace('#include <color_fragment>',`#include <color_fragment>
         float pastryFootprint=max(length(dFdx(vPastryPosition)),length(dFdy(vPastryPosition)))*55.;
         float pastryPore=pastryNoise(vPastryPosition*55.);
-        float pastryCloud=pastryNoise(vPastryPosition*2.7+vec3(pastryNoise(vPastryPosition*5.4)*.8));
-        vec3 pastryInk=mix(vec3(.16,.24,.46),vec3(1.18,.85,1.29),smoothstep(.22,.76,pastryCloud));
-        diffuseColor.rgb*=mix(vec3(1.),pastryInk,uPastryNebula);
+        // Four metres of circumference must not stretch a two-to-one texture
+        // into horizontal stripes. Keep nebula features near their texel aspect.
+        float pastryU=abs(fract(vPastryUv.x*2.+.115)*2.-1.);
+        vec3 pastryInk=texture2D(uGalaxyMap,vec2(pastryU,vPastryUv.y*.9+.05)).rgb;
+        vec3 pastryTint=clamp(diffuseColor.rgb/vec3(.0467,.0529,.287),vec3(.12),vec3(5.));
+        diffuseColor.rgb=mix(diffuseColor.rgb,pastryInk*pastryTint*1.65,uPastryNebula);
         diffuseColor.rgb*=1.+(pastryPore-.5)*.14*(1.-smoothstep(.65,1.3,pastryFootprint));
       `).replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
         float pastryMicro=pastryNoise(vPastryPosition*125.);
@@ -69,9 +78,9 @@ export function usePastryMaterial(cream: boolean) {
         roughnessFactor*=.93+pastryPore*.14;
       `)
     }
-    mat.customProgramCacheKey = () => cream ? 'soft-cream-v7' : 'satin-buttercream-v8'
+    mat.customProgramCacheKey = () => cream ? 'soft-cream-v8' : 'photographic-galaxy-icing-v1'
     return mat
-  }, [cream])
+  }, [cream,galaxyMap])
   useEffect(() => () => { material.bumpMap?.dispose(); material.dispose() }, [material])
   return material
 }

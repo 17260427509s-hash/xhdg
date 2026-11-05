@@ -15,13 +15,14 @@ import { Atmosphere } from './Atmosphere'
 import { CandleGlow } from './CandleGlow'
 import { SmokeParticles } from './SmokeParticles'
 import { ConfettiExplosion } from './ConfettiExplosion'
+import { GalaxyBackdrop } from './GalaxyBackdrop'
 
 function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onLost:()=>void}) {
   const controls=useRef<ElementRef<typeof OrbitControls>>(null!),lastReset=useRef(-1),lastPhase=useRef<Phase>('intro'),celebrationCamera=useMemo(()=>new Vector3(),[]),focusY=useRef(0),focusZoom=useRef(1)
   const {camera,size,gl,scene}=useThree(),mobile=size.width<700
   const introBackground=useMemo(()=>new Color('#050507'),[])
   const litBackground=useMemo(()=>new Color('#050507'),[])
-  const distance=mobile?3.3/(Math.tan(20*Math.PI/180)*(size.width/size.height)):9.2
+  const distance=mobile?3.3/(Math.tan(20*Math.PI/180)*(size.width/size.height)):8.2
   const target=useMemo(()=>new Vector3(0,mobile?.42:-.08,0),[mobile])
   const budget=engine.getBudget()
   const composer=useRef<Composer>(null!)
@@ -69,7 +70,7 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
     document.documentElement.style.setProperty('--message',String(engine.motion.messageReveal))
     if(lastReset.current!==engine.resetId){
       focusY.current=0;focusZoom.current=1
-      camera.position.set(0,target.y+distance*.3,distance*.954)
+      camera.position.set(0,target.y+distance*.27,distance*.963)
       controls.current.target.copy(target);controls.current.update();lastReset.current=engine.resetId
     }
     const focus=engine.motion.editorFocus*(.78+(engine.snapshot.config.cakeLayers-1)*.23)
@@ -95,14 +96,17 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
   const active=phase==='idle'||phase==='message'
   return <>
     <color attach="background" args={['#050507']}/>
-    <Environment resolution={tier==='desktop'?256:128} frames={1} environmentIntensity={.72}>
+    <GalaxyBackdrop engine={engine}/>
+    <Environment resolution={tier==='desktop'?256:128} frames={1} environmentIntensity={.8}>
       <Lightformer form="rect" intensity={2} color="#e0e8ff" position={[-3,4,4]} target={[0,0,0]} scale={4}/>
       <Lightformer form="rect" intensity={1.5} color="#bca0ff" position={[4,2,-3]} target={[0,0,0]} scale={3}/>
       <Lightformer form="circle" intensity={.8} color="#ffd8ad" position={[0,5,1]} target={[0,0,0]} scale={3}/>
+      <Lightformer form="rect" intensity={3} color="#fff5e8" position={[2,4,5]} target={[0,0,0]} scale={[1.5,3,1]}/>
+      <Lightformer form="rect" intensity={1.6} color="#fff5eb" position={[0,1,6]} target={[0,0,0]} scale={[7,5,1]}/>
     </Environment>
-    <ambientLight intensity={.13} color="#d5d8ff"/>
+    <ambientLight intensity={.3} color="#e1e3ff"/>
     <hemisphereLight args={['#d6dfff','#392941',.3]}/>
-    <directionalLight castShadow shadow-mapSize={tier==='desktop'?[2048,2048]:[1024,1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.002} shadow-bias={-.0001} shadow-radius={4} shadow-blurSamples={8} position={[-3,3.8,5]} intensity={2.3} color="#fff2db"/>
+    <directionalLight castShadow shadow-mapSize={tier==='desktop'?[2048,2048]:[1024,1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.002} shadow-bias={-.0001} shadow-radius={10} shadow-blurSamples={12} position={[-3,4.8,5]} intensity={2.6} color="#fff9f0"/>
     <directionalLight position={[4,2,-3]} intensity={.95} color="#c1afff"/>
     <directionalLight position={[-4,0,1]} intensity={.65} color="#b3c4ff"/>
     <Atmosphere engine={engine}/>

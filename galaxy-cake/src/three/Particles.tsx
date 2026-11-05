@@ -31,11 +31,12 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
     if(layer==='sparks')for(let i=0;i<count;i++)colors.set([3.,1.65,.55],i*3)
     const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(p,3));g.setAttribute('color',new Float32BufferAttribute(colors,3));g.setAttribute('aSize',new Float32BufferAttribute(s,1));g.setAttribute('aSeed',new Float32BufferAttribute(seed,1));g.setAttribute('aVelocity',new Float32BufferAttribute(velocity,3));return g
   },[count,layer,mode,theme])
-  const material=useMemo(()=>new ShaderMaterial({transparent:true,depthWrite:false,vertexColors:true,blending:AdditiveBlending,toneMapped:false,uniforms:{uTime:{value:0},uDpr:{value:1},uMode:{value:mode},uAge:{value:-1},uReduced:{value:1},uOpacity:{value:1},uReveal:{value:0},uGather:{value:0},uCandleCount:{value:1},uCandles:{value:[new Vector3(),new Vector3(),new Vector3()]}},vertexShader,fragmentShader}),[mode])
+  const material=useMemo(()=>new ShaderMaterial({transparent:true,depthWrite:false,vertexColors:true,blending:AdditiveBlending,toneMapped:false,uniforms:{uTime:{value:0},uDpr:{value:1},uMode:{value:mode},uSkyHue:{value:0},uSkySaturation:{value:1},uAge:{value:-1},uReduced:{value:1},uOpacity:{value:1},uReveal:{value:0},uGather:{value:0},uCandleCount:{value:1},uCandles:{value:[new Vector3(),new Vector3(),new Vector3()]}},vertexShader,fragmentShader}),[mode])
   useEffect(()=>()=>geometry.dispose(),[geometry])
   useEffect(()=>()=>material.dispose(),[material])
   useFrame(()=>{
     material.uniforms.uTime.value=layer==='sparks'||layer==='burst'?engine.time:engine.orbitTime
+    material.uniforms.uSkyHue.value=engine.sky.hue;material.uniforms.uSkySaturation.value=engine.sky.saturation
     material.uniforms.uDpr.value=gl.getPixelRatio()*(size.width<700&&layer!=='far'?(layer==='near'?1.15:1.65):1)
     material.uniforms.uReduced.value=engine.snapshot.reduced?0:1
     const gather=engine.snapshot.phase==='entering'?Math.max(0,Math.min(1,(engine.phaseTime-2.8)/.7)):1
@@ -46,6 +47,9 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
     material.uniforms.uOpacity.value=layer==='far'?.8:layer==='sparks'?engine.snapshot.phase==='entering'?Math.max(gather*.8,engine.motion.ignition):engine.motion.ignition:layer==='burst'?(engine.snapshot.reduced?.35:1):engine.snapshot.phase==='intro'?0:Math.min(engine.time*.7,1)
     material.uniforms.uAge.value=engine.snapshot.phase==='celebration'||engine.snapshot.phase==='message'?engine.phaseTime-1.7:-1
     if(layer==='near'||layer==='dust'||layer==='burst')material.uniforms.uOpacity.value*=Math.min(engine.motion.energy,1.6)
+    if(layer==='near')material.uniforms.uOpacity.value*=.62
+    if(layer==='far')material.uniforms.uOpacity.value*=.4
+    if(layer==='dust')material.uniforms.uOpacity.value*=.7
     if(layer==='sparks')material.uniforms.uOpacity.value*=engine.motion.decorReveal
     group.current.visible=layer!=='near'&&layer!=='dust'||engine.snapshot.config.galaxyEnabled
     if(layer==='near')group.current.rotation.y=engine.orbitTime*.025

@@ -1,3 +1,5 @@
+import { galaxyColorGLSL } from './galaxyColor'
+
 export const particleVertex = /* glsl */ `
 attribute float aSize;
 attribute float aSeed;
@@ -18,6 +20,10 @@ void main() {
     p+=vec3(sin(uTime*.21+aSeed*32.)*.045,
       sin(uTime*.28+aSeed*27.)*.075,cos(uTime*.17+aSeed*21.)*.045)*uReduced;
     vAlpha=.42+.5*pow(.5+.5*sin(uTime*.72+aSeed*53.),3.);
+  } else if(uMode>.5&&uMode<1.5) {
+    p.x+=sin(uTime*.07+aSeed*31.)*.18*uReduced;
+    p.y+=sin(uTime*.055+aSeed*13.)*.12*uReduced;
+    vAlpha=.5+.5*pow(.5+.5*sin(uTime*.8*uReduced+aSeed*73.),3.);
   } else if(uMode>1.5&&uMode<2.5) {
     float phase=fract(sin(aSeed*761.4)*437.5);
     float age=fract(uTime*(.34+aSeed*.14)+phase);
@@ -52,7 +58,8 @@ void main() {
 export const particleFragment = /* glsl */ `
 varying vec3 vColor;
 varying float vSeed,vAlpha,vPixel;
-uniform float uOpacity,uMode;
+uniform float uOpacity,uMode,uSkyHue,uSkySaturation;
+${galaxyColorGLSL}
 
 void main() {
   vec2 p=gl_PointCoord-.5;
@@ -71,5 +78,6 @@ void main() {
   if(alpha<.004)discard;
   // Small hot cores retain a colored falloff instead of an opaque colored disc.
   vec3 radiance=mix(vColor,vec3(2.2,2.05,1.85),pow(core,3.)*.34);
+  if(uMode>.5&&uMode<1.5)radiance=galaxyColor(radiance*.5,uSkyHue,uSkySaturation)*2.;
   gl_FragColor=vec4(radiance,alpha);
 }`

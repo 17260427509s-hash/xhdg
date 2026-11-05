@@ -22,7 +22,12 @@ async function enter(p, target = url) {
   await p.waitForTimeout(800)
   assert.equal(await p.locator('.unavailable').isVisible(), false)
 }
-async function open(p) { await p.getByRole('button', { name: '蛋糕', exact: true }).click(); await settle(p) }
+async function open(p) {
+  await p.getByRole('button', { name: '蛋糕', exact: true }).click(); await settle(p)
+  assert.equal(await p.getByRole('button', { name: '分层预览', exact: true }).count(), 0)
+  assert.equal(await p.getByRole('button', { name: '合拢预览', exact: true }).count(), 0)
+  assert.equal((await state(p)).motion.spread, 0)
+}
 async function click(p, name) { await p.getByRole('dialog').getByRole('button', { name, exact: true }).click(); await settle(p) }
 async function layer(p, n) { await p.getByRole('tab', { name: '蛋糕', exact: true }).click(); await p.getByRole('group', { name: '编辑范围', exact: true }).getByRole('button', { name: `第 ${n} 层`, exact: true }).click(); assert.equal((await state(p)).selectedLayer, n - 1); assert.equal((await state(p)).settings, 'cake') }
 async function close(p) { await click(p, '完成'); await p.waitForTimeout(500); assert.equal((await state(p)).motion.spread, 0) }
@@ -104,7 +109,7 @@ async function config(p) { return (await state(p)).config }
     await enter(m); await open(m); await click(m, '紫色梦境'); await layer(m, 2)
     await click(m, '选择蛋糕颜色 #d97c9a'); await click(m, '方形'); await click(m, '选择奶油颜色 #fff0ed'); await click(m, '小草莓')
     await layout(m, 'mobile-' + width); await shot(m, 'mobile-' + width + '-editor')
-    await click(m, '合拢预览'); await shot(m, 'mobile-' + width + '-assembled')
+    assert.equal((await state(m)).motion.spread, 0); await shot(m, 'mobile-' + width + '-assembled')
     await m.keyboard.press('Escape'); await settle(m)
     assert.equal((await state(m)).settings, null); assert.equal((await state(m)).editing, false)
     await m.close(); save()
