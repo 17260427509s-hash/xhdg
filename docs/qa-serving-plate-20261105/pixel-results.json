@@ -1,0 +1,41 @@
+{
+  "testedAt": "2026-11-05T07:45:55.056Z",
+  "region": {
+    "left": 780,
+    "top": 657,
+    "width": 30,
+    "height": 8
+  },
+  "samples": {
+    "before-chocolate": [
+      17.44,
+      14.24,
+      35.53
+    ],
+    "after-chocolate": [
+      56.46,
+      40.19,
+      38.53
+    ],
+    "custom-mint": [
+      189,
+      195,
+      199
+    ],
+    "bottom-layer-mint": [
+      187.4,
+      193.93,
+      198.47
+    ],
+    "top-layer-pink": [
+      186.93,
+      194,
+      198.47
+    ]
+  },
+  "checks": {
+    "purpleTextureReplacedByCocoa": true,
+    "customMintChangesActualPlatePixels": true,
+    "upperLayerEditPreservesBottomPlateColor": true
+  }
+}

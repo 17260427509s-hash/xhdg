@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Color, Group, LatheGeometry, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Vector2 } from 'three'
+import { Color, Group, LatheGeometry, MathUtils, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, SRGBColorSpace, Vector2 } from 'three'
 import type { ExperienceEngine } from '../experience/engine'
 import { layerAppearance } from '../store/birthdayStore'
 import type { BirthdayConfig } from '../store/birthdayStore'
@@ -15,30 +15,20 @@ import { Candles } from './Candles'
 import { CakeDecorations } from './CakeDecorations'
 import { recipes } from './cakeRecipes'
 import { SidePiping } from './SidePiping'
-import { useTexture } from '@react-three/drei'
-import { SRGBColorSpace } from 'three'
 
-const noiseGLSL=`
-float hash3(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
-float noise3(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(hash3(i),hash3(i+vec3(1,0,0)),f.x),mix(hash3(i+vec3(0,1,0)),hash3(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash3(i+vec3(0,0,1)),hash3(i+vec3(1,0,1)),f.x),mix(hash3(i+vec3(0,1,1)),hash3(i+vec3(1,1,1)),f.x),f.y),f.z);}
-float fbm(vec3 p){return noise3(p)*.55+noise3(p*2.03)*.27+noise3(p*4.1)*.13+noise3(p*8.2)*.05;}`
+function servingPlateColor(config:BirthdayConfig) {
+  const color=new Color(layerAppearance(config,0).cakeColor),hsl=color.getHSL({h:0,s:0,l:0},SRGBColorSpace)
+  const softness=MathUtils.smoothstep(hsl.l,.42,.6)
+  return color.setHSL(hsl.h,hsl.s*MathUtils.lerp(.62,.42,softness),MathUtils.lerp(Math.max(.09,hsl.l*.7),.72+hsl.l*.14,softness),SRGBColorSpace)
+}
 
-function Plate(){
-  const map=useTexture('/textures/galaxy-icing.webp')
+function Plate({engine,from,to}:{engine:ExperienceEngine;from:BirthdayConfig;to:BirthdayConfig}){
+  const colors=useMemo(()=>({from:servingPlateColor(from),to:servingPlateColor(to)}),[from,to])
   const geometry=useMemo(()=>new LatheGeometry([new Vector2(0,-.647),new Vector2(1.59,-.647),new Vector2(1.76,-.616),new Vector2(1.835,-.581),new Vector2(1.846,-.565),new Vector2(1.825,-.555),new Vector2(1.75,-.561),new Vector2(1.5,-.565),new Vector2(0,-.565)],192),[])
-  const material=useMemo(()=>{
-    map.colorSpace=SRGBColorSpace
-    const m=new MeshPhysicalMaterial({color:'white',roughness:.36,metalness:.12,clearcoat:.08,clearcoatRoughness:.34,specularIntensity:.25,envMapIntensity:.3})
-    m.onBeforeCompile=shader=>{
-      shader.uniforms.uPlateMap={value:map}
-      shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vPlatePos;').replace('#include <begin_vertex>','#include <begin_vertex>\nvPlatePos=position;')
-      shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>\nvarying vec3 vPlatePos;uniform sampler2D uPlateMap;\n${noiseGLSL}`).replace('#include <color_fragment>',`#include <color_fragment>
- diffuseColor.rgb=texture2D(uPlateMap,vPlatePos.xz*.28+.5).rgb*.75;`).replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
- totalEmissiveRadiance+=vec3(.007,.004,.018)*fbm(vPlatePos*8.);`)
-    };m.customProgramCacheKey=()=> 'galaxy-glazed-porcelain-v3';return m
-  },[map])
+  const material=useMemo(()=>new MeshPhysicalMaterial({roughness:.58,metalness:0,clearcoat:.12,clearcoatRoughness:.5,specularIntensity:.28,envMapIntensity:.22}),[])
+  useFrame(()=>{material.color.copy(colors.from).lerp(colors.to,partProgress(engine.transition,'body'))})
   useEffect(()=>()=>{geometry.dispose();material.dispose()},[geometry,material])
-  return <mesh receiveShadow geometry={geometry} material={material}/>
+  return <mesh name="cake-serving-plate" receiveShadow geometry={geometry} material={material}/>
 }
 
 function CakePart({engine,index,kind,children}:{engine:ExperienceEngine;index:number;kind:'body'|'cream'|'decor';children:ReactNode}) {
@@ -120,7 +110,7 @@ export function Cake({engine}:{engine:ExperienceEngine}) {
   return <group ref={group}>
     {[0,1,2].map(index=><CakeLayer key={index} engine={engine} index={index} from={from} to={to} flower={flower}/>)}
     <StarSand engine={engine}/><Candles engine={engine}/>
-    <group scale={[1,1,.87]}><Plate/>
+    <group scale={[1,1,.87]}><Plate engine={engine} from={from} to={to}/>
       <mesh position={[0,-.559,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.834,.006,12,192]}/><meshStandardMaterial color="#edc785" metalness={.7} roughness={.22}/></mesh>
     </group>
   </group>

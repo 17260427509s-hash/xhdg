@@ -1,0 +1,862 @@
+{
+  "testedAt": "2026-11-05T07:42:22.407Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "twelveStylesFrontAndOblique": true,
+    "pausedSwitching": true,
+    "customColorUndoRedo": true,
+    "bottomLayerOverridesAndIndependentTop": true,
+    "refreshRestoresDesign": true,
+    "readOnlyPreservesDesign": true,
+    "threeMobileSizesAnd44pxTargets": true,
+    "lowTierBudgetUnchanged": true,
+    "noRuntimeErrors": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,37-61): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,82-106): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero\n(207,10-67): warning X4008: floating point division by zero"
+  ],
+  "layouts": [
+    {
+      "label": "mobile-390",
+      "width": 390,
+      "height": 844,
+      "scroll": 390,
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 356,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 114,
+          "height": 84
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 171,
+          "height": 44
+        },
+        {
+          "width": 171,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.671875,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.671875,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.671875,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.671875,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.671875,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 114.65625,
+          "height": 46
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 112,
+          "height": 44
+        },
+        {
+          "width": 174,
+          "height": 44
+        },
+        {
+          "width": 174,
+          "height": 44
+        },
+        {
+          "width": 356,
+          "height": 44
+        },
+        {
+          "width": 52,
+          "height": 44
+        },
+        {
+          "width": 52,
+          "height": 44
+        },
+        {
+          "width": 97.40625,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "height": 667,
+      "scroll": 375,
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 82.25,
+          "height": 44
+        },
+        {
+          "width": 82.25,
+          "height": 44
+        },
+        {
+          "width": 82.25,
+          "height": 44
+        },
+        {
+          "width": 82.25,
+          "height": 44
+        },
+        {
+          "width": 341,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 109,
+          "height": 84
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 163.5,
+          "height": 44
+        },
+        {
+          "width": 163.5,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.671875,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.671875,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.671875,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.671875,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.671875,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 109.65625,
+          "height": 46
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 107,
+          "height": 44
+        },
+        {
+          "width": 166.5,
+          "height": 44
+        },
+        {
+          "width": 166.5,
+          "height": 44
+        },
+        {
+          "width": 341,
+          "height": 44
+        },
+        {
+          "width": 52,
+          "height": 44
+        },
+        {
+          "width": 52,
+          "height": 44
+        },
+        {
+          "width": 97.40625,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "label": "mobile-412",
+      "width": 412,
+      "height": 915,
+      "scroll": 412,
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 91.5,
+          "height": 44
+        },
+        {
+          "width": 91.5,
+          "height": 44
+        },
+        {
+          "width": 91.5,
+          "height": 44
+        },
+        {
+          "width": 91.5,
+          "height": 44
+        },
+        {
+          "width": 378,
+          "height": 44
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 119.34375,
+          "height": 44
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.34375,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.34375,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.34375,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.328125,
+          "height": 84
+        },
+        {
+          "width": 121.34375,
+          "height": 84
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 119.34375,
+          "height": 44
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 182,
+          "height": 44
+        },
+        {
+          "width": 182,
+          "height": 44
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 119.34375,
+          "height": 44
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 122,
+          "height": 46
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 119.34375,
+          "height": 44
+        },
+        {
+          "width": 119.328125,
+          "height": 44
+        },
+        {
+          "width": 185,
+          "height": 44
+        },
+        {
+          "width": 185,
+          "height": 44
+        },
+        {
+          "width": 378,
+          "height": 44
+        },
+        {
+          "width": 52,
+          "height": 44
+        },
+        {
+          "width": 52,
+          "height": 44
+        },
+        {
+          "width": 97.40625,
+          "height": 44
+        }
+      ]
+    }
+  ]
+}
