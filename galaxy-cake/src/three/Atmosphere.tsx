@@ -12,7 +12,7 @@ export function Atmosphere({engine}:{engine:ExperienceEngine}) {
     ${galaxyColorGLSL}
     void main(){vec2 p=vUv-.5;vec2 drift=vec2(sin(uTime*.11)*.018,sin(uTime*.09)*.012);vec3 cloud=galaxyColor(texture2D(uCloud,vUv+drift).rgb,uHue,uSaturation);
       float envelope=exp(-p.x*p.x*9.-p.y*p.y*18.)*(1.-smoothstep(.34,.5,length(p)));
-      gl_FragColor=vec4(cloud*2.8,envelope*.65*uPower);}`}),[cloudMap])
+      gl_FragColor=vec4(cloud*1.75,envelope*.44*uPower);}`}),[cloudMap])
   useFrame(({camera})=>{nebula.current.quaternion.copy(camera.quaternion);nebulaMaterial.uniforms.uPower.value=engine.motion.reveal;nebulaMaterial.uniforms.uHue.value=engine.sky.hue;nebulaMaterial.uniforms.uSaturation.value=engine.sky.saturation;nebulaMaterial.uniforms.uTime.value=engine.sky.time})
 
   const material=useMemo(()=>new ShaderMaterial({transparent:true,depthWrite:false,blending:AdditiveBlending,toneMapped:false,uniforms:{uPower:{value:0},uHue:{value:0},uSaturation:{value:1}},vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:`varying vec2 vUv;uniform float uPower,uHue,uSaturation;${galaxyColorGLSL} void main(){vec2 p=vUv-.5;float d=length(p*vec2(1.,1.));float a=exp(-d*d*18.)*.16*uPower*(1.-smoothstep(.36,.5,length(p)));gl_FragColor=vec4(galaxyColor(vec3(.32,.14,.95),uHue,uSaturation)*1.1,a);}`}),[])

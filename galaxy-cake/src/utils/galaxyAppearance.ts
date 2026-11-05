@@ -44,10 +44,10 @@ export class GalaxyAppearance {
     this.hue=Math.abs(difference)<.00001?hue:this.hue+difference*blend
     this.saturation=Math.abs(saturation-this.saturation)<.00001?saturation:this.saturation+(saturation-this.saturation)*blend
     this.time=reduced?0:time
-    this.panX=Math.sin(this.time*.09)*.018
-    this.panY=(Math.cos(this.time*.067)-1)*.009
-    this.rotation=Math.sin(this.time*.055)*.008
-    this.zoom=1.055+Math.sin(this.time*.06)*.005
+    this.panX=Math.sin(this.time*.052)*.012
+    this.panY=(Math.cos(this.time*.043)-1)*.006
+    this.rotation=Math.sin(this.time*.035)*.005
+    this.zoom=1.055+Math.sin(this.time*.04)*.003
   }
 
   inspect(){return {hue:this.hue,saturation:this.saturation,time:this.time,panX:this.panX,panY:this.panY,rotation:this.rotation,zoom:this.zoom,color:this.color}}

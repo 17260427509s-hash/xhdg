@@ -28,10 +28,10 @@ export function usePastryMaterial(cream: boolean) {
   const material = useMemo(() => {
     galaxyMap.colorSpace=SRGBColorSpace;galaxyMap.wrapS=RepeatWrapping;galaxyMap.anisotropy=8
     const bump = pastryTexture(cream)
-    const mat = new MeshPhysicalMaterial({ color: 'white', roughness: cream ? .22 : .57, metalness: 0,
-      bumpMap: bump, bumpScale: cream ? .004 : .035, clearcoat: cream ? .5 : .06,
-      clearcoatRoughness: cream?.18:.4, sheen: cream ? .3 : .08, sheenColor: '#fff0df', sheenRoughness: .65,
-      specularIntensity: cream ? .8 : .32, envMapIntensity: cream ? 1.1 : .65 })
+    const mat = new MeshPhysicalMaterial({ color: 'white', roughness: cream ? .38 : .57, metalness: 0,
+      bumpMap: bump, bumpScale: cream ? .0018 : .009, clearcoat: cream ? .08 : .06,
+      clearcoatRoughness: cream?.36:.4, sheen: cream ? .22 : .08, sheenColor: '#fff0df', sheenRoughness: .75,
+      specularIntensity: cream ? .48 : .32, envMapIntensity: cream ? .8 : .65 })
     const nebula={value:0}
     mat.userData.nebula=nebula
     const grain={value:1};mat.userData.grain=grain
@@ -70,18 +70,18 @@ export function usePastryMaterial(cream: boolean) {
         float pastryU=abs(fract(vPastryUv.x*2.+.115)*2.-1.);
         vec3 pastryInk=texture2D(uGalaxyMap,vec2(pastryU,vPastryUv.y*.9+.05)).rgb;
         vec3 pastryTint=clamp(diffuseColor.rgb/vec3(.0467,.0529,.287),vec3(.12),vec3(5.));
-        diffuseColor.rgb=mix(diffuseColor.rgb,pastryInk*pastryTint*1.65,uPastryNebula);
-        diffuseColor.rgb*=1.+(pastryPore-.5)*.14*uPastryGrain*(1.-smoothstep(.65,1.3,pastryFootprint));
+        diffuseColor.rgb=mix(diffuseColor.rgb,pastryInk*pastryTint*1.45,uPastryNebula*.78);
+        diffuseColor.rgb*=1.+(pastryPore-.5)*.07*uPastryGrain*(1.-smoothstep(.65,1.3,pastryFootprint));
       `).replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
         float pastryMicro=pastryNoise(vPastryPosition*125.);
         float pastryMicroFootprint=max(length(dFdx(vPastryPosition)),length(dFdy(vPastryPosition)))*125.;
-        float pastryGrainStrength=.65*uPastryGrain*(1.-smoothstep(.7,1.5,pastryMicroFootprint));
+        float pastryGrainStrength=.22*uPastryGrain*(1.-smoothstep(.7,1.5,pastryMicroFootprint));
         normal=perturbNormalArb(-vViewPosition,normal,vec2(dFdx(pastryMicro),dFdy(pastryMicro))*pastryGrainStrength,faceDirection);
       `).replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
         roughnessFactor*=.93+pastryPore*.14;
       `)
     }
-    mat.customProgramCacheKey = () => cream ? 'soft-cream-v8' : 'pastry-material-catalog-v2'
+    mat.customProgramCacheKey = () => cream ? 'soft-cream-v8' : 'pastry-material-catalog-v3'
     return mat
   }, [cream,galaxyMap])
   useEffect(() => () => { material.bumpMap?.dispose(); material.dispose() }, [material])

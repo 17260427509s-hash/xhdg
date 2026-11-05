@@ -182,3 +182,45 @@
 @media(min-width:701px) and (max-height:800px){.opening-script{font-size:29px}.opening-heading h1{font-size:58px;margin-bottom:6px}.opening-composition{top:46%;height:70dvh;width:min(750px,78vw)}.opening-heart{inset:35px 75px}.wish-note{width:128px;height:82px;margin-left:-64px;margin-top:-41px}.opening-letter{padding:17px 23px;width:300px}.opening-footer{bottom:20px;gap:8px}}
 @media(max-width:700px){.opening-heading{left:0;right:0}.opening-script{font-size:28px;margin-bottom:10px}.opening-heading h1{font-size:46px;margin-bottom:6px;letter-spacing:.15em;padding-left:.15em}.opening-dedication{font-size:12px}.opening-composition{top:47%;width:calc(100% - 20px);height:min(470px,60dvh)}.opening-heart{inset:38px 49px}.wish-note{width:94px;height:67px;margin-left:-47px;margin-top:-33.5px;border-radius:6px;padding:12px 9px}.wish-note p{font-size:10px;line-height:1.65}.note-star{font-size:12px;top:4px;left:6px}.wish-note i{bottom:7px;width:15px;left:calc(50% - 7.5px)}.opening-letter{width:min(250px,70%);padding:18px 19px 17px;border-radius:14px;top:53%}.letter-heart{font-size:25px;margin-bottom:9px}.opening-letter h2{font-size:17px;margin-bottom:9px;max-height:55px}.opening-wish{max-height:74px}.opening-wish p{font-size:11px;line-height:1.9}.opening-from{margin-top:11px;font-size:10px;max-height:34px}.opening-footer{left:14px;right:14px;bottom:max(28px,env(safe-area-inset-bottom));gap:10px}.opening-options{gap:13px}.opening-primary{min-height:50px;min-width:204px;font-size:14px}.opening-skip{top:max(17px,env(safe-area-inset-top));right:17px;font-size:11px}}
 @media(max-width:700px) and (max-height:720px){.opening-script{font-size:25px}.opening-heading h1{font-size:39px;margin-bottom:8px}.opening-composition{top:46%;height:53dvh}.opening-heart{inset:23px 49px}.opening-letter{padding:13px 16px}.letter-heart{font-size:21px;margin-bottom:6px}.opening-letter h2{font-size:16px;max-height:50px}.opening-wish{max-height:62px}.opening-footer{bottom:20px;gap:6px}.opening-primary{min-height:48px}}
+
+/* Third visual pass: a quieter sky, readable paper and precise existing controls. */
+.opening-letter-anchor{position:absolute;inset:2% 0 0;z-index:60;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.opening-letter-anchor .opening-letter{position:relative;left:auto;top:auto;translate:none;flex-shrink:0;pointer-events:auto}
+.experience::before{mask-image:linear-gradient(90deg,rgba(0,0,0,.78) 0%,#000 48%,rgba(0,0,0,.5) 100%)}
+.stage-two .control-bar{border-color:#a58cbe38;background:linear-gradient(115deg,#15111ee8,#0b0a12eb);box-shadow:inset 0 1px 0 #e9dfff0d,0 18px 50px #0006}
+.editor-button{gap:9px;transition:background .18s,color .18s,box-shadow .18s}
+.editor-button:hover:not(:disabled){background:#c6a9ff1b;box-shadow:inset 0 0 0 1px #c6a9ff26}
+.quiet{border-radius:10px}.quiet:hover:not(:disabled){background:#c6a9ff10}
+.settings-dialog{border-color:#9478ad60;box-shadow:inset 0 1px 0 #ead9ff0c,0 24px 80px #0009}
+.settings-tabs button{transition:color .18s,background .18s,border-color .18s}
+.settings-tabs button[aria-selected=true]{background:linear-gradient(0deg,#c8a8f911,transparent 80%);color:#f0e2ff}
+.settings-scroll{scroll-padding-block:12px;scrollbar-gutter:stable}
+.cake-choice{position:relative;transition:background .18s,border-color .18s,box-shadow .18s;color:#c4b9ce;gap:10px}
+.cake-choice:hover:not(:disabled){background:#c5a7ff0d;border-color:#b698dd50}
+.cake-choice.selected{background:linear-gradient(150deg,#b694ea26,#a17bd80c);border-color:#c7a8eea8;box-shadow:inset 0 1px 0 #e9d6ff1a,0 3px 12px #0002;color:#f4eaff}
+.cake-choice.selected::after{content:'✓';position:absolute;right:7px;top:4px;color:#dcc3ff;font-size:12px}
+.theme-options button,.decoration-options button,.segmented button,.edit-history button{transition:background .18s,border-color .18s,color .18s}
+.theme-options button:hover:not(:disabled),.decoration-options button:hover:not(:disabled),.segmented button:hover:not(:disabled),.edit-history button:hover:not(:disabled){background:#c5a7ff14;border-color:#bd9ee866}
+.settings-footer{box-shadow:0 -10px 22px #0c0a131f;border-top-color:#c9b1e31c}
+.wish-note{border-color:#fffdf5;box-shadow:0 3px 5px #69414f0d,0 9px 22px #69414f1a,inset 0 0 0 1px #c0a18c2b;background:linear-gradient(135deg,#fff9ef,#fff2e4)}
+.note-color-1{background:linear-gradient(135deg,#fcedf0,#f6e1e8)}.note-color-2{background:linear-gradient(135deg,#eef4ed,#e1ebe4)}.note-color-3{background:linear-gradient(135deg,#f4eff8,#e9e1f0)}.note-color-4{background:linear-gradient(135deg,#fff7e6,#f5e9ce)}
+.wish-note p{color:#755661;text-shadow:0 1px 0 #fff8}.note-star{color:#aa7a88}
+.opening-letter{background:linear-gradient(135deg,#fffdf6,#fff2ed);border-color:#fffdf7;box-shadow:0 4px 9px #895a6c12,0 20px 50px #895a6c26,inset 0 0 0 5px #efdcd54d}
+.opening-letter h2{color:#85455b;font-weight:500}.opening-wish p{color:#785863;font-size:14px}.opening-from{color:#8a6573}
+.birthday-opening[data-opening-stage=ready] .opening-heading{opacity:.28!important}
+@media(min-width:701px){.editor-button{font-size:14px}.settings-header h2{font-weight:450}.cake-choice{min-height:94px}}
+@media(max-width:700px){
+  .opening-letter-anchor{top:6%}
+  .stage-two .control-bar{background:none;box-shadow:none;border:0}
+  .stage-two .editor-button{background:#17121fd9;border-color:#b69bc935;box-shadow:inset 0 1px 0 #f3e9ff08}
+  .live-editor::before{content:'';position:absolute;top:5px;left:calc(50% - 17px);width:34px;height:3px;border-radius:3px;background:#d5bfeb50;pointer-events:none}
+  .live-editor .settings-header{min-height:44px;padding-top:5px}.live-editor .settings-scroll{padding-top:10px}
+  .live-editor .cake-choice{min-height:77px;gap:7px}.live-editor .setting-field{gap:9px}
+  .opening-wish p{font-size:12px}.wish-note p{font-size:10.5px}
+}
+@media(max-width:700px) and (max-height:720px){
+  .settings-dialog.live-editor{height:min(51dvh,calc(var(--visual-height,100dvh) - 24px));max-height:calc(var(--visual-height,100dvh) - 24px)}
+  .is-editing .scene{bottom:calc(51dvh + 8px)}
+  .live-editor .cake-mini{width:34px;height:26px;margin-top:6px}
+  .live-editor .cake-choice{padding:8px 2px}
+}

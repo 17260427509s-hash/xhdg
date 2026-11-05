@@ -1,0 +1,162 @@
+{
+  "testedAt": "2026-11-05T13:16:11.134Z",
+  "baselineCommit": "141d579",
+  "productionBuildPassed": true,
+  "finalMain": "index-Bg3UMb_I.js",
+  "sceneRegressionMain": "index-DyR08VQH.js",
+  "buildCoverage": "Complete scene regressions on DyR08VQH; only the opening anchor and crossfade changed afterward. Final viewport/centering, full heart motion, music/draft/export repeated on Bg3UMb_I.",
+  "areas": [
+    {
+      "name": "最终视口与居中",
+      "file": "suite-centered/final/results.json",
+      "passed": 6,
+      "failed": 0,
+      "warnings": 2
+    },
+    {
+      "name": "动态星空",
+      "file": "living-sky/results.json",
+      "passed": 16,
+      "failed": 0,
+      "warnings": 3
+    },
+    {
+      "name": "款式及混搭",
+      "file": "suite/catalog/browser-results.json",
+      "passed": 11,
+      "failed": 0,
+      "warnings": 2
+    },
+    {
+      "name": "逐层与历史",
+      "file": "suite/layers/results.json",
+      "passed": 13,
+      "failed": 0,
+      "warnings": 3
+    },
+    {
+      "name": "爱心运动",
+      "file": "suite-centered/heart/results.json",
+      "passed": 7,
+      "failed": 0,
+      "warnings": 2
+    },
+    {
+      "name": "保存音乐导出",
+      "file": "suite-centered/stage-three/stage-three-results.json",
+      "passed": 16,
+      "failed": 0,
+      "warnings": 3
+    },
+    {
+      "name": "基础与性能",
+      "file": "suite/core/results.json",
+      "passed": 14,
+      "failed": 0,
+      "warnings": 0
+    },
+    {
+      "name": "装饰正反面",
+      "file": "suite/decoration-faces/face-results.json",
+      "passed": 3,
+      "failed": 0,
+      "warnings": 0
+    },
+    {
+      "name": "轨道与奶油几何",
+      "file": "suite/geometry/results.json",
+      "passed": 4,
+      "failed": 0,
+      "warnings": 0
+    },
+    {
+      "name": "目录与布局数据",
+      "file": "suite/catalog-data/data-results.json",
+      "passed": 5,
+      "failed": 0,
+      "warnings": 0
+    }
+  ],
+  "passed": 95,
+  "failed": 0,
+  "limitations": [
+    "Chrome simulated mobile; no physical iPhone/Android connected",
+    "Real-time material approximation; photographic parity not claimed",
+    "Existing ANGLE shader and Vite chunk warnings retained"
+  ],
+  "performance": {
+    "desktopIdle": {
+      "fps": 59.8348557979975,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.80000000000291,
+      "frames": 150
+    },
+    "desktopCelebration": {
+      "fps": 54.71003680493382,
+      "p50ms": 16.69999999999709,
+      "p95ms": 16.80000000000291,
+      "frames": 165
+    },
+    "mobile390Idle": {
+      "fps": 59.68011458751834,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.900000000001455,
+      "frames": 150
+    },
+    "mobile390Celebration": {
+      "fps": 54.711850918495934,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.900000000001455,
+      "frames": 165
+    }
+  },
+  "mobileSeamError": [
+    {
+      "width": 390,
+      "height": 844,
+      "seamError": 1.1035854341736695
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "seamError": 3.228011204481793
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "seamError": 0.8984873949579832
+    }
+  ],
+  "catalogResources": [
+    {
+      "round": 0,
+      "geometries": 98,
+      "textures": 48,
+      "points": 15492
+    },
+    {
+      "round": 1,
+      "geometries": 98,
+      "textures": 48,
+      "points": 15492
+    },
+    {
+      "round": 2,
+      "geometries": 98,
+      "textures": 48,
+      "points": 15492
+    },
+    {
+      "round": 3,
+      "geometries": 98,
+      "textures": 48,
+      "points": 15492
+    },
+    {
+      "round": 4,
+      "geometries": 98,
+      "textures": 48,
+      "points": 15492
+    }
+  ]
+}

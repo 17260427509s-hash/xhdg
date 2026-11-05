@@ -25,7 +25,7 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
       }
       const speed=.8+rng()*1.6;velocity.set([Math.cos(a)*radial*speed,y*speed+1,Math.sin(a)*radial*speed],i*3)
       s[i]=layer==='far'?1.5+rng()*1.4:layer==='dust'?1.3+rng()*1.7:layer==='sparks'?.9+rng()*1.8:layer==='near'?(seed[i]>.965?16+rng()*7:seed[i]>.84?5+rng()*4:2.5+rng()*3.5):2+rng()*5
-      if(layer==='near'&&seed[i]>.995)s[i]=24+rng()*4
+      if(layer==='near'&&seed[i]>.995)s[i]=20+rng()*3
     }
     const colors=colorArray(count,rng,layer==='far'?1.3:layer==='near'?3.4:2.2,galaxyThemes[theme].colors)
     if(layer==='sparks')for(let i=0;i<count;i++)colors.set([3.,1.65,.55],i*3)
@@ -35,7 +35,7 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
   useEffect(()=>()=>geometry.dispose(),[geometry])
   useEffect(()=>()=>material.dispose(),[material])
   useFrame(()=>{
-    material.uniforms.uTime.value=layer==='sparks'||layer==='burst'?engine.time:engine.orbitTime
+    material.uniforms.uTime.value=layer==='sparks'?(engine.snapshot.reduced?0:engine.time):layer==='burst'?engine.time:engine.orbitTime
     material.uniforms.uSkyHue.value=engine.sky.hue;material.uniforms.uSkySaturation.value=engine.sky.saturation
     material.uniforms.uDpr.value=gl.getPixelRatio()*(size.width<700&&layer!=='far'?(layer==='near'?1.15:1.65):1)
     material.uniforms.uReduced.value=engine.snapshot.reduced?0:1
@@ -48,11 +48,11 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
     material.uniforms.uAge.value=engine.snapshot.phase==='celebration'||engine.snapshot.phase==='message'?engine.phaseTime-1.7:-1
     if(layer==='near'||layer==='dust'||layer==='burst')material.uniforms.uOpacity.value*=Math.min(engine.motion.energy,1.6)
     if(layer==='near')material.uniforms.uOpacity.value*=.62
-    if(layer==='far')material.uniforms.uOpacity.value*=.4
+    if(layer==='far')material.uniforms.uOpacity.value*=.32
     if(layer==='dust')material.uniforms.uOpacity.value*=.7
     if(layer==='sparks')material.uniforms.uOpacity.value*=engine.motion.decorReveal
     group.current.visible=layer!=='near'&&layer!=='dust'||engine.snapshot.config.galaxyEnabled
-    if(layer==='near')group.current.rotation.y=engine.orbitTime*.025
+    if(layer==='near')group.current.rotation.y=engine.snapshot.reduced?0:engine.orbitTime*.025
   })
   return <group ref={group}><points geometry={geometry} material={material} frustumCulled={false}/></group>
 }

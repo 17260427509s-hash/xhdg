@@ -49,7 +49,8 @@ export function BirthdayOpening({ engine, onEnter, music }: {
       timeline.to(convoy, { progress: 1, duration: 4.6, ease: convoyEase }, 1.2)
       timeline.fromTo('.opening-letter', { opacity: 0, y: 15, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .7, ease: 'power2.out' }, 5.8)
         .fromTo('.opening-enter', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5 }, 6)
-      const exit = gsap.timeline({ paused: true }).to(element, { opacity: 0, duration: reduced ? .2 : .7, ease: 'power1.inOut' })
+      // Overlap the paper fade with the cake reveal at .8 s instead of exposing a gap.
+      const exit = gsap.timeline({ paused: true }).to(element, { opacity: 0, duration: reduced ? .2 : 1.05, ease: 'power2.inOut' })
       unsubscribe = engine.subscribeOpening(() => {
         timeline.time(Math.min(engine.openingTime, 6.5), false)
         exit.time(engine.snapshot.phase === 'intro' ? 0 : engine.phaseTime, false)
@@ -64,11 +65,11 @@ export function BirthdayOpening({ engine, onEnter, music }: {
     <div className="opening-composition">
       <header className="opening-heading"><h1>生日快乐</h1><p className="opening-script" aria-hidden="true">Happy Birthday</p><p className="opening-dedication">给 <span>{recipientName(config)}</span></p></header>
       <div className="opening-heart" aria-hidden="true">{cards.map((card, index) => <div key={index} data-queue-index={index} className={`wish-note note-color-${card.color}`} style={{ zIndex: cards.length - index }}><span className="note-star">✧</span><p>{card.text}</p><i/></div>)}</div>
-      <article className="opening-letter" aria-hidden={!ready} inert={!ready}>
+      <div className="opening-letter-anchor"><article className="opening-letter" aria-hidden={!ready} inert={!ready}>
         <span className="letter-heart" aria-hidden="true">♡</span><h2>{recipientName(config)}，生日快乐</h2>
         <div className="opening-wish" tabIndex={ready ? 0 : -1} aria-label="开场祝福内容"><p>{config.message.trim() || '愿新的一岁，继续闪闪发光。'}</p></div>
         {config.sender.trim() ? <p className="opening-from">来自 {config.sender.trim()}</p> : null}
-      </article>
+      </article></div>
     </div>
     <footer className="opening-footer">
       <div className="opening-enter" inert={!ready}><button ref={enterButton} className="opening-primary" disabled={!ready || leaving} onClick={onEnter}>开启星河 <Icon name="arrow"/></button></div>

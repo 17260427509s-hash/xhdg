@@ -39,7 +39,7 @@ function RegularCandle() {
   },[])
   useEffect(() => () => wax.dispose(), [wax])
   return <>
-    <mesh castShadow geometry={wax}><meshPhysicalMaterial color="#ffe3ad" roughness={.29} sheen={.35} sheenColor="#ffd49a" specularIntensity={.45} clearcoat={.08}/></mesh>
+    <mesh castShadow geometry={wax}><meshPhysicalMaterial color="#ffe3ad" roughness={.39} sheen={.22} sheenColor="#ffd49a" specularIntensity={.38} clearcoat={.04}/></mesh>
     <mesh position={[0, .601, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[.073, .009, 12, 48]}/><meshStandardMaterial color="#c49242" metalness={.8} roughness={.25}/></mesh>
   </>
 }

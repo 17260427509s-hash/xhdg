@@ -1,5 +1,6 @@
 const {chromium}=require('playwright'),sharp=require('sharp'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path')
-const out=path.resolve('../docs/qa-cake-catalog-20261105'),url=process.env.QA_URL||'http://localhost:4174'
+const out=path.resolve(process.env.QA_OUTPUT||'../docs/qa-cake-catalog-20261105'),url=process.env.QA_URL||'http://localhost:4174'
+fs.mkdirSync(out,{recursive:true})
 ;(async()=>{let browser;const report={testedAt:new Date().toISOString(),checks:{},errors:[]};try{
  browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']})
  const p=await browser.newPage({viewport:{width:1585,height:992}});p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type()==='error')report.errors.push(m.text())})

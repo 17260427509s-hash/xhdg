@@ -53,11 +53,17 @@ function PastryMesh({engine,kind,from,to,index,material}:{engine:ExperienceEngin
     if(mesh.current.morphTargetInfluences)mesh.current.morphTargetInfluences[0]=t
     sourceColor.set(kind==='body'?a.cakeColor:a.creamColor);targetColor.set(kind==='body'?b.cakeColor:b.creamColor)
     material.color.copy(sourceColor).lerp(targetColor,t)
-    if(kind==='cream')material.color.multiplyScalar(.96)
+    const fromRecipe=recipes[from.cakeStyle],toRecipe=recipes[to.cakeStyle]
+    if(kind==='cream'){
+      material.color.multiplyScalar(.96)
+      material.roughness=MathUtils.lerp(fromRecipe.creamRoughness??.38,toRecipe.creamRoughness??.38,t)
+      material.clearcoat=MathUtils.lerp(fromRecipe.creamCoat??.08,toRecipe.creamCoat??.08,t)
+    }
     if(kind==='body'){
       material.roughness=recipes[from.cakeStyle].bodyRoughness+(recipes[to.cakeStyle].bodyRoughness-recipes[from.cakeStyle].bodyRoughness)*t
       material.clearcoat=(recipes[from.cakeStyle].bodyCoat??.06)*(1-t)+(recipes[to.cakeStyle].bodyCoat??.06)*t
       material.userData.grain.value=(recipes[from.cakeStyle].grain??1)*(1-t)+(recipes[to.cakeStyle].grain??1)*t
+      material.bumpScale=.009*(.25+.75*material.userData.grain.value)
       const source=from.cakeStyle==='galaxy'?1:recipes[from.cakeStyle].nebula??0,target=to.cakeStyle==='galaxy'?1:recipes[to.cakeStyle].nebula??0
       material.userData.nebula.value=source+(target-source)*t
     }

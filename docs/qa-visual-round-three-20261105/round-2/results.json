@@ -1,0 +1,2007 @@
+{
+  "testedAt": "2026-11-05T12:48:57.163Z",
+  "url": "http://localhost:5173",
+  "checks": {
+    "twelveStylesWhilePaused": true,
+    "heartStopsAndWaitsForEntry": true,
+    "fourViewportsPanelsAnd44pxTargets": true,
+    "threeTouchRotations": true,
+    "noRuntimeErrors": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "views": [
+    {
+      "label": "desktop-default",
+      "width": 1585,
+      "scroll": 1585,
+      "height": 992,
+      "buttons": [],
+      "panel": null
+    },
+    {
+      "label": "desktop-cake-panel",
+      "width": 1585,
+      "scroll": 1585,
+      "height": 992,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 312,
+          "h": 48
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 149,
+          "h": 44
+        },
+        {
+          "w": 149,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 152,
+          "h": 44
+        },
+        {
+          "w": 152,
+          "h": 44
+        },
+        {
+          "w": 312,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 730,
+        "scroll": 2023
+      }
+    },
+    {
+      "label": "desktop-sky-panel",
+      "width": 1585,
+      "scroll": 1585,
+      "height": 992,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 152,
+          "h": 46
+        },
+        {
+          "w": 152,
+          "h": 46
+        },
+        {
+          "w": 152,
+          "h": 46
+        },
+        {
+          "w": 152,
+          "h": 46
+        },
+        {
+          "w": 152,
+          "h": 46
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 541,
+        "scroll": 541
+      }
+    },
+    {
+      "label": "mobile-390",
+      "width": 390,
+      "scroll": 390,
+      "height": 844,
+      "buttons": [],
+      "panel": null
+    },
+    {
+      "label": "mobile-390-cake-panel",
+      "width": 390,
+      "scroll": 390,
+      "height": 844,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 114,
+          "h": 83
+        },
+        {
+          "w": 356,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 171,
+          "h": 44
+        },
+        {
+          "w": 171,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.671875,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.671875,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.671875,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.671875,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.671875,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 114.65625,
+          "h": 46
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 174,
+          "h": 44
+        },
+        {
+          "w": 174,
+          "h": 44
+        },
+        {
+          "w": 356,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 250,
+        "scroll": 1882
+      }
+    },
+    {
+      "label": "mobile-390-sky-panel",
+      "width": 390,
+      "scroll": 390,
+      "height": 844,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 86,
+          "h": 44
+        },
+        {
+          "w": 174,
+          "h": 46
+        },
+        {
+          "w": 174,
+          "h": 46
+        },
+        {
+          "w": 174,
+          "h": 46
+        },
+        {
+          "w": 174,
+          "h": 46
+        },
+        {
+          "w": 174,
+          "h": 46
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 112,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 250,
+        "scroll": 499
+      }
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "scroll": 375,
+      "height": 667,
+      "buttons": [],
+      "panel": null
+    },
+    {
+      "label": "mobile-375-cake-panel",
+      "width": 375,
+      "scroll": 375,
+      "height": 667,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 109,
+          "h": 83
+        },
+        {
+          "w": 341,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 163.5,
+          "h": 44
+        },
+        {
+          "w": 163.5,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.671875,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.671875,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.671875,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.671875,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.671875,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 109.65625,
+          "h": 46
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 166.5,
+          "h": 44
+        },
+        {
+          "w": 166.5,
+          "h": 44
+        },
+        {
+          "w": 341,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 165,
+        "scroll": 1882
+      }
+    },
+    {
+      "label": "mobile-375-sky-panel",
+      "width": 375,
+      "scroll": 375,
+      "height": 667,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 82.25,
+          "h": 44
+        },
+        {
+          "w": 166.5,
+          "h": 46
+        },
+        {
+          "w": 166.5,
+          "h": 46
+        },
+        {
+          "w": 166.5,
+          "h": 46
+        },
+        {
+          "w": 166.5,
+          "h": 46
+        },
+        {
+          "w": 166.5,
+          "h": 46
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 107,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 165,
+        "scroll": 499
+      }
+    },
+    {
+      "label": "mobile-412",
+      "width": 412,
+      "scroll": 412,
+      "height": 915,
+      "buttons": [],
+      "panel": null
+    },
+    {
+      "label": "mobile-412-cake-panel",
+      "width": 412,
+      "scroll": 412,
+      "height": 915,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 119.34375,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.34375,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.34375,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.34375,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.328125,
+          "h": 83
+        },
+        {
+          "w": 121.34375,
+          "h": 83
+        },
+        {
+          "w": 378,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 119.34375,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 182,
+          "h": 44
+        },
+        {
+          "w": 182,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 119.34375,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 122,
+          "h": 46
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 119.34375,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 185,
+          "h": 44
+        },
+        {
+          "w": 185,
+          "h": 44
+        },
+        {
+          "w": 378,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 284,
+        "scroll": 1829
+      }
+    },
+    {
+      "label": "mobile-412-sky-panel",
+      "width": 412,
+      "scroll": 412,
+      "height": 915,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 91.5,
+          "h": 44
+        },
+        {
+          "w": 185,
+          "h": 46
+        },
+        {
+          "w": 185,
+          "h": 46
+        },
+        {
+          "w": 185,
+          "h": 46
+        },
+        {
+          "w": 185,
+          "h": 46
+        },
+        {
+          "w": 185,
+          "h": 46
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 119.34375,
+          "h": 44
+        },
+        {
+          "w": 119.328125,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 284,
+        "scroll": 499
+      }
+    }
+  ],
+  "presets": [
+    {
+      "id": "galaxy",
+      "config": {
+        "cakeStyle": "galaxy",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#3d4192",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 84,
+        "points": 15492,
+        "geometries": 58,
+        "textures": 44,
+        "rotation": [
+          -0.27335532352365577,
+          -0.0000012530241950204972,
+          -3.513151948657513e-7
+        ],
+        "camera": [
+          -0.000010276180266625725,
+          2.133999999999998,
+          7.896599999993302
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "strawberry",
+      "config": {
+        "cakeStyle": "strawberry",
+        "cakeShape": "square",
+        "cakeLayers": 1,
+        "cakeColor": "#d97c9a",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 87,
+        "points": 15492,
+        "geometries": 62,
+        "textures": 45,
+        "rotation": [
+          -0.27335532352343567,
+          -3.1636820079105344e-9,
+          -8.870136470777205e-10
+        ],
+        "camera": [
+          -2.5945681455134086e-8,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "cream",
+      "config": {
+        "cakeStyle": "cream",
+        "cakeShape": "round",
+        "cakeLayers": 2,
+        "cakeColor": "#f0dec4",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 95,
+        "points": 15492,
+        "geometries": 71,
+        "textures": 50,
+        "rotation": [
+          -0.27335532352343567,
+          -6.63370695967919e-12,
+          -1.859917839162391e-12
+        ],
+        "camera": [
+          -5.440371289281913e-11,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "purple",
+      "config": {
+        "cakeStyle": "purple",
+        "cakeShape": "round",
+        "cakeLayers": 3,
+        "cakeColor": "#9476ba",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 105,
+        "points": 15492,
+        "geometries": 81,
+        "textures": 55,
+        "rotation": [
+          -0.27335532352343567,
+          -9.671626679088598e-15,
+          -2.7116710315201696e-15
+        ],
+        "camera": [
+          -7.931800488834254e-14,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "heart",
+      "config": {
+        "cakeStyle": "heart",
+        "cakeShape": "heart",
+        "cakeLayers": 1,
+        "cakeColor": "#e6a3b7",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 85,
+        "points": 15492,
+        "geometries": 76,
+        "textures": 49,
+        "rotation": [
+          -0.27335532352343567,
+          -1.5255068719364726e-17,
+          -4.277122070849926e-18
+        ],
+        "camera": [
+          -1.2510838718276466e-16,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "chocolate",
+      "config": {
+        "cakeStyle": "chocolate",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#59362e",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 89,
+        "points": 15492,
+        "geometries": 81,
+        "textures": 49,
+        "rotation": [
+          -0.27335532352343567,
+          -2.5621523861807376e-20,
+          -7.183604821067492e-21
+        ],
+        "camera": [
+          -2.101247517453941e-19,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "matcha",
+      "config": {
+        "cakeStyle": "matcha",
+        "cakeShape": "round",
+        "cakeLayers": 2,
+        "cakeColor": "#8b9f69",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 97,
+        "points": 15492,
+        "geometries": 87,
+        "textures": 52,
+        "rotation": [
+          -0.27335532352343567,
+          -5.655376796151127e-23,
+          -1.58561966247228e-23
+        ],
+        "camera": [
+          -4.638032662410468e-22,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "blueberry",
+      "config": {
+        "cakeStyle": "blueberry",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#9a96bc",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 88,
+        "points": 15492,
+        "geometries": 88,
+        "textures": 49,
+        "rotation": [
+          -0.27335532352343567,
+          -1.248297598493754e-25,
+          -3.4998998088609935e-26
+        ],
+        "camera": [
+          -1.0237416962496343e-24,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "mango",
+      "config": {
+        "cakeStyle": "mango",
+        "cakeShape": "square",
+        "cakeLayers": 1,
+        "cakeColor": "#efbc62",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 86,
+        "points": 15492,
+        "geometries": 89,
+        "textures": 49,
+        "rotation": [
+          -0.27335532352343567,
+          -2.095881019837901e-28,
+          -5.876301924779166e-29
+        ],
+        "camera": [
+          -1.7188535754416926e-27,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "rainbow",
+      "config": {
+        "cakeStyle": "rainbow",
+        "cakeShape": "round",
+        "cakeLayers": 3,
+        "cakeColor": "#95b8dc",
+        "layerOverrides": {
+          "0": {
+            "cakeColor": "#95b8dc"
+          },
+          "1": {
+            "cakeColor": "#e8aabd"
+          },
+          "2": {
+            "cakeColor": "#e8ce8f"
+          }
+        },
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 110,
+        "points": 15492,
+        "geometries": 100,
+        "textures": 55,
+        "rotation": [
+          -0.27335532352343567,
+          -4.345996459343539e-31,
+          -1.2185036801897778e-31
+        ],
+        "camera": [
+          -3.5641963843812706e-30,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "moon",
+      "config": {
+        "cakeStyle": "moon",
+        "cakeShape": "round",
+        "cakeLayers": 2,
+        "cakeColor": "#283b70",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 97,
+        "points": 15492,
+        "geometries": 98,
+        "textures": 52,
+        "rotation": [
+          -0.27335532352343567,
+          -7.875770189959455e-34,
+          -2.2081598663437734e-34
+        ],
+        "camera": [
+          -6.459000116054248e-33,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    },
+    {
+      "id": "garden",
+      "config": {
+        "cakeStyle": "garden",
+        "cakeShape": "heart",
+        "cakeLayers": 1,
+        "cakeColor": "#e5b1bc",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 89,
+        "points": 15492,
+        "geometries": 98,
+        "textures": 49,
+        "rotation": [
+          -0.27335532352343567,
+          -1.2309513551651346e-36,
+          -3.451265481771408e-37
+        ],
+        "camera": [
+          -1.0095158637316298e-35,
+          2.134000000000001,
+          7.8965999999999985
+        ],
+        "frames": 738,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      }
+    }
+  ],
+  "browser": "156.0.8078.80"
+}

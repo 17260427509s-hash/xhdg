@@ -42,7 +42,7 @@ vec4 sampleFlame(vec3 p){
   float density=(1.-smoothstep(.28,1.12,radial))
     *smoothstep(0.,.07,h)*(1.-smoothstep(.82,1.,h));
   float heat=(1.-smoothstep(.08,.67,radial))*(1.-smoothstep(.55,.94,h));
-  vec3 emission=mix(vec3(3.,.62,.035),vec3(4.2,3.55,1.7),heat);
+  vec3 emission=mix(vec3(2.6,.44,.025),vec3(3.8,3.1,1.65),heat);
   emission=mix(emission,vec3(.15,.32,1.2),exp(-h*35.)*.8);
   return vec4(emission,density*(.88+flicker*.12));
 }

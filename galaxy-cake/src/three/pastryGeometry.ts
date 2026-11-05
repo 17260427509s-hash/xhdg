@@ -21,9 +21,9 @@ export function frostingGeometry(style: CakeStyle = 'galaxy') {
   const rng = random(451), segments = 512
   const drips = Array.from({ length: 18 }, (_, i) => {
     const angle=(i+(rng()-.5)*.38)/18*Math.PI*2
-    const depth=.09+Math.pow(rng(),.8)*.25
+    const depth=.075+Math.pow(rng(),.8)*.205
     // Deeper drops keep the same rounded tip curvature instead of becoming cones.
-    return {angle,depth,width:.14+rng()*.04,lean:(rng()-.5)*.025}
+    return {angle,depth,width:.17+rng()*.045,lean:(rng()-.5)*.022}
   })
   const radius = [0, .3, .7, 1.05, 1.23, 1.32, 1.365, 1.388, 1.397, 1.399, 1.396, 1.389, 1.375, 1.358, 1.343, 1.338]
   const height = [.584, .587, .588, .586, .582, .575, .563, .548, .532, .518, .501, .489, .487, .497, .519, .54]
@@ -37,7 +37,7 @@ export function frostingGeometry(style: CakeStyle = 'galaxy') {
       let drip = 0, lean = 0
       for (const d of drips) {
         const delta = Math.atan2(Math.sin(angle - d.angle), Math.cos(angle - d.angle))
-        const influence = Math.abs(delta)<d.width?Math.pow(Math.max(0,.5+.5*Math.cos(Math.PI*delta/d.width)),.6):0
+        const influence = Math.abs(delta)<d.width?Math.pow(Math.max(0,.5+.5*Math.cos(Math.PI*delta/d.width)),.82):0
         drip += d.depth * influence
         lean += d.lean * influence * w
       }
@@ -69,11 +69,11 @@ export function creamFlowerGeometry(detail = 1) {
   for(let i=0;i<=rows;i++)for(let j=0;j<=columns;j++){
     const v=i/rows,angle=j/columns*Math.PI*2
     const profile=.17*Math.pow(Math.sin(Math.PI*v),.49)*(1-.48*v)
-    const fold=angle*5-2.8*v
-    const lobes=1+.21*Math.cos(fold)+.055*Math.cos(fold*3)
+    const fold=angle*5-1.15*v
+    const lobes=1+.27*Math.cos(fold)+.012*Math.cos(fold*3)
     const radius=profile*lobes
-    const y=.008+.132*v
-    vertices.push(Math.cos(angle)*radius+.037*v*v,y,Math.sin(angle)*radius+.012*v*v)
+    const y=.008+.12*v-.018*Math.max(0,(v-.7)/.3)**2
+    vertices.push(Math.cos(angle)*radius+.028*v*v,y,Math.sin(angle)*radius+.01*v*v)
     uvs.push(j/columns,v)
   }
   for(let i=0;i<rows;i++)for(let j=0;j<columns;j++){

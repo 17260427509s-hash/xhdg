@@ -1,0 +1,480 @@
+{
+  "testedAt": "2026-11-05T13:09:13.104Z",
+  "checks": {
+    "threeOrbitsClearAllAssembledCakeSilhouettes": true,
+    "fiveRoundedLowPetalsAtAllQualityLevels": true,
+    "twelveStylesThreeShapesKeepFiniteCompatibleMorphs": true,
+    "qualityDprCapsPreserved": true
+  },
+  "orbits": [
+    {
+      "index": 0,
+      "minHorizontalRadius": 2.096057234820235,
+      "clearanceAfterLargestBead": 0.4750572348202349
+    },
+    {
+      "index": 1,
+      "minHorizontalRadius": 1.9461297789789331,
+      "clearanceAfterLargestBead": 0.32512977897893314
+    },
+    {
+      "index": 2,
+      "minHorizontalRadius": 2.0475496707226406,
+      "clearanceAfterLargestBead": 0.4265496707226406
+    }
+  ],
+  "flowers": [
+    {
+      "detail": 1,
+      "height": 0.10199999902397394,
+      "width": 0.3221484571695328,
+      "lobes": 5
+    },
+    {
+      "detail": 0.75,
+      "height": 0.10199999902397394,
+      "width": 0.32178570330142975,
+      "lobes": 5
+    },
+    {
+      "detail": 0.5,
+      "height": 0.10199999902397394,
+      "width": 0.3221484571695328,
+      "lobes": 5
+    }
+  ],
+  "geometries": [
+    {
+      "style": "galaxy",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "galaxy",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "galaxy",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "galaxy",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "galaxy",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "galaxy",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "strawberry",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "strawberry",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "strawberry",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "strawberry",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "strawberry",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "strawberry",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "cream",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "cream",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "cream",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "cream",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "cream",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "cream",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "purple",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "purple",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "purple",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "purple",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "purple",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "purple",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "heart",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "heart",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "heart",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "heart",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "heart",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "heart",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "chocolate",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "chocolate",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "chocolate",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "chocolate",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "chocolate",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "chocolate",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "matcha",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "matcha",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "matcha",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "matcha",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "matcha",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "matcha",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "blueberry",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "blueberry",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "blueberry",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "blueberry",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "blueberry",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "blueberry",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "mango",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "mango",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "mango",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "mango",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "mango",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "mango",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "rainbow",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "rainbow",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "rainbow",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "rainbow",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "rainbow",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "rainbow",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "moon",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "moon",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "moon",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "moon",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "moon",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "moon",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "garden",
+      "shape": "round",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "garden",
+      "shape": "round",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "garden",
+      "shape": "square",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "garden",
+      "shape": "square",
+      "kind": "cream",
+      "vertices": 33345
+    },
+    {
+      "style": "garden",
+      "shape": "heart",
+      "kind": "body",
+      "vertices": 16212
+    },
+    {
+      "style": "garden",
+      "shape": "heart",
+      "kind": "cream",
+      "vertices": 33345
+    }
+  ]
+}

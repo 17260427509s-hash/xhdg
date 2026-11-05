@@ -1,0 +1,307 @@
+{
+  "testedAt": "2026-11-05T12:46:28.237Z",
+  "url": "http://localhost:5173",
+  "checks": {},
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "views": [
+    {
+      "label": "desktop-default",
+      "width": 1585,
+      "scroll": 1585,
+      "height": 992,
+      "buttons": [],
+      "panel": null
+    },
+    {
+      "label": "desktop-cake-panel",
+      "width": 1585,
+      "scroll": 1585,
+      "height": 992,
+      "buttons": [
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 77.5,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.328125,
+          "h": 94
+        },
+        {
+          "w": 99.34375,
+          "h": 94
+        },
+        {
+          "w": 312,
+          "h": 48
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 149,
+          "h": 44
+        },
+        {
+          "w": 149,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 44,
+          "h": 44
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 100,
+          "h": 46
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 97.34375,
+          "h": 44
+        },
+        {
+          "w": 97.328125,
+          "h": 44
+        },
+        {
+          "w": 152,
+          "h": 44
+        },
+        {
+          "w": 152,
+          "h": 44
+        },
+        {
+          "w": 312,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 52,
+          "h": 44
+        },
+        {
+          "w": 97.40625,
+          "h": 44
+        }
+      ],
+      "panel": {
+        "client": 730,
+        "scroll": 2023
+      }
+    }
+  ],
+  "presets": [],
+  "browser": "156.0.8078.80",
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog').getByRole('button', { name: '星河蓝', exact: true })\u001b[22m\n\n    at choose (D:\\星河蛋糕\\xhdg\\galaxy-cake\\scripts\\verify-visual-round-three.cjs:10:97)\n    at D:\\星河蛋糕\\xhdg\\galaxy-cake\\scripts\\verify-visual-round-three.cjs:30:54"
+}
