@@ -1,13 +1,10 @@
 import type { ExperienceEngine } from '../experience/engine'
 import { layerAppearance } from '../store/birthdayStore'
-import type { BirthdayConfig, CakeLayerIndex, CakeStyle } from '../store/birthdayStore'
+import type { BirthdayConfig, CakeLayerIndex } from '../store/birthdayStore'
+import { DecorationEditor } from './DecorationEditor'
 
 const bodyColors = ['#3d4192', '#7793cb', '#d97c9a', '#f0dec4', '#9476ba', '#e6a3b7', '#75b8ad', '#b98968']
 const creamColors = ['#fff1df', '#fff0ed', '#f2e7ff', '#f7dce6', '#e8f0fa', '#e8d2b8']
-const decorations: { value: CakeStyle | 'none'; label: string }[] = [
-  { value: 'galaxy', label: '金色星星' }, { value: 'strawberry', label: '小草莓' },
-  { value: 'purple', label: '水晶糖' }, { value: 'heart', label: '小爱心' }, { value: 'none', label: '不放糖饰' },
-]
 
 export function LayerEditor({ engine, config }: { engine: ExperienceEngine; config: BirthdayConfig }) {
   const selected = engine.snapshot.selectedLayer
@@ -32,7 +29,7 @@ export function LayerEditor({ engine, config }: { engine: ExperienceEngine; conf
       {creamColors.map(value => <button key={value} className="color-swatch" style={{ background: value }} aria-label={`选择奶油颜色 ${value}`} aria-pressed={appearance.creamColor.toLowerCase() === value} onClick={() => engine.editLayer({ creamColor: value })}/>)}
       <label className="custom-color"><input aria-label="自定义奶油颜色" type="color" value={appearance.creamColor} onChange={e => engine.editLayer({ creamColor: e.target.value })}/><span>自选</span></label>
     </div></div>
-    <div className="setting-field"><span>{selected === 'all' ? '顶部糖饰' : '本层糖饰'}</span><div className="decoration-options">{decorations.map(item => <button key={item.value} aria-pressed={appearance.decoration === item.value || item.value === 'galaxy' && appearance.decoration === 'cream'} onClick={() => engine.editLayer({ decoration: item.value })}>{item.label}</button>)}</div></div>
+    <DecorationEditor engine={engine}/>
     <button className="reset-layer" onClick={engine.resetLayer}>{selected === 'all' ? '恢复各层默认搭配' : '恢复这一层默认搭配'}</button>
   </>
 }

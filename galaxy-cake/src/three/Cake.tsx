@@ -66,7 +66,9 @@ function PastryMesh({engine,kind,from,to,index,material}:{engine:ExperienceEngin
     if(kind==='cream')material.color.multiplyScalar(.96)
     if(kind==='body'){
       material.roughness=recipes[from.cakeStyle].bodyRoughness+(recipes[to.cakeStyle].bodyRoughness-recipes[from.cakeStyle].bodyRoughness)*t
-      const source=from.cakeStyle==='galaxy'?1:0,target=to.cakeStyle==='galaxy'?1:0
+      material.clearcoat=(recipes[from.cakeStyle].bodyCoat??.06)*(1-t)+(recipes[to.cakeStyle].bodyCoat??.06)*t
+      material.userData.grain.value=(recipes[from.cakeStyle].grain??1)*(1-t)+(recipes[to.cakeStyle].grain??1)*t
+      const source=from.cakeStyle==='galaxy'?1:recipes[from.cakeStyle].nebula??0,target=to.cakeStyle==='galaxy'?1:recipes[to.cakeStyle].nebula??0
       material.userData.nebula.value=source+(target-source)*t
     }
   })
@@ -95,7 +97,7 @@ function CakeLayer({engine,index,from,to,flower}:{engine:ExperienceEngine;index:
 function ChangingDecorations({engine,index,from,to}:{engine:ExperienceEngine;index:number;from:BirthdayConfig;to:BirthdayConfig}) {
   const a=layerAppearance(from,Math.min(index,from.cakeLayers-1)),b=layerAppearance(to,Math.min(index,to.cakeLayers-1))
   const oldGroup=useRef<Group>(null!),newGroup=useRef<Group>(null!)
-  const same=a.decoration===b.decoration&&a.shape===b.shape
+  const same=JSON.stringify([a,index<from.cakeLayers-1])===JSON.stringify([b,index<to.cakeLayers-1])&&from.candleType===to.candleType&&from.age===to.age
   useFrame(()=>{
     const t=partProgress(engine.transition,'decor')
     const previous=same?0:Math.max(0,1-t*2.2),next=same?1:Math.max(0,(t-.35)/.65)
@@ -103,8 +105,8 @@ function ChangingDecorations({engine,index,from,to}:{engine:ExperienceEngine;ind
     newGroup.current.visible=next>.001;newGroup.current.scale.setScalar(Math.max(next,.001))
   })
   return <>
-    <group ref={oldGroup}>{!same&&a.decoration!=='none'?<CakeDecorations style={a.decoration} shape={a.shape} rim={index<from.cakeLayers-1}/>:null}</group>
-    <group ref={newGroup}>{b.decoration!=='none'?<CakeDecorations style={b.decoration} shape={b.shape} rim={index<to.cakeLayers-1}/>:null}</group>
+    <group ref={oldGroup}>{!same&&index<from.cakeLayers&&a.decorations.length?<CakeDecorations config={from} index={index} tier={engine.snapshot.tier}/>:null}</group>
+    <group ref={newGroup}>{index<to.cakeLayers&&b.decorations.length?<CakeDecorations config={to} index={index} tier={engine.snapshot.tier}/>:null}</group>
   </>
 }
 export function Cake({engine}:{engine:ExperienceEngine}) {

@@ -3,7 +3,7 @@
 本轮用户确认先完成代码和本机验收，稍后再接入云端。当前没有创建 Supabase 项目、运行云端迁移或部署公开网站。不要把本机测试写成真实云端已上线。
 
 1. 使用一个独立 Supabase 项目，不接入旧生日网站数据库。
-2. 在 Supabase SQL Editor 执行 `migrations/202611030001_birthday_gifts.sql`；或在已链接的 Supabase CLI 项目运行 `supabase db push`。迁移是一次性的，不要重复在已有表上执行。
+2. 首次创建时按顺序执行 `migrations/202611030001_birthday_gifts.sql`、`migrations/202611050001_cake_catalog.sql`；或在已链接的 Supabase CLI 项目运行 `supabase db push`。已有初始表的项目只需追加第二份迁移，不要重复建表。第二份仅更新版本 1 载荷校验，接受 12 款蛋糕与多装饰配置，保留旧记录及原 RLS／RPC。
 3. 在 Authentication 中启用 Anonymous Sign-Ins。发布者无需注册界面；Supabase 为当前浏览器建立独立匿名身份，RLS 隔离其记录。访问者只通过 `read_birthday_gift(uuid)` 读取一个已知链接的快照，不建立发布身份。
 4. 将应用 `.env.example` 复制为 `.env.local`，填入项目 URL、**publishable** 公钥及正式前端 origin。不能填 `service_role` 或 `sb_secret_*`。`.env.local` 不进 Git。重启开发服务器，生产环境重新构建。
 5. 把 Vite 产物部署到正式 HTTPS origin，配置 SPA 路由回退。仓库提供 Vercel rewrite 与 Netlify `_redirects`；其他静态服务器同样将 `/create`、`/preview`、`/birthday/:id` 回退到 `index.html`。

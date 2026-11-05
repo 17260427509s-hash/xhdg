@@ -1,4 +1,6 @@
-export type CakeStyle = 'galaxy' | 'strawberry' | 'cream' | 'purple' | 'heart'
+import { cleanDecorations, legacyDecorations } from './decorationCatalog'
+import type { DecorationType, DecorationDensity, LegacyDecoration } from './decorationCatalog'
+export type CakeStyle = 'galaxy' | 'strawberry' | 'cream' | 'purple' | 'heart' | 'chocolate' | 'matcha' | 'blueberry' | 'mango' | 'rainbow' | 'moon' | 'garden'
 export type CakeShape = 'round' | 'square' | 'heart'
 export type GalaxyTheme = 'dream' | 'rose' | 'blue' | 'gold' | 'rainbow'
 export type SettingsSection = 'cake' | 'galaxy' | 'blessing' | 'candles'
@@ -8,7 +10,11 @@ export interface LayerAppearance {
   shape: CakeShape
   cakeColor: string
   creamColor: string
-  decoration: CakeStyle | 'none'
+  decoration: LegacyDecoration
+  decorations: DecorationType[]
+  decorationColor: string
+  decorationDensity: DecorationDensity
+  decorationSeed: number
 }
 export type LayerOverrides = Partial<Record<CakeLayerIndex, Partial<LayerAppearance>>>
 
@@ -31,12 +37,29 @@ export interface BirthdayConfig {
   galaxySpeed: .5 | 1 | 1.5
 }
 
-export const cakePresets: Record<CakeStyle, { name: string; color: string; cream: string; shape: CakeShape; layers: 1 | 2 | 3; description: string }> = {
-  galaxy: { name: '星河蓝', color: '#3d4192', cream: '#fff1df', shape: 'round', layers: 1, description: '蓝紫星砂 · 金色小星' },
-  strawberry: { name: '草莓粉', color: '#d97c9a', cream: '#fff4e9', shape: 'square', layers: 1, description: '莓果方糕 · 立体草莓' },
-  cream: { name: '奶油白', color: '#f0dec4', cream: '#fff3df', shape: 'round', layers: 2, description: '双层奶油 · 金色星饰' },
-  purple: { name: '紫色梦境', color: '#9476ba', cream: '#f2e7ff', shape: 'round', layers: 3, description: '三层梦境 · 水晶糖饰' },
-  heart: { name: '情侣爱心', color: '#e6a3b7', cream: '#fff0ed', shape: 'heart', layers: 1, description: '爱心糕体 · 心形糖饰' },
+export const cakePresets: Record<CakeStyle, { name: string; color: string; cream: string; shape: CakeShape; layers: 1 | 2 | 3; description: string; category:'dessert'|'dream'; decorations:DecorationType[]; accent?:string; layerColors?:string[] }> = {
+  galaxy: { name: '星河蓝', color: '#3d4192', cream: '#fff1df', shape: 'round', layers: 1, description: '蓝紫星砂 · 金色小星',category:'dream',decorations:['stars'] },
+  strawberry: { name: '草莓粉', color: '#d97c9a', cream: '#fff4e9', shape: 'square', layers: 1, description: '莓果方糕 · 立体草莓',category:'dessert',decorations:['strawberry'] },
+  cream: { name: '奶油白', color: '#f0dec4', cream: '#fff3df', shape: 'round', layers: 2, description: '双层奶油 · 金色星饰',category:'dessert',decorations:['stars'] },
+  purple: { name: '紫色梦境', color: '#9476ba', cream: '#f2e7ff', shape: 'round', layers: 3, description: '三层梦境 · 水晶糖饰',category:'dream',decorations:['crystal'],accent:'#c2a0e0' },
+  heart: { name: '情侣爱心', color: '#e6a3b7', cream: '#fff0ed', shape: 'heart', layers: 1, description: '爱心糕体 · 心形糖饰',category:'dream',decorations:['hearts'],accent:'#e8a1ba' },
+  chocolate:{name:'浓巧樱桃',color:'#59362e',cream:'#653b2c',shape:'round',layers:1,description:'可可丝绒 · 浓巧滴边与樱桃',category:'dessert',decorations:['chocolate','cherry'],accent:'#dfb36c'},
+  matcha:{name:'抹茶奶霜',color:'#8b9f69',cream:'#f4efd9',shape:'round',layers:2,description:'双层抹茶 · 圆润奶霜与马卡龙',category:'dessert',decorations:['macaron','pearls'],accent:'#9cba81'},
+  blueberry:{name:'蓝莓慕斯',color:'#9a96bc',cream:'#faf0e9',shape:'round',layers:1,description:'柔滑蓝莓慕斯 · 薄卷边与花朵',category:'dessert',decorations:['blueberry','flower'],accent:'#d9c2ec'},
+  mango:{name:'芒果晴光',color:'#efbc62',cream:'#fff1cd',shape:'square',layers:1,description:'柔亮芒果慕斯 · 果块与珍珠',category:'dessert',decorations:['mango','pearls'],accent:'#fff0ca'},
+  rainbow:{name:'彩虹心愿',color:'#95b8dc',cream:'#fff4e9',shape:'round',layers:3,description:'三层柔彩 · 彩虹插牌与珍珠',category:'dream',decorations:['rainbow','pearls'],accent:'#e5a2b4',layerColors:['#95b8dc','#e8aabd','#e8ce8f']},
+  moon:{name:'星月夜曲',color:'#283b70',cream:'#e8f0fc',shape:'round',layers:2,description:'双层午夜蓝 · 月牙、金星与珍珠',category:'dream',decorations:['crescent','stars','pearls'],accent:'#e9cb88'},
+  garden:{name:'花园来信',color:'#e5b1bc',cream:'#fff0e6',shape:'heart',layers:1,description:'花瓣奶油 · 小花、蝴蝶与缎结',category:'dream',decorations:['flower','butterfly','bow'],accent:'#d3a0bf'},
+}
+
+export function presetLayerDefaults(style:CakeStyle,layers:number):LayerOverrides {
+  const colors=cakePresets[style].layerColors, result:LayerOverrides={}
+  if(colors)for(let i=0;i<layers;i++)result[i as CakeLayerIndex]={cakeColor:colors[i%colors.length]}
+  return result
+}
+export function presetPatch(style:CakeStyle):Partial<BirthdayConfig> {
+  const p=cakePresets[style]
+  return {cakeStyle:style,cakeColor:p.color,cakeShape:p.shape,cakeLayers:p.layers,layerOverrides:presetLayerDefaults(style,p.layers)}
 }
 
 export const galaxyThemes: Record<GalaxyTheme, { name: string; colors: string[] }> = {
@@ -87,7 +110,11 @@ export function normalizeConfig(current: BirthdayConfig, patch: Partial<Birthday
     if (source.shape && ['round', 'square', 'heart'].includes(source.shape)) layer.shape = source.shape
     if (source.cakeColor && /^#[0-9a-f]{6}$/i.test(source.cakeColor)) layer.cakeColor = source.cakeColor
     if (source.creamColor && /^#[0-9a-f]{6}$/i.test(source.creamColor)) layer.creamColor = source.creamColor
-    if (typeof source.decoration==='string' && (source.decoration === 'none' || Object.hasOwn(cakePresets,source.decoration))) layer.decoration = source.decoration
+    if (typeof source.decoration==='string' && Object.hasOwn(legacyDecorations,source.decoration)) layer.decoration = source.decoration
+    if(Array.isArray(source.decorations))layer.decorations=cleanDecorations(source.decorations,i===next.cakeLayers-1)
+    if(typeof source.decorationColor==='string'&&/^#[0-9a-f]{6}$/i.test(source.decorationColor))layer.decorationColor=source.decorationColor
+    if(['sparse','standard','rich'].includes(source.decorationDensity!))layer.decorationDensity=source.decorationDensity
+    if(typeof source.decorationSeed==='number'&&Number.isInteger(source.decorationSeed)&&source.decorationSeed>=0&&source.decorationSeed<=2147483647)layer.decorationSeed=source.decorationSeed
     if (Object.keys(layer).length) overrides[i] = layer
   }
   next.layerOverrides = overrides
@@ -95,11 +122,14 @@ export function normalizeConfig(current: BirthdayConfig, patch: Partial<Birthday
 }
 
 export function layerAppearance(config: BirthdayConfig, index: number): LayerAppearance {
+  const preset=cakePresets[config.cakeStyle],override=config.layerOverrides[index as CakeLayerIndex],top=index===config.cakeLayers-1
+  const legacy:LegacyDecoration=top&&Object.hasOwn(legacyDecorations,config.cakeStyle)?config.cakeStyle as LegacyDecoration:'none'
+  const decorations=override?.decorations??(override?.decoration?legacyDecorations[override.decoration]:top?preset.decorations:[])
   return {
     shape: config.cakeShape, cakeColor: config.cakeColor,
     creamColor: cakePresets[config.cakeStyle].cream,
-    decoration: index === config.cakeLayers - 1 ? config.cakeStyle : 'none',
-    ...config.layerOverrides[index as CakeLayerIndex],
+    decoration: legacy, decorationColor:preset.accent??'#dfb36c',decorationDensity:'standard',decorationSeed:173+index*53,
+    ...override,decorations:cleanDecorations(decorations,top),
   }
 }
 

@@ -54,7 +54,7 @@ async function config(p) { return (await state(p)).config }
   await click(p, '方形'); await click(p, '选择蛋糕颜色 #d97c9a'); await click(p, '选择奶油颜色 #fff0ed'); await click(p, '小草莓')
   let c = await config(p)
   assert.deepEqual(Object.keys(c.layerOverrides), ['1'])
-  assert.deepEqual(c.layerOverrides[1], { shape: 'square', cakeColor: '#d97c9a', creamColor: '#fff0ed', decoration: 'strawberry' })
+  assert.deepEqual(c.layerOverrides[1], { shape: 'square', cakeColor: '#d97c9a', creamColor: '#fff0ed', decorations: ['strawberry'] })
   await layer(p, 1); await click(p, '选择蛋糕颜色 #75b8ad'); await click(p, '爱心')
   await layer(p, 3); await click(p, '选择蛋糕颜色 #f0dec4'); await click(p, '小爱心')
   const designed = await config(p)
@@ -62,7 +62,7 @@ async function config(p) { return (await state(p)).config }
   assert.equal((await state(p)).time, frozen)
   report.checks.independentLayerAppearanceAndPanelSelection = true
   report.checks.editWhilePaused = true
-  await click(p, '撤销'); assert.notEqual((await config(p)).layerOverrides[2].decoration, 'heart')
+  await click(p, '撤销'); assert.notEqual((await config(p)).layerOverrides[2].decorations?.includes('hearts'), true)
   await click(p, '重做'); assert.deepEqual(await config(p), designed)
   await p.getByRole('button', { name: '重做', exact: true }).press('Control+z'); await settle(p)
   assert.notDeepEqual(await config(p), designed)

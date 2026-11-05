@@ -2,6 +2,7 @@ import { BufferGeometry, Float32BufferAttribute, LatheGeometry, Vector2, Vector3
 import type { CakeShape, CakeStyle } from '../store/birthdayStore'
 import { shapeCakeGeometry } from '../utils/cakeShape'
 import { frostingGeometry } from './pastryGeometry'
+import { recipes } from './cakeRecipes'
 
 function bodyGeometry() {
   const profile = [new Vector2(0, -.54), new Vector2(1.3, -.54)]
@@ -44,7 +45,7 @@ function weldNormals(g: BufferGeometry) {
 
 const baseCache=new Map<string,BufferGeometry>()
 function pastryBase(kind:'body'|'cream',shape:CakeShape,style:CakeStyle){
-  const key=kind+':'+shape+(kind==='cream'?':'+style:'')
+  const key=kind+':'+shape+(kind==='cream'?':'+recipes[style].edge:'')
   let geometry=baseCache.get(key)
   if(!geometry){geometry=shapeCakeGeometry(kind==='body'?bodyGeometry():frostingGeometry(style),shape);weldNormals(geometry);baseCache.set(key,geometry)}
   return geometry

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { ExperienceEngine } from '../experience/engine'
 import { cakePresets, galaxyThemes } from '../store/birthdayStore'
@@ -16,6 +16,7 @@ export function SettingsPanel({ section, onSection, onClose, engine, config }: {
   section: SettingsSection; onSection: (section: SettingsSection) => void; onClose: () => void; engine: ExperienceEngine; config: BirthdayConfig
 }) {
   const dialog = useRef<HTMLDialogElement>(null!)
+  const [category,setCategory]=useState<'all'|'dessert'|'dream'>('all')
   const live=engine.snapshot.phase==='idle'
   useEffect(() => { const element = dialog.current,previous=document.activeElement; if(live)element.show();else element.showModal();return () => {element.close();if(previous instanceof HTMLElement)previous.focus()} }, [live])
   useEffect(()=>{const escape=(e:KeyboardEvent)=>{if(live&&e.key==='Escape'){e.preventDefault();onClose()}};window.addEventListener('keydown',escape);return()=>window.removeEventListener('keydown',escape)},[live,onClose])
@@ -36,7 +37,7 @@ export function SettingsPanel({ section, onSection, onClose, engine, config }: {
       <fieldset>
         {section === 'cake' ? <>
           <button className="inspiration-button" aria-label="换一组灵感" onClick={engine.randomizeCake}><Icon name="replay"/><span>换一组灵感</span><small>造型 · 层数 · 装饰</small></button>
-          <div className="setting-field"><span>蛋糕款式</span><div className="cake-preset-grid">{(Object.entries(cakePresets) as [CakeStyle, typeof cakePresets[CakeStyle]][]).map(([id, preset]) => <button key={id} className={`cake-choice ${config.cakeStyle === id ? 'selected' : ''}`} aria-pressed={config.cakeStyle === id} onClick={() => engine.selectCake(id)}>
+          <div className="setting-field"><span>蛋糕款式 <small className="selection-count">12 款</small></span><div className="segmented catalog-filter" role="group" aria-label="蛋糕分类">{(['all','dessert','dream'] as const).map((value,i)=><button key={value} aria-pressed={category===value} onClick={()=>setCategory(value)}>{['全部','甜品','梦幻'][i]}</button>)}</div><div className="cake-preset-grid">{(Object.entries(cakePresets) as [CakeStyle, typeof cakePresets[CakeStyle]][]).filter(([,preset])=>category==='all'||preset.category===category).map(([id, preset]) => <button key={id} data-cake-style={id} className={`cake-choice ${config.cakeStyle === id ? 'selected' : ''}`} aria-pressed={config.cakeStyle === id} onClick={() => engine.selectCake(id)}>
             <span className={`cake-mini cake-mini-${id}`} style={{ '--cake-swatch': preset.color } as CSSProperties}><span/></span><span>{preset.name}</span>
           </button>)}</div><span className="field-note">{engine.snapshot.switching ? '星光正在换上新的模样…' : cakePresets[config.cakeStyle].description}</span></div>
           <div className="setting-field"><span>蛋糕层数</span><div className="segmented">{([1,2,3] as const).map((layers,i)=><button key={layers} aria-pressed={config.cakeLayers===layers} onClick={()=>edit({cakeLayers:layers})}>{['单层','双层','三层'][i]}</button>)}</div></div>

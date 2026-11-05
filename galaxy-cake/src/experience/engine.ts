@@ -1,7 +1,9 @@
 import gsap from 'gsap'
 import { createVisualCake, partProgress, updateVisualCake, visualLayout } from '../utils/cakeTransition'
 import type { CakeTransition } from '../utils/cakeTransition'
-import { cakePresets, defaultConfig, normalizeConfig } from '../store/birthdayStore'
+import { cakePresets, defaultConfig, normalizeConfig, presetPatch, presetLayerDefaults, layerAppearance } from '../store/birthdayStore'
+import { decorationCatalog, decorationTypes } from '../store/decorationCatalog'
+import type { DecorationType } from '../store/decorationCatalog'
 import type { BirthdayConfig, CakeStyle, LayerAppearance, LayerSelection, SettingsSection } from '../store/birthdayStore'
 import { GalaxyAppearance } from '../utils/galaxyAppearance'
 
@@ -109,7 +111,8 @@ export class ExperienceEngine {
     if (!['intro', 'idle'].includes(this.snapshot.phase) || this.snapshot.switching) return
     const { config, selectedLayer } = this.snapshot
     const layerOverrides = { ...config.layerOverrides }
-    const targets = selectedLayer === 'all' ? patch.decoration ? [(config.cakeLayers - 1) as 0 | 1 | 2] : Array.from({ length: config.cakeLayers }, (_, i) => i as 0 | 1 | 2) : [selectedLayer]
+    const decorationEdit=['decoration','decorations','decorationColor','decorationDensity','decorationSeed'].some(key=>Object.hasOwn(patch,key))
+    const targets = selectedLayer === 'all' ? decorationEdit ? [(config.cakeLayers - 1) as 0 | 1 | 2] : Array.from({ length: config.cakeLayers }, (_, i) => i as 0 | 1 | 2) : [selectedLayer]
     for (const i of targets) layerOverrides[i] = { ...layerOverrides[i], ...patch }
     if (selectedLayer === 'all') {
       // Overall shape/color controls replace older local overrides consistently.
@@ -121,14 +124,31 @@ export class ExperienceEngine {
     const update: Partial<BirthdayConfig> = { layerOverrides }
     if (selectedLayer === 'all' && patch.shape) update.cakeShape = patch.shape
     if (selectedLayer === 'all' && patch.cakeColor) update.cakeColor = patch.cakeColor
-    if (patch.shape || patch.decoration) this.changeCake(update)
+    if (patch.shape || decorationEdit) this.changeCake(update)
     else this.configure(update)
+  }
+  toggleDecoration = (type:DecorationType) => {
+    const {config,selectedLayer}=this.snapshot,index=selectedLayer==='all'?config.cakeLayers-1:selectedLayer
+    const current=layerAppearance(config,index).decorations
+    if(current.includes(type)){this.editLayer({decorations:current.filter(t=>t!==type)});return}
+    if(decorationCatalog[type].hero&&index!==config.cakeLayers-1)return
+    const next=decorationCatalog[type].hero?current.filter(t=>!decorationCatalog[t].hero):[...current]
+    if(next.length>=3)return
+    this.editLayer({decorations:[...next,type]})
+  }
+  randomizeDecorations = () => {
+    const {config,selectedLayer}=this.snapshot,index=selectedLayer==='all'?config.cakeLayers-1:selectedLayer
+    const shuffled=decorationTypes.filter(t=>!decorationCatalog[t].hero).map(t=>({t,rank:Math.random()})).sort((a,b)=>a.rank-b.rank)
+    const decorations=shuffled.slice(0,2).map(x=>x.t)
+    if(index===config.cakeLayers-1&&Math.random()>.5)decorations.push((['crescent','crown','rainbow'] as const)[Math.floor(Math.random()*3)])
+    this.editLayer({decorations,decorationSeed:Math.floor(Math.random()*2147483647)})
   }
   resetLayer = () => {
     const { config, selectedLayer } = this.snapshot
     const layerOverrides = { ...config.layerOverrides }
-    if (selectedLayer === 'all') this.changeCake({ layerOverrides: {} })
-    else { delete layerOverrides[selectedLayer]; this.changeCake({ layerOverrides }) }
+    const defaults=presetLayerDefaults(config.cakeStyle,config.cakeLayers)
+    if (selectedLayer === 'all') this.changeCake({ layerOverrides: defaults })
+    else { delete layerOverrides[selectedLayer];if(defaults[selectedLayer])layerOverrides[selectedLayer]=defaults[selectedLayer];this.changeCake({ layerOverrides }) }
   }
   undo = () => this.restoreHistory(this.undoStack, this.redoStack)
   redo = () => this.restoreHistory(this.redoStack, this.undoStack)
@@ -141,15 +161,12 @@ export class ExperienceEngine {
   }
   selectCake = (style: CakeStyle) => {
     if (!['intro', 'idle'].includes(this.snapshot.phase)) return
-    const preset = cakePresets[style]
-    const current = this.queuedCake?.config ?? this.snapshot.config
-    if (current.cakeStyle === style && current.cakeColor === preset.color && current.cakeShape === preset.shape && current.cakeLayers === preset.layers && !Object.keys(current.layerOverrides).length) return
-    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: preset.shape, cakeLayers: preset.layers, layerOverrides: {} })
+    this.changeCake(presetPatch(style))
   }
   randomizeCake = () => {
     const choices = (Object.keys(cakePresets) as CakeStyle[]).filter(style => style !== this.snapshot.config.cakeStyle)
-    const style = choices[Math.floor(Math.random() * choices.length)], preset = cakePresets[style]
-    this.changeCake({ cakeStyle: style, cakeColor: preset.color, cakeShape: (['round', 'square', 'heart'] as const)[Math.floor(Math.random() * 3)], cakeLayers: (this.snapshot.config.cakeLayers % 3 + 1) as 1 | 2 | 3, layerOverrides: {} })
+    const style = choices[Math.floor(Math.random() * choices.length)],layers=(this.snapshot.config.cakeLayers % 3 + 1) as 1|2|3
+    this.changeCake({ ...presetPatch(style), cakeShape: (['round', 'square', 'heart'] as const)[Math.floor(Math.random() * 3)], cakeLayers: layers, layerOverrides:presetLayerDefaults(style,layers) })
   }
   private changeCake(patch: Partial<BirthdayConfig>, record = true) {
     if(this.readOnly)return
