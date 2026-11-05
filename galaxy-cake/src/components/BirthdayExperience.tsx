@@ -6,6 +6,7 @@ import { recipientName } from '../store/birthdayStore'
 import { ControlBar } from './ControlBar'
 import { SettingsPanel } from './SettingsPanel'
 import { WishModal } from './WishModal'
+import { BirthdayOpening } from './BirthdayOpening'
 import type { GiftPayload } from '../gifts/draft'
 import { useDraft } from '../gifts/useDraft'
 import { useMusic } from '../gifts/useMusic'
@@ -35,7 +36,8 @@ export function BirthdayExperience({initialGift,readOnly=false,preview=false,dra
   useEffect(()=>{document.title=`星河生日蛋糕 · 给${name}`;document.querySelector('meta[name="description"]')?.setAttribute('content',`给${name}的一份星河生日惊喜。`)},[name])
   return <main className={`experience stage-two stage-three ${readOnly?'viewer-mode':''} phase-${phase} ${editing?'is-editing':''}`} data-phase={phase} data-quality={tier}>
     <div className="scene" aria-label="实时三维星河生日蛋糕，可用鼠标或手指拖动旋转"><GalaxyScene engine={engine} phase={phase} tier={tier}/></div>
-    {phase==='intro'?<section className="intro" aria-labelledby="intro-title"><div className="intro-star" aria-hidden="true">✧</div><p id="intro-title">有一份来自星河的生日惊喜</p><h1>给 <span>{name}</span></h1><button className="primary intro-button" onClick={enter}>开启星河 <Icon name="arrow"/></button>{!readOnly?<button className="intro-edit" onClick={()=>engine.openSettings('blessing')}>定制这份生日祝福</button>:null}<button className="intro-music" aria-pressed={music.enabled} onClick={music.toggle}><Icon name={music.enabled?'music':'muted'}/>{music.enabled?'背景音乐已开启':'背景音乐已关闭'}</button></section>:<p className={`recipient ${message||phase==='celebration'?'recipient-hidden':''}`}>给 {name}</p>}
+    {phase==='intro'||phase==='entering'?<BirthdayOpening engine={engine} onEnter={enter} music={music}/>:null}
+    {phase!=='intro'?<p className={`recipient ${message||phase==='celebration'?'recipient-hidden':''}`}>给 {name}</p>:null}
     {phase==='entering'?<p className="entering-status" role="status">星光正在为你汇聚</p>:null}
     <div id="birthday-message" className="birthday-message" aria-hidden={phase!=='celebration'&&!message}>
       <h1 lang="en">Happy Birthday</h1><p className="birthday-name">{name}</p><p className="birthday-wish">{wish}</p>{config.sender.trim()||config.birthday?<p className="birthday-from">{[config.sender.trim()?`来自 ${config.sender.trim()}`:'',config.birthday.replaceAll('-','.')].filter(Boolean).join(' · ')}</p>:null}

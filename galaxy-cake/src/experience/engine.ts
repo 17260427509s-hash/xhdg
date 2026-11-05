@@ -7,13 +7,23 @@ import { GalaxyAppearance } from '../utils/galaxyAppearance'
 
 export type Phase = 'intro' | 'entering' | 'idle' | 'wishing' | 'blowout' | 'celebration' | 'message'
 export type Tier = 'desktop' | 'mobile' | 'low'
+export type OpeningStage = 'title' | 'forming' | 'ready'
 export const budgets = {
   desktop: { near: 600, far: 700, dust: 2400, surface: 3200, orbitDust: 400, sparks: 256, burst: 350, dpr: 2 },
   mobile: { near: 300, far: 400, dust: 1200, surface: 1800, orbitDust: 400, sparks: 160, burst: 220, dpr: 1.5 },
   low: { near: 150, far: 300, dust: 600, surface: 1000, orbitDust: 180, sparks: 64, burst: 120, dpr: 1 },
 } as const
 export class ExperienceEngine {
-  snapshot: { phase: Phase; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; assembling: boolean; selectedLayer: LayerSelection; canUndo: boolean; canRedo: boolean; settings: SettingsSection | null }
+  snapshot: { phase: Phase; openingStage: OpeningStage; paused: boolean; tier: Tier; reduced: boolean; config: BirthdayConfig; wishConfirmed: boolean; switching: boolean; lighting: boolean; editing: boolean; assembling: boolean; selectedLayer: LayerSelection; canUndo: boolean; canRedo: boolean; settings: SettingsSection | null }
+  openingTime = 0
+  private openingRenderers = new Set<() => void>()
+  subscribeOpening = (render: () => void) => { this.openingRenderers.add(render); render(); return () => { this.openingRenderers.delete(render) } }
+  private renderOpening() { this.openingRenderers.forEach(render => render()) }
+  skipOpening = () => {
+    if (this.snapshot.phase !== 'intro' || this.snapshot.settings) return
+    this.openingTime = Math.max(6.5, this.openingTime)
+    this.update({ openingStage: 'ready' }); this.renderOpening()
+  }
   time = 0
   phaseTime = 0
   orbitTime = 0
@@ -47,7 +57,8 @@ export class ExperienceEngine {
     const mobile = window.matchMedia('(max-width: 700px)').matches
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const low = new URLSearchParams(location.search).get('quality') === 'low'
-    this.snapshot = { phase: 'intro', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: normalizeConfig(defaultConfig,initialConfig), wishConfirmed: false, switching: false, lighting: false, editing: false, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
+    this.snapshot = { phase: 'intro', openingStage: reduced ? 'ready' : 'title', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: normalizeConfig(defaultConfig,initialConfig), wishConfirmed: false, switching: false, lighting: false, editing: false, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
+    this.openingTime = reduced ? 6.5 : 0
     this.sourceLayout=this.targetLayout=visualLayout(this.snapshot.config)
     this.refreshVisualCake()
     this.sky.update(this.snapshot.config,null,this.visualCake,0,1,true)
@@ -203,7 +214,7 @@ export class ExperienceEngine {
       .to({}, { duration: .5 }, .7)
   }
   enter = () => {
-    if (['entering', 'celebration', 'blowout'].includes(this.snapshot.phase) || this.snapshot.switching || this.snapshot.editing || this.snapshot.assembling) return
+    if (['entering', 'celebration', 'blowout'].includes(this.snapshot.phase) || this.snapshot.settings || this.snapshot.switching || this.snapshot.editing || this.snapshot.assembling || (this.snapshot.phase === 'intro' && this.snapshot.openingStage !== 'ready')) return
     this.timeline?.kill()
     this.flameTimeline?.kill()
     this.time = this.orbitTime = this.phaseTime = this.timelineTime = 0
@@ -236,12 +247,18 @@ export class ExperienceEngine {
     if (this.hidden) return
     // A resumed/backgrounded tab must never jump past an entrance or celebration.
     const dt = Math.min(delta, .06)
+    if (this.snapshot.phase === 'intro' && !this.snapshot.settings) {
+      this.openingTime = this.snapshot.reduced ? 6.5 : this.openingTime + dt
+      const openingStage: OpeningStage = this.openingTime < 1.2 ? 'title' : this.openingTime < 6.5 ? 'forming' : 'ready'
+      if (openingStage !== this.snapshot.openingStage) this.update({ openingStage })
+    }
     if (this.snapshot.switching) this.switchTimeline?.time(this.switchTime += dt, false)
     this.flameTimeline?.time(this.flameTime += dt, false)
     this.refreshVisualCake()
     this.sky.update(this.snapshot.config,this.transition,this.visualCake,this.orbitTime,dt,this.snapshot.reduced)
     if (this.snapshot.paused) return
     this.time += dt; this.phaseTime += dt
+    if (this.snapshot.phase === 'intro' || this.snapshot.phase === 'entering') this.renderOpening()
     this.orbitTime += dt * this.motion.energy * this.snapshot.config.galaxySpeed * (this.snapshot.reduced ? .15 : 1)
     if (['entering', 'blowout', 'celebration'].includes(this.snapshot.phase)) {
       this.timelineTime += dt
@@ -258,5 +275,5 @@ export class ExperienceEngine {
       }
     }
   }
-  dispose() { this.timeline?.kill(); this.switchTimeline?.kill(); this.flameTimeline?.kill(); this.listeners.clear() }
+  dispose() { this.timeline?.kill(); this.switchTimeline?.kill(); this.flameTimeline?.kill(); this.listeners.clear(); this.openingRenderers.clear() }
 }
