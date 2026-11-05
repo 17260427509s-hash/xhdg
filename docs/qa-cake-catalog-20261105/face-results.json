@@ -1,0 +1,9 @@
+{
+  "testedAt": "2026-11-05T07:25:21.635Z",
+  "checks": {
+    "gardenFrontObliqueAndRearRendered": true,
+    "mirroredOrnamentsRenderedAndRotated": true,
+    "noRuntimeErrors": true
+  },
+  "errors": []
+}

@@ -2,6 +2,7 @@ import { BoxGeometry, BufferGeometry, CatmullRomCurve3, ExtrudeGeometry, Icosahe
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { heartShape, starShape } from '../utils/ornaments'
 import type { DecorationType } from '../store/decorationCatalog'
+import type { BufferAttribute } from 'three'
 export interface DecorationPart { geometry:BufferGeometry; color:string; accent?:boolean; metalness?:number; roughness?:number }
 const cache=new Map<DecorationType,DecorationPart[]>() // At most 16 model definitions.
 function merge(list:BufferGeometry[]) {
@@ -12,6 +13,16 @@ function sphere(x:number,y:number,z:number,sx:number,sy=sx,sz=sx){return new Sph
 function extrude(shape:Shape,depth=.035){return new ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelSize:.008,bevelThickness:.008,bevelSegments:3,curveSegments:20,steps:1}).translate(0,0,-depth/2)}
 function tube(points:Vector3[],radius=.008){return new TubeGeometry(new CatmullRomCurve3(points),28,radius,7,false)}
 function rectangle(w:number,h:number){const s=new Shape();s.moveTo(-w/2,0);s.lineTo(w/2,0);s.lineTo(w/2,h);s.lineTo(-w/2,h);s.closePath();return s}
+/** Mirroring vertices reverses handedness; restore winding to match the normals. */
+function mirrorX(g:BufferGeometry) {
+  g.scale(-1,1,1)
+  if(g.index){for(let i=0;i<g.index.count;i+=3){const b=g.index.getX(i+1);g.index.setX(i+1,g.index.getX(i+2));g.index.setX(i+2,b)}}
+  else for(const attribute of Object.values(g.attributes)){
+    const a=attribute as BufferAttribute
+    for(let i=0;i<a.count;i+=3)for(let k=0;k<a.itemSize;k++){const b=(i+1)*a.itemSize+k,c=(i+2)*a.itemSize+k,value=a.array[b];a.array[b]=a.array[c];a.array[c]=value}
+  }
+  return g
+}
 export function getDecorationModel(type:DecorationType):DecorationPart[] {
   const existing=cache.get(type);if(existing)return existing
   const parts:DecorationPart[]=[],add=(g:BufferGeometry,color:string,accent=false,metalness=0,roughness=.36)=>parts.push({geometry:g,color,accent,metalness,roughness})
@@ -45,11 +56,11 @@ export function getDecorationModel(type:DecorationType):DecorationPart[] {
     add(sphere(0,.045,0,.028,.022,.028),'#eac77b')
   } else if(type==='butterfly') {
     const wing=new Shape();wing.moveTo(0,0);wing.bezierCurveTo(.16,.03,.2,.24,.1,.22);wing.bezierCurveTo(.02,.21,.02,.13,0,.1);wing.bezierCurveTo(.1,.09,.13,-.01,.05,-.02);wing.closePath()
-    add(merge([extrude(wing,.012).rotateY(-.3),extrude(wing,.012).scale(-1,1,1).rotateY(.3)]),'#dcb7ec',true,.06,.3)
+    add(merge([extrude(wing,.012).rotateY(-.3),mirrorX(extrude(wing,.012)).rotateY(.3)]),'#dcb7ec',true,.06,.3)
     add(merge([sphere(0,.09,0,.012,.09,.012),tube([new Vector3(0,.17,0),new Vector3(.018,.21,0),new Vector3(.03,.22,0)],.003),tube([new Vector3(0,.17,0),new Vector3(-.018,.21,0),new Vector3(-.03,.22,0)],.003)]),'#bb945e')
   } else if(type==='bow') {
     const loop=new Shape();loop.moveTo(0,.1);loop.bezierCurveTo(.1,.23,.22,.2,.17,.09);loop.bezierCurveTo(.12,.03,.05,.08,0,.1)
-    add(merge([extrude(loop,.025),extrude(loop,.025).scale(-1,1,1),new BoxGeometry(.065,.095,.02).rotateZ(.25).translate(-.04,.04,0),new BoxGeometry(.065,.095,.02).rotateZ(-.25).translate(.04,.04,0),sphere(0,.105,.012,.035,.035,.03)]),'#d59ab8',true,0,.32)
+    add(merge([extrude(loop,.025),mirrorX(extrude(loop,.025)),new BoxGeometry(.065,.095,.02).rotateZ(.25).translate(-.04,.04,0),new BoxGeometry(.065,.095,.02).rotateZ(-.25).translate(.04,.04,0),sphere(0,.105,.012,.035,.035,.03)]),'#d59ab8',true,0,.32)
   } else if(type==='crescent') {
     const moon=new Shape();moon.moveTo(.08,.6);moon.bezierCurveTo(-.38,.58,-.38,.06,.08,.04);moon.bezierCurveTo(-.1,.2,-.1,.44,.08,.6)
     add(merge([extrude(moon,.04).translate(.08,.06,0),new BoxGeometry(.012,.14,.012).translate(0,.07,0)]),'#e7c77d',true,.72,.23)

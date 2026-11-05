@@ -22,7 +22,15 @@ const out=path.resolve(process.env.QA_OUTPUT||'../docs/qa-cake-catalog-20261105'
   const config=normalizeConfig(defaultConfig,{layerOverrides:{0:{decorations:[type]}}}),placed=layouts.decorationLayout(config,0,'desktop')
   assert(placed.some(p=>p.type===type),'Unplaceable '+type)
   const model=models.getDecorationModel(type);assert(model.length>0)
-  for(const part of model){const p=part.geometry.getAttribute('position');assert(p.count>20);assert([...p.array].every(Number.isFinite))}
+  for(const part of model){
+   const p=part.geometry.getAttribute('position'),n=part.geometry.getAttribute('normal'),indices=part.geometry.index;assert(p.count>20);assert([...p.array].every(Number.isFinite))
+   for(let i=0;i<(indices?indices.count:p.count);i+=3){
+    const a=indices?indices.getX(i):i,b=indices?indices.getX(i+1):i+1,c=indices?indices.getX(i+2):i+2
+    const ux=p.getX(b)-p.getX(a),uy=p.getY(b)-p.getY(a),uz=p.getZ(b)-p.getZ(a),vx=p.getX(c)-p.getX(a),vy=p.getY(c)-p.getY(a),vz=p.getZ(c)-p.getZ(a)
+    const dot=(uy*vz-uz*vy)*(n.getX(a)+n.getX(b)+n.getX(c))+(uz*vx-ux*vz)*(n.getY(a)+n.getY(b)+n.getY(c))+(ux*vy-uy*vx)*(n.getZ(a)+n.getZ(b)+n.getZ(c))
+    assert(dot>=-1e-8,type+' has inside-out mirrored faces')
+   }
+  }
  }
  report.checks.allSixteenHaveFinite3dGeometryAndCanBePlaced=true
  for(const style of ['galaxy','purple','cream']){
