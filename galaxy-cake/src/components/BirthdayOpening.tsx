@@ -1,9 +1,8 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
-import type { CSSProperties } from 'react'
 import gsap from 'gsap'
 import type { ExperienceEngine } from '../experience/engine'
 import { recipientName } from '../store/birthdayStore'
-import { openingCards } from '../utils/openingCards'
+import { openingCards, createHeartPath, convoyEase } from '../utils/openingCards'
 import { Icon } from './Icons'
 
 export function BirthdayOpening({ engine, onEnter, music }: {
@@ -20,34 +19,51 @@ export function BirthdayOpening({ engine, onEnter, music }: {
   }, [])
   useLayoutEffect(() => {
     const element = root.current, heart = element.querySelector<HTMLElement>('.opening-heart')!
-    let unsubscribe: (() => void) | undefined
+    let unsubscribe: (() => void) | undefined, observer: ResizeObserver | undefined
     const context = gsap.context(() => {
       const timeline = gsap.timeline({ paused: true })
         .fromTo('.opening-heading', { opacity: .15, y: 15 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 0)
         .fromTo('.opening-dedication', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .8 }, .35)
-      element.querySelectorAll<HTMLElement>('.wish-note').forEach((card, index) => {
-        const data = cards[index]
-        timeline.fromTo(card, { opacity: 0, x: data.startX, y: data.startY, rotation: data.tilt - 18, scale: .65 },
-          { opacity: 1, x: 0, y: 0, rotation: data.tilt, scale: 1, duration: .55, ease: 'power3.out' }, data.delay)
+      const convoy = { progress: 0 }, point = { x: 0, y: 0 }
+      const notes = [...element.querySelectorAll<HTMLElement>('.wish-note')].map((card, index) => {
+        gsap.set(card, { x: 0, y: 0, rotation: cards[index].tilt, opacity: 0 })
+        return { x: gsap.quickSetter(card, 'x', 'px'), y: gsap.quickSetter(card, 'y', 'px'), opacity: gsap.quickSetter(card, 'opacity') }
       })
+      let width = heart.clientWidth, height = heart.clientHeight, path = createHeartPath(width, height), lastProgress = -1
+      const renderCards = () => {
+        if (lastProgress === convoy.progress) return
+        lastProgress = convoy.progress
+        notes.forEach((note, index) => {
+          const progress = convoy.progress - cards[index].offset
+          path.sample(progress, point)
+          note.x(point.x); note.y(point.y)
+          note.opacity(Math.max(0, Math.min(1, progress / .015)))
+        })
+      }
+      observer = new ResizeObserver(([entry]) => {
+        const next = entry.contentRect
+        if (next.width === width && next.height === height) return
+        width = next.width; height = next.height; path = createHeartPath(width, height); lastProgress = -1; renderCards()
+      })
+      observer.observe(heart)
+      timeline.to(convoy, { progress: 1, duration: 4.6, ease: convoyEase }, 1.2)
       timeline.fromTo('.opening-letter', { opacity: 0, y: 15, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .7, ease: 'power2.out' }, 5.8)
         .fromTo('.opening-enter', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5 }, 6)
       const exit = gsap.timeline({ paused: true }).to(element, { opacity: 0, duration: reduced ? .2 : .7, ease: 'power1.inOut' })
-      const breathe = gsap.quickSetter(heart, 'scale')
       unsubscribe = engine.subscribeOpening(() => {
         timeline.time(Math.min(engine.openingTime, 6.5), false)
         exit.time(engine.snapshot.phase === 'intro' ? 0 : engine.phaseTime, false)
-        breathe(engine.snapshot.reduced ? 1 : 1 + Math.sin(Math.max(0, engine.openingTime - 6.5) * .7) * .004)
+        renderCards()
       })
     }, element)
-    return () => { unsubscribe?.(); context.revert() }
+    return () => { observer?.disconnect(); unsubscribe?.(); context.revert() }
   }, [engine, cards, reduced])
   useLayoutEffect(() => { if (ready && document.activeElement === skipButton.current) enterButton.current.focus() }, [ready])
   return <section ref={root} className="birthday-opening" data-opening-stage={openingStage} aria-label="生日祝福开场" aria-hidden={leaving} inert={leaving || Boolean(settings)}>
     <div className="opening-paper-glow" aria-hidden="true"/>
-    <header className="opening-heading"><p className="opening-script" aria-hidden="true">Happy Birthday</p><h1>生日快乐</h1><p className="opening-dedication">给 <span>{recipientName(config)}</span></p></header>
     <div className="opening-composition">
-      <div className="opening-heart" aria-hidden="true">{cards.map((card, index) => <div key={index} className={`wish-note note-color-${card.color}`} style={{ '--note-x': `${50 + card.x * 100}%`, '--note-y': `${50 + card.y * 100}%`, zIndex: index + 1 } as CSSProperties}><span className="note-star">✧</span><p>{card.text}</p><i/></div>)}</div>
+      <header className="opening-heading"><h1>生日快乐</h1><p className="opening-script" aria-hidden="true">Happy Birthday</p><p className="opening-dedication">给 <span>{recipientName(config)}</span></p></header>
+      <div className="opening-heart" aria-hidden="true">{cards.map((card, index) => <div key={index} data-queue-index={index} className={`wish-note note-color-${card.color}`} style={{ zIndex: cards.length - index }}><span className="note-star">✧</span><p>{card.text}</p><i/></div>)}</div>
       <article className="opening-letter" aria-hidden={!ready} inert={!ready}>
         <span className="letter-heart" aria-hidden="true">♡</span><h2>{recipientName(config)}，生日快乐</h2>
         <div className="opening-wish" tabIndex={ready ? 0 : -1} aria-label="开场祝福内容"><p>{config.message.trim() || '愿新的一岁，继续闪闪发光。'}</p></div>

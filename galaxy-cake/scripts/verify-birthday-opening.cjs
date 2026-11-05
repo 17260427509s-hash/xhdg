@@ -30,7 +30,8 @@ async function layout(p, label) {
   })
   report.layouts.push({ label, ...result }); save()
   assert(result.scroll <= result.width)
-  assert(result.cards.every(c => c.left >= 0 && c.right <= result.width && c.top > result.heading.bottom && c.bottom < result.footer.top))
+  assert(result.cards.every(c => c.left >= 0 && c.right <= result.width && c.top >= 0 && c.bottom < result.footer.top))
+  assert(result.heading.left >= 0 && result.heading.right <= result.width)
   assert(result.controls.every(c => c.width >= 44 && c.height >= 44 && c.bottom <= result.height))
   assert(result.letter.left >= 0 && result.letter.right <= result.width)
 }
@@ -38,7 +39,7 @@ let browser
 ;(async () => {
   browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true, args: ['--enable-webgl', '--ignore-gpu-blocklist'] })
   report.browser = await browser.version()
-  const context = await browser.newContext({ viewport: { width: 1585, height: 992 }, recordVideo: { dir: out, size: { width: 1585, height: 992 } } })
+  const context = await browser.newContext({ viewport: { width: 1585, height: 992 }, ...(process.env.QA_RECORD_VIDEO === '0' ? {} : { recordVideo: { dir: out, size: { width: 1585, height: 992 } } }) })
   await context.addInitScript(() => {
     const AudioConstructor = window.Audio
     window.__QA_AUDIO_COUNT__ = 0
@@ -105,7 +106,7 @@ let browser
   }
   assert.equal(new Set(report.replays.map(r => `${r.geometries}/${r.textures}`)).size, 1)
   report.checks.fiveCakeReplaysNoOpeningOrResourceGrowth = true
-  const video = p.video(); await context.close(); await video.saveAs(path.join(out, 'opening-and-cake.webm')); fs.unlinkSync(await video.path()); save()
+  const video = p.video(); await context.close(); if (video) { await video.saveAs(path.join(out, 'opening-and-cake.webm')); fs.unlinkSync(await video.path()) }; save()
   for (const [width, height] of [[390, 844], [375, 667], [412, 915]]) {
     const m = await browser.newPage({ viewport: { width, height }, isMobile: true, hasTouch: true })
     await visit(m); assert.equal(await m.locator('.wish-note').count(), 32)
