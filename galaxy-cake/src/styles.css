@@ -8,7 +8,7 @@
 /* Dark surround keeps tiny spectral highlights readable without broad bloom. */
 .experience:not(.phase-intro){background:#050507}
 .phase-intro{background:#050507}
-@media(min-width:701px){.phase-celebration .scene,.phase-message .scene{top:110px}}
+.stage-two.phase-celebration .scene,.stage-two.phase-message .scene{inset:0}
 
 @media(min-width:901px){.control-bar{bottom:54px;width:min(1248px,calc(100% - 96px));min-height:85px;padding:14px 28px 14px 46px;border-radius:26px;gap:24px}.brand{font-size:22px}.desktop-hint{font-size:15px}.quiet{font-size:14px}.quiet-controls{gap:18px;padding:0 28px}.surprise{font-size:16px;min-width:208px;min-height:51px}.recipient{font-size:24px;top:17px}}
 
@@ -182,3 +182,7 @@
 @media(min-width:701px) and (max-height:800px){.opening-script{font-size:29px}.opening-heading h1{font-size:58px;margin-bottom:6px}.opening-composition{top:46%;height:70dvh;width:min(750px,78vw)}.opening-heart{inset:35px 75px}.wish-note{width:128px;height:82px;margin-left:-64px;margin-top:-41px}.opening-letter{padding:17px 23px;width:300px}.opening-footer{bottom:20px;gap:8px}}
 @media(max-width:700px){.opening-heading{left:0;right:0}.opening-script{font-size:28px;margin-bottom:10px}.opening-heading h1{font-size:46px;margin-bottom:6px;letter-spacing:.15em;padding-left:.15em}.opening-dedication{font-size:12px}.opening-composition{top:47%;width:calc(100% - 20px);height:min(470px,60dvh)}.opening-heart{inset:38px 49px}.wish-note{width:94px;height:67px;margin-left:-47px;margin-top:-33.5px;border-radius:6px;padding:12px 9px}.wish-note p{font-size:10px;line-height:1.65}.note-star{font-size:12px;top:4px;left:6px}.wish-note i{bottom:7px;width:15px;left:calc(50% - 7.5px)}.opening-letter{width:min(250px,70%);padding:18px 19px 17px;border-radius:14px;top:53%}.letter-heart{font-size:25px;margin-bottom:9px}.opening-letter h2{font-size:17px;margin-bottom:9px;max-height:55px}.opening-wish{max-height:74px}.opening-wish p{font-size:11px;line-height:1.9}.opening-from{margin-top:11px;font-size:10px;max-height:34px}.opening-footer{left:14px;right:14px;bottom:max(28px,env(safe-area-inset-bottom));gap:10px}.opening-options{gap:13px}.opening-primary{min-height:50px;min-width:204px;font-size:14px}.opening-skip{top:max(17px,env(safe-area-inset-top));right:17px;font-size:11px}}
 @media(max-width:700px) and (max-height:720px){.opening-script{font-size:25px}.opening-heading h1{font-size:39px;margin-bottom:8px}.opening-composition{top:46%;height:53dvh}.opening-heart{inset:23px 49px}.opening-letter{padding:13px 16px}.letter-heart{font-size:21px;margin-bottom:6px}.opening-letter h2{font-size:16px;max-height:50px}.opening-wish{max-height:62px}.opening-footer{bottom:20px;gap:6px}.opening-primary{min-height:48px}}
+
+/* Celebration and message share a full-page sky; text stays in the overlay. */
+.stage-two.phase-celebration .scene,.stage-two.phase-message .scene{inset:0}
+.birthday-message{z-index:2;background:radial-gradient(ellipse at 50% 25%,#050507b3,transparent 72%)}

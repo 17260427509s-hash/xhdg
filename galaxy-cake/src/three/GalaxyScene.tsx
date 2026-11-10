@@ -84,7 +84,11 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
     focusZoom.current=nextZoom
     controls.current.autoRotate=phase==='idle'&&!engine.snapshot.editing&&!engine.snapshot.assembling&&!engine.snapshot.paused&&!engine.snapshot.reduced&&!engine.dragging&&engine.time-engine.lastInteraction>5
     if(phase==='celebration'&&lastPhase.current!=='celebration')celebrationCamera.copy(camera.position).sub(target)
-    if(phase==='celebration'||phase==='message')camera.position.copy(celebrationCamera).multiplyScalar(1-engine.motion.camera*.12).add(target)
+    if(phase==='celebration'||phase==='message'){
+      const progress=Math.min(1,engine.phaseTime/1.7),shift=progress*progress*(3-2*progress)*(mobile?1.3:.65)
+      camera.position.copy(celebrationCamera).multiplyScalar(1-engine.motion.camera*.12).add(target);camera.position.y+=shift
+      controls.current.target.copy(target);controls.current.target.y+=shift
+    }
     lastPhase.current=phase
     engine.stats.rotation=controls.current.object.rotation.toArray().slice(0,3) as number[]
     engine.stats.camera=camera.position.toArray()

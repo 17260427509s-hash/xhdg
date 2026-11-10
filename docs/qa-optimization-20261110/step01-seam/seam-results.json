@@ -1,0 +1,86 @@
+{
+  "task": "seam",
+  "testedAt": "2026-11-10T06:21:36.867Z",
+  "url": "http://localhost:4174",
+  "checks": {},
+  "runs": [
+    {
+      "width": 1440,
+      "phase": "idle",
+      "camera": [
+        -0.13197147996910435,
+        2.1339999999999995,
+        7.895497140046006
+      ],
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "width": 1440,
+      "phase": "celebration",
+      "time": 3.7022000000029904,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "above": 12.231943888888942,
+      "below": 12.529014259259263,
+      "difference": 0.02371059400389605
+    },
+    {
+      "width": 1440,
+      "phase": "message",
+      "time": 7.0022000000029845,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "above": 11.734037037036849,
+      "below": 12.180181481481341,
+      "difference": 0.036628718966364084
+    },
+    {
+      "width": 390,
+      "phase": "idle",
+      "camera": [
+        -0.20698699838242277,
+        4.242649871453966,
+        13.632546592910376
+      ],
+      "scene": {
+        "x": 0,
+        "y": 20,
+        "width": 390,
+        "height": 609
+      }
+    },
+    {
+      "width": 390,
+      "phase": "celebration",
+      "time": 3.7136999999992644,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "above": 8.736008547008508,
+      "below": 6.137726837606844,
+      "difference": 0.29742206585768505
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "failure": "AssertionError [ERR_ASSERTION]: Sky seam 390/celebration: 0.29742206585768505\n    at seam (E:\\生日网址\\xhdg-handoff\\galaxy-cake\\scripts\\verify-optimization.cjs:22:92)\n    at async E:\\生日网址\\xhdg-handoff\\galaxy-cake\\scripts\\verify-optimization.cjs:29:291"
+}
