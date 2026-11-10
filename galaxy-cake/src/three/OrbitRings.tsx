@@ -4,15 +4,10 @@ import { AdditiveBlending, BufferGeometry, Color, Float32BufferAttribute, Group,
 import type { ExperienceEngine } from '../experience/engine'
 import { random } from '../utils/random'
 import { galaxyThemes } from '../store/birthdayStore'
-
-const configs = [
-  {r:2.85,z:1.85,rotation:[.12,0,.16] as [number,number,number],speed:.11,color:'#e1c9f9'},
-  {r:2.65,z:1.75,rotation:[.82,.12,.32] as [number,number,number],speed:-.08,color:'#ffe1a8'},
-  {r:2.6,z:1.65,rotation:[.14,-.12,-.2] as [number,number,number],speed:.065,color:'#b9d7ff'},
-]
+import { orbitPaths as configs } from '../utils/orbitLayout'
 
 function OrbitDust({engine,index,halo=false}:{engine:ExperienceEngine;index:number;halo?:boolean}) {
-  const {r,z,speed}=halo?{r:1.367,z:1.367,speed:.12}:configs[index]
+  const {r,z,speed}=halo?{r:1.46,z:1.46,speed:.065}:configs[index]
   const budget=engine.getBudget().orbitDust,haloCount=Math.floor(budget*.25)
   const count=halo?haloCount:index===0?budget-haloCount:budget,theme=engine.snapshot.config.galaxyTheme
   const geometry=useMemo(()=>{
@@ -25,26 +20,30 @@ function OrbitDust({engine,index,halo=false}:{engine:ExperienceEngine;index:numb
     fragmentShader:'varying float vLight;uniform vec3 uColor;void main(){vec2 p=gl_PointCoord-.5;float a=exp(-dot(p,p)*32.)*vLight;if(a<.02)discard;gl_FragColor=vec4(uColor,a);}',
   }),[r,z,speed,index,halo])
   useEffect(()=>()=>geometry.dispose(),[geometry]);useEffect(()=>()=>material.dispose(),[material])
-  useFrame(({gl,size})=>{material.uniforms.uTime.value=engine.orbitTime;material.uniforms.uDpr.value=gl.getPixelRatio()*(size.width<700?1.5:1);material.uniforms.uColor.value.set(galaxyThemes[theme].colors[halo?1:index%galaxyThemes[theme].colors.length]).multiplyScalar(halo?3:2)})
+  useFrame(({gl,size})=>{material.uniforms.uTime.value=engine.snapshot.reduced?0:engine.orbitTime;material.uniforms.uDpr.value=gl.getPixelRatio()*(size.width<700?1.3:1);material.uniforms.uColor.value.set(galaxyThemes[theme].colors[halo?1:index%galaxyThemes[theme].colors.length]).multiplyScalar(halo?1.2:1.5)})
   return <points geometry={geometry} material={material}/>
 }
 function Orbit({engine,index}:{engine:ExperienceEngine;index:number}) {
   const {r,z,rotation,speed,color}=configs[index],beads=useRef<InstancedMesh>(null!)
   const dummy=useMemo(()=>new Object3D(),[])
+  const lastTime=useRef(-1)
   const theme=engine.snapshot.config.galaxyTheme,palette=galaxyThemes[theme].colors
   const geometry=useMemo(()=>{const p=[];for(let i=0;i<256;i++){const t=i/256*Math.PI*2;p.push(Math.cos(t)*r,0,Math.sin(t)*z)}const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(p,3));return g},[r,z])
   useLayoutEffect(()=>{const rng=random(index+3);for(let i=0;i<180;i++)beads.current.setColorAt(i,new Color(i%37===0?palette[(Math.floor(i/37)+index*2)%palette.length]:i%11===0?palette[Math.floor(rng()*palette.length)]:palette[index%palette.length]).multiplyScalar(i%11===0?1.15:1.2));beads.current.instanceColor!.needsUpdate=true},[color,index,palette])
   useFrame(()=>{
+    const time=engine.snapshot.reduced?0:engine.orbitTime
+    if(time===lastTime.current)return
+    lastTime.current=time
     for(let i=0;i<180;i++){
-      const a=i/180*Math.PI*2+engine.orbitTime*speed
+      const a=i/180*Math.PI*2+time*speed
       dummy.position.set(Math.cos(a)*r,Math.sin(i*39.2)*.005,Math.sin(a)*z)
-      dummy.scale.setScalar(i%37===0?.055+(i%3)*.012:i%11===0?.015:.003+(i%5)*.001)
+      dummy.scale.setScalar(i%37===0?.042+(i%3)*.009:i%11===0?.013:.003+(i%5)*.0008)
       dummy.updateMatrix();beads.current.setMatrixAt(i,dummy.matrix)
     }beads.current.instanceMatrix.needsUpdate=true
   })
-  return <group rotation={rotation} position={[0,index===0?.25:index===2?-.43:.65,0]}>
-    <lineLoop geometry={geometry}><lineBasicMaterial color={color} transparent opacity={.11}/></lineLoop>
-    <instancedMesh ref={beads} args={[undefined,undefined,180]}><sphereGeometry args={[1,24,16]}/><meshPhysicalMaterial roughness={.15} metalness={.16} clearcoat={1} clearcoatRoughness={.14} envMapIntensity={2}/></instancedMesh>
+  return <group rotation={rotation} position={[0,configs[index].y,0]}>
+    <lineLoop geometry={geometry}><lineBasicMaterial color={color} transparent opacity={.075}/></lineLoop>
+    <instancedMesh ref={beads} args={[undefined,undefined,180]}><sphereGeometry args={[1,24,16]}/><meshPhysicalMaterial roughness={.24} metalness={.06} clearcoat={.4} clearcoatRoughness={.22} envMapIntensity={1.2}/></instancedMesh>
     <OrbitDust engine={engine} index={index}/>
   </group>
 }
@@ -58,7 +57,7 @@ export function OrbitRings({engine}:{engine:ExperienceEngine}) {
   })
   return <><group ref={group}>{configs.map((_,i)=><Orbit engine={engine} index={i} key={i}/>)}</group>
     <group ref={halo}>
-      <mesh position={[0,0,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.367,.0025,10,192]}/><meshBasicMaterial color={[2.2,.9,3.2]} toneMapped={false}/></mesh>
+      <mesh position={[0,0,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.46,.0018,10,192]}/><meshBasicMaterial color={[.4,.24,.62]} transparent opacity={.48} depthWrite={false} toneMapped={false}/></mesh>
       <OrbitDust engine={engine} index={0} halo/>
     </group>
   </>

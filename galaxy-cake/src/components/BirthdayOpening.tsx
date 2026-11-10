@@ -63,11 +63,11 @@ export function BirthdayOpening({ engine, onEnter, music,loading=false }: {
     <div className="opening-composition">
       <header className="opening-heading"><h1>生日快乐</h1><p className="opening-script" aria-hidden="true">Happy Birthday</p><p className="opening-dedication">给 <span>{recipientName(config)}</span></p></header>
       <div className="opening-heart" aria-hidden="true" style={{'--note-width':`${layout.cardWidth}px`,'--note-height':`${layout.cardHeight}px`} as CSSProperties}>{cards.map((card, index) => <div key={index} data-queue-index={index} className={`wish-note note-color-${card.color}`} style={{ zIndex: cards.length - index }}><span className="note-star">✧</span><p>{card.text}</p><i/></div>)}</div>
-      <article className="opening-letter" aria-hidden={!ready} inert={!ready}>
+      <div className="opening-letter-anchor"><article className="opening-letter" aria-hidden={!ready} inert={!ready}>
         <span className="letter-heart" aria-hidden="true">♡</span><h2>{recipientName(config)}，生日快乐</h2>
         <div className="opening-wish" tabIndex={ready ? 0 : -1} aria-label="开场祝福内容"><p>{config.message.trim() || '愿新的一岁，继续闪闪发光。'}</p></div>
         {config.sender.trim() ? <p className="opening-from">来自 {config.sender.trim()}</p> : null}
-      </article>
+      </article></div>
     </div>
     <footer className="opening-footer">
       <div className="opening-enter" inert={!ready}><button ref={enterButton} className="opening-primary" disabled={!ready || leaving || loading} onClick={onEnter}>开启星河 <Icon name="arrow"/></button></div>

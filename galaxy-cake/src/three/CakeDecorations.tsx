@@ -12,7 +12,25 @@ import type { DecorationPart } from './decorationModels'
 
 function Batch({part,items,accent,scaleY}:{part:DecorationPart;items:PlacedDecoration[];accent:string;scaleY:number}) {
   const mesh=useRef<InstancedMesh>(null!)
-  const material=useMemo(()=>new MeshPhysicalMaterial({color:'white',roughness:part.roughness??.36,metalness:part.metalness??0,clearcoat:.24,clearcoatRoughness:.24,envMapIntensity:1}),[part])
+  const material=useMemo(()=>{
+    const mat=new MeshPhysicalMaterial({color:'white',roughness:part.roughness??.36,metalness:part.metalness??0,
+      clearcoat:part.finish==='skin'?.38:part.finish==='crystal'?.65:part.finish==='bloom'||part.finish==='petal'?0:.12,
+      clearcoatRoughness:part.finish==='skin'?.25:.38,envMapIntensity:.8,specularIntensity:.6,
+      sheen:part.finish==='bloom'?.32:part.finish==='pearl'?.18:0,sheenRoughness:.8,sheenColor:'#c8cfed'})
+    if(part.finish==='skin'||part.finish==='bloom'||part.finish==='ganache'){
+      mat.onBeforeCompile=shader=>{
+        shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vSweetPosition;').replace('#include <begin_vertex>','#include <begin_vertex>\nvSweetPosition=position;')
+        shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vSweetPosition;')
+          .replace('#include <color_fragment>',`#include <color_fragment>
+            float sweetDetail=sin(vSweetPosition.x*370.)*sin(vSweetPosition.y*295.+vSweetPosition.z*190.);
+            float sweetFilter=1.-smoothstep(.55,1.3,max(length(dFdx(vSweetPosition)),length(dFdy(vSweetPosition)))*370.);
+            diffuseColor.rgb*=1.+sweetDetail*sweetFilter*${part.finish==='bloom'?'.045':'.022'};
+          `)
+      }
+      mat.customProgramCacheKey=()=>`sweet-${part.finish}-v1`
+    }
+    return mat
+  },[part])
   useEffect(()=>{const instance=mesh.current;return()=>{instance.dispose();material.dispose()}},[material])
   useLayoutEffect(()=>{
     const object=new Object3D(),color=new Color(part.accent?accent:part.color)

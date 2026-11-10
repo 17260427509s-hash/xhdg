@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-11-05T13:11:21.344Z",
+  "url": "http://localhost:4174",
+  "runs": [
+    {
+      "name": "final",
+      "script": "verify-visual-round-three.cjs",
+      "exitCode": 0,
+      "seconds": 98
+    },
+    {
+      "name": "heart",
+      "script": "verify-heart-convoy.cjs",
+      "exitCode": 0,
+      "seconds": 48
+    },
+    {
+      "name": "stage-three",
+      "script": "verify-stage-three.cjs",
+      "exitCode": 0,
+      "seconds": 117
+    }
+  ],
+  "finishedAt": "2026-11-05T13:15:44.018Z"
+}

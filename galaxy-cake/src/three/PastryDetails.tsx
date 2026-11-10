@@ -10,6 +10,7 @@ import { recipes } from './cakeRecipes'
 
 type Detail = 'flowers' | 'foot' | 'pearls' | 'gold-body' | 'gold-top' | 'sugar' | 'stars'
 const capacity: Record<Detail, number> = { flowers: 14, foot: 84, pearls: 64, 'gold-body': 760, 'gold-top': 240, sugar:1200, stars:13 }
+const goldCoverage:Record<CakeStyle,number>={galaxy:.8,strawberry:.14,cream:.24,purple:.45,heart:.25,chocolate:.3,matcha:.1,blueberry:.12,mango:.18,rainbow:.18,moon:.55,garden:.18}
 function emblemGeometry(){
   const shape=new Shape()
   for(let i=0;i<8;i++){const a=i/8*Math.PI*2,r=i%2?.28:1,x=Math.sin(a)*r,y=Math.cos(a)*r*(i%2?1:1.2);if(i===0)shape.moveTo(x,y);else shape.lineTo(x,y)}
@@ -33,7 +34,7 @@ function layout(kind: Detail, shape: CakeShape, style: CakeStyle, cakeColor:stri
     let turn=a+rng()*2
     let radius = 1.325, y = -.509, size = .025 + rng() * .016, color = '#eed8bd'
     if (kind === 'flowers') { radius = recipe.flowerRadius+(rng()-.5)*.035; y = .586; size = i < n ? .88+rng()*.24 : 0;turn=a+(rng()-.5)*Math.PI/6;color = '#fff0df' }
-    if(kind==='foot'){size=i%5===0?.05+rng()*.02:.016+rng()*.021;y=-.514+size*.4;color=['#ead6ab','#d0bded','#faf0dc','#a9bfe9','#c6a2ce'][i%5]}
+    if(kind==='foot'){size=i%7===0?.038+rng()*.015:.016+rng()*.016;y=-.514+size*.4;color=style==='galaxy'?['#ead6ab','#d0bded','#faf0dc','#a9bfe9','#c6a2ce'][i%5]:[recipe.pearlColor,'#ead6c2','#fff0dc'][i%3]}
     if (kind === 'pearls') {
       radius = n > 30 ? 1.316 : style === 'strawberry' ? 1.3 : 1.115
       size = i < n ? (n > 30 ? .019 + rng() * .004 : style === 'strawberry' ? .018 : .034 + rng() * .027) : 0
@@ -75,7 +76,7 @@ export function PastryDetails({ engine, index, kind, fromShape, toShape, fromSty
     const part = kind === 'gold-body' || kind === 'sugar' || kind === 'foot' || kind==='stars' ? 'body' : kind === 'flowers' ? 'cream' : 'decor'
     const t = partProgress(engine.transition, part), max = capacity[kind]
     const total = engine.visualCake.tiers.reduce((sum, tier) => sum + tier.active, 0)
-    const coverage=kind==='sugar'?(fromStyle==='galaxy'?1:.12)+((toStyle==='galaxy'?1:.12)-(fromStyle==='galaxy'?1:.12))*t:1
+    const coverage=kind==='sugar'?(fromStyle==='galaxy'?1:.12)+((toStyle==='galaxy'?1:.12)-(fromStyle==='galaxy'?1:.12))*t:kind.startsWith('gold')?goldCoverage[fromStyle]+(goldCoverage[toStyle]-goldCoverage[fromStyle])*t:1
     const count = kind.startsWith('gold')||kind==='sugar' ? Math.floor(max * engine.visualCake.tiers[index].active / Math.max(total, .001)*coverage) : max
     if (previous.current.t === t && previous.current.from === from && previous.current.to === to && previous.current.count === count) return
     for (let i = 0; i < count; i++) {
@@ -96,8 +97,8 @@ export function PastryDetails({ engine, index, kind, fromShape, toShape, fromSty
     previous.current = { t, from, to, count }
   })
   useLayoutEffect(() => { previous.current.t = -1 }, [from, to, flower])
-  return <instancedMesh ref={mesh} args={[flower??foil, creamMaterial, capacity[kind]]} castShadow={kind === 'flowers'} receiveShadow={kind === 'flowers'} frustumCulled={false}>
+  return <instancedMesh ref={mesh} args={[flower??foil, creamMaterial, capacity[kind]]} castShadow={kind === 'flowers'} frustumCulled={false}>
     {!flower&&!foil ? kind==='sugar'?<icosahedronGeometry args={[1,1]}/>:<sphereGeometry args={[1, 24, 16]}/> : null}
-    {!creamMaterial ? <meshPhysicalMaterial roughness={kind==='sugar'?.64:kind.startsWith('gold')||kind==='stars' ? .3 : .18} metalness={kind==='sugar'?0:kind.startsWith('gold')||kind==='stars' ? .7 : .12} clearcoat={kind==='sugar'?0:kind.startsWith('gold') ? .1 : .75} envMapIntensity={kind==='sugar'?.6:1.6} side={DoubleSide}/> : null}
+    {!creamMaterial ? <meshPhysicalMaterial roughness={kind==='sugar'?.64:kind.startsWith('gold')||kind==='stars' ? .32 : .28} metalness={kind==='sugar'?0:kind.startsWith('gold')||kind==='stars' ? .8 : .04} clearcoat={kind==='sugar'?0:kind.startsWith('gold') ? .08 : .32} envMapIntensity={kind==='sugar'?.6:1.05} side={DoubleSide}/> : null}
   </instancedMesh>
 }

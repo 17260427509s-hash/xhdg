@@ -24,8 +24,13 @@ export function GalaxyBackdrop({engine}:{engine:ExperienceEngine}) {
           vec2 p=(pageUv-.5)*uViewport-vec2(uCamera.x,-uCamera.y)*uViewport;
           float co=cos(uCamera.z),si=sin(uCamera.z);
           p=mat2(co,si,-si,co)*p/uCamera.w;
-          vec2 sourceUv=(p/uViewport+.5)*uCrop.zw+uCrop.xy;
-          vec3 sky=skyLinear(skyDisplay(galaxyColor(texture2D(uMap,sourceUv).rgb,uHue,uSaturation))*.6);
+          vec2 localUv=p/uViewport+.5;
+          vec2 sourceUv=localUv*uCrop.zw+uCrop.xy;
+          vec3 sky=galaxyColor(texture2D(uMap,sourceUv).rgb,uHue,uSaturation);
+          // Match the CSS contrast/brightness and alpha mask, including portrait crop.
+          // The right spiral recedes; the cake and its local dust remain the key light.
+          float balance=localUv.x<.48?mix(.78,1.,clamp(localUv.x/.48,0.,1.)):mix(1.,.5,clamp((localUv.x-.48)/.52,0.,1.));
+          sky=skyLinear(clamp((skyDisplay(sky)-.5)*1.08+.5,0.,1.)*.6*balance);
           gl_FragColor=vec4(mix(vec3(.0012,.0012,.0021),sky,uReveal),1.);
           #include <colorspace_fragment>
         }`,
@@ -55,7 +60,7 @@ export function GalaxyBackdrop({engine}:{engine:ExperienceEngine}) {
     material.uniforms.uReveal.value=reveal
     material.uniforms.uHue.value=sky.hue;material.uniforms.uSaturation.value=sky.saturation
     material.uniforms.uCamera.value.set(sky.panX,sky.panY,sky.rotation,sky.zoom)
-    const filter=`hue-rotate(${sky.hue.toFixed(6)}rad) saturate(${sky.saturation.toFixed(6)}) brightness(.6)`
+    const filter=`hue-rotate(${sky.hue.toFixed(6)}rad) saturate(${sky.saturation.toFixed(6)}) contrast(1.08) brightness(.6)`
     const transform=`translate3d(${(sky.panX*viewport.x).toFixed(4)}px,${(sky.panY*viewport.y).toFixed(4)}px,0) rotate(${sky.rotation.toFixed(6)}rad) scale(${sky.zoom.toFixed(6)})`
     const opacity=reveal.toFixed(5),style=owner.current?.style
     if(style){

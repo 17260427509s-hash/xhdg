@@ -77,7 +77,7 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
     const focus=engine.motion.editorFocus*(.78+(engine.snapshot.config.cakeLayers-1)*.23)
     const shift=(focus-focusY.current)*(1-Math.exp(-Math.min(delta,.06)*10))
     focusY.current+=shift;camera.position.y+=shift;controls.current.target.y+=shift
-    // The short phone preview needs space above an exploded three-tier candle.
+    // Reserve space above the assembled candle while the phone sheet is open.
     // Adjust the user's current orbit distance proportionally, preserving rotation.
     const zoom=1+(mobile?.11:0)*engine.motion.editorFocus
     const nextZoom=focusZoom.current+(zoom-focusZoom.current)*(1-Math.exp(-Math.min(delta,.06)*10))
@@ -111,7 +111,7 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
     </Environment>
     <ambientLight intensity={.3} color="#e1e3ff"/>
     <hemisphereLight args={['#d6dfff','#392941',.3]}/>
-    <directionalLight castShadow shadow-mapSize={tier==='desktop'?[2048,2048]:[1024,1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.002} shadow-bias={-.0001} shadow-radius={10} shadow-blurSamples={12} position={[-3,4.8,5]} intensity={1.5} color="#fff9f0"/>
+    <directionalLight castShadow shadow-mapSize={tier==='desktop'?[2048,2048]:[1024,1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.003} shadow-bias={-.0001} shadow-radius={10} shadow-blurSamples={12} position={[-3,4.8,5]} intensity={1.5} color="#fff9f0"/>
     <directionalLight position={[4,2,-3]} intensity={.7} color="#c1afff"/>
     <directionalLight position={[-4,.6,4]} intensity={1.05} color="#d4dcff"/>
     <directionalLight position={[-1,3,-4]} intensity={.55} color="#ffd29a"/>
@@ -125,8 +125,8 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
     <SmokeParticles engine={engine}/><ConfettiExplosion engine={engine}/>
     <OrbitControls ref={controls} target={target} enablePan={false} enableDamping dampingFactor={.065} enabled={active} enableZoom={active} minDistance={distance*.88} maxDistance={distance*1.2} minPolarAngle={.72} maxPolarAngle={1.48} autoRotateSpeed={.18} rotateSpeed={.55} zoomSpeed={.45} onStart={()=>{engine.dragging=true;engine.lastInteraction=engine.time}} onEnd={()=>{engine.dragging=false;engine.lastInteraction=engine.time}}/>
     <EffectComposer ref={composer} multisampling={tier==='desktop'?2:0} resolutionScale={tier==='low'?.5:mobile?.75:1}>
-      <N8AO enabled={tier==='desktop'} quality="medium" aoRadius={.055} distanceFalloff={1} intensity={.65} halfRes/>
-      <Bloom intensity={.6} luminanceThreshold={1.2} luminanceSmoothing={.22} mipmapBlur resolutionScale={tier==='low'?.4:.7}/>
+      <N8AO enabled={tier==='desktop'} quality="medium" aoRadius={.075} distanceFalloff={1} intensity={.8} halfRes/>
+      <Bloom intensity={.48} luminanceThreshold={1.2} luminanceSmoothing={.22} mipmapBlur resolutionScale={tier==='low'?.4:.7}/>
     </EffectComposer>
   </>
 }

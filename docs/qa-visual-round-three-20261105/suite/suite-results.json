@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-11-05T12:55:33.972Z",
+  "url": "http://localhost:4174",
+  "runs": [
+    {
+      "name": "final",
+      "script": "verify-visual-round-three.cjs",
+      "exitCode": 0,
+      "seconds": 95
+    },
+    {
+      "name": "decoration-faces",
+      "script": "verify-decoration-faces.cjs",
+      "exitCode": 0,
+      "seconds": 20
+    },
+    {
+      "name": "catalog",
+      "script": "verify-cake-catalog.cjs",
+      "exitCode": 0,
+      "seconds": 209
+    },
+    {
+      "name": "layers",
+      "script": "verify-layer-editor.cjs",
+      "exitCode": 0,
+      "seconds": 127
+    },
+    {
+      "name": "heart",
+      "script": "verify-heart-convoy.cjs",
+      "exitCode": 0,
+      "seconds": 47
+    },
+    {
+      "name": "stage-three",
+      "script": "verify-stage-three.cjs",
+      "exitCode": 0,
+      "seconds": 117
+    },
+    {
+      "name": "core",
+      "script": "verify-browser.cjs",
+      "exitCode": 0,
+      "seconds": 203
+    },
+    {
+      "name": "geometry",
+      "script": "verify-visual-geometry.cjs",
+      "exitCode": 0,
+      "seconds": 2
+    },
+    {
+      "name": "catalog-data",
+      "script": "verify-catalog-data.cjs",
+      "exitCode": 0,
+      "seconds": 1
+    }
+  ],
+  "finishedAt": "2026-11-05T13:09:15.758Z"
+}

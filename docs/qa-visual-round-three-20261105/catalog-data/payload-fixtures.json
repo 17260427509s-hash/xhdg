@@ -1,0 +1,192 @@
+[
+  {
+    "valid": true,
+    "payload": {
+      "version": 1,
+      "config": {
+        "cakeStyle": "galaxy",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#3d4192",
+        "layerOverrides": {},
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "musicEnabled": true
+    }
+  },
+  {
+    "valid": true,
+    "payload": {
+      "version": 1,
+      "config": {
+        "cakeStyle": "galaxy",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#3d4192",
+        "layerOverrides": {
+          "0": {
+            "decoration": "strawberry"
+          }
+        },
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "musicEnabled": true
+    }
+  },
+  {
+    "valid": true,
+    "payload": {
+      "version": 1,
+      "config": {
+        "cakeStyle": "rainbow",
+        "cakeShape": "round",
+        "cakeLayers": 3,
+        "cakeColor": "#95b8dc",
+        "layerOverrides": {
+          "0": {
+            "cakeColor": "#95b8dc"
+          },
+          "1": {
+            "cakeColor": "#e8aabd"
+          },
+          "2": {
+            "cakeColor": "#e8ce8f"
+          }
+        },
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "musicEnabled": true
+    }
+  },
+  {
+    "valid": true,
+    "payload": {
+      "version": 1,
+      "config": {
+        "cakeStyle": "galaxy",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#3d4192",
+        "layerOverrides": {
+          "0": {
+            "decorations": [
+              "crown",
+              "cherry",
+              "chocolate"
+            ],
+            "decorationColor": "#b5a1df",
+            "decorationDensity": "rich",
+            "decorationSeed": 2026
+          }
+        },
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "musicEnabled": true
+    }
+  },
+  {
+    "valid": true,
+    "payload": {
+      "version": 1,
+      "config": {
+        "cakeStyle": "galaxy",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#3d4192",
+        "layerOverrides": {
+          "0": {
+            "decoration": "strawberry",
+            "decorations": []
+          }
+        },
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "musicEnabled": true
+    }
+  },
+  {
+    "valid": false,
+    "payload": {
+      "version": 1,
+      "config": {
+        "cakeStyle": "galaxy",
+        "cakeShape": "round",
+        "cakeLayers": 1,
+        "cakeColor": "#3d4192",
+        "layerOverrides": {
+          "0": {
+            "decorations": [
+              "crown",
+              "crescent"
+            ],
+            "decorationColor": "#b5a1df",
+            "decorationDensity": "rich",
+            "decorationSeed": 2026
+          }
+        },
+        "recipient": "小雨",
+        "birthday": "2026-11-20",
+        "age": 22,
+        "sender": "小李",
+        "message": "生日快乐，希望新的一岁继续闪闪发光。",
+        "candleType": "regular",
+        "flameEnabled": true,
+        "galaxyEnabled": true,
+        "galaxyTheme": "dream",
+        "galaxyCount": 300,
+        "galaxySpeed": 1
+      },
+      "musicEnabled": true
+    }
+  }
+]

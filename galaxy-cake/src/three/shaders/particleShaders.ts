@@ -19,11 +19,11 @@ void main() {
     p=mix(vec3(p.x*.3,-.85,p.z*.3),p,uReveal);
     p+=vec3(sin(uTime*.21+aSeed*32.)*.045,
       sin(uTime*.28+aSeed*27.)*.075,cos(uTime*.17+aSeed*21.)*.045)*uReduced;
-    vAlpha=.42+.5*pow(.5+.5*sin(uTime*.72+aSeed*53.),3.);
+    vAlpha=.52+.4*pow(.5+.5*sin(uTime*.43*uReduced+aSeed*53.),3.);
   } else if(uMode>.5&&uMode<1.5) {
     p.x+=sin(uTime*.07+aSeed*31.)*.18*uReduced;
     p.y+=sin(uTime*.055+aSeed*13.)*.12*uReduced;
-    vAlpha=.5+.5*pow(.5+.5*sin(uTime*.8*uReduced+aSeed*73.),3.);
+    vAlpha=.65+.3*pow(.5+.5*sin(uTime*.32*uReduced+aSeed*73.),3.);
   } else if(uMode>1.5&&uMode<2.5) {
     float phase=fract(sin(aSeed*761.4)*437.5);
     float age=fract(uTime*(.34+aSeed*.14)+phase);
@@ -47,10 +47,10 @@ void main() {
     p.xz=mat2(cos(angle),-sin(angle),sin(angle),cos(angle))*p.xz;
     p.y+=sin(uTime*.17+aSeed*80.)*.045*uReduced;
     p=mix(vec3(p.x*.3,-.85,p.z*.3),p,uReveal);
-    vAlpha=.3+.65*pow(.5+.5*sin(uTime*.63+aSeed*93.),4.);
+    vAlpha=.4+.5*pow(.5+.5*sin(uTime*.38*uReduced+aSeed*93.),4.);
   }
   vec4 mv=modelViewMatrix*vec4(p,1.);
-  gl_PointSize=clamp(aSize*uDpr*8.5/-mv.z,uMode>.5&&uMode<1.5?2.5:1.,28.);
+  gl_PointSize=clamp(aSize*uDpr*8.5/-mv.z,uMode>.5&&uMode<1.5?1.25:1.,25.);
   vPixel=1./gl_PointSize;
   gl_Position=projectionMatrix*mv;
 }`
