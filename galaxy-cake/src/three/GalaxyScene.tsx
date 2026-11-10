@@ -1,4 +1,5 @@
 import { Component, useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { ReactNode, ElementRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer, OrbitControls } from '@react-three/drei'
@@ -132,9 +133,9 @@ function Unavailable({retry}:{retry:()=>void}) {return <div className="unavailab
 class SceneBoundary extends Component<{children:ReactNode},{failed:boolean}> {
   state={failed:false}
   static getDerivedStateFromError(){return {failed:true}}
-  render(){return this.state.failed?<Unavailable retry={()=>location.reload()}/>:this.props.children}
+  render(){return this.state.failed?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):this.props.children}
 }
 export function GalaxyScene({engine,phase,tier}:{engine:ExperienceEngine;phase:Phase;tier:Tier}) {
   const [lost,setLost]=useState(false)
-  return <SceneBoundary>{lost?<Unavailable retry={()=>location.reload()}/>:<Canvas shadows="variance" dpr={[1,budgets[tier].dpr]} camera={{position:[0,3.4,8.2],fov:40,near:.1,far:65}} gl={{alpha:false,antialias:false,powerPreference:'high-performance'}} fallback={<div aria-hidden="true"><Unavailable retry={()=>location.reload()}/></div>}><Scene engine={engine} phase={phase} tier={tier} onLost={()=>setLost(true)}/></Canvas>}</SceneBoundary>
+  return <SceneBoundary>{lost?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):<Canvas shadows="variance" dpr={[1,budgets[tier].dpr]} camera={{position:[0,3.4,8.2],fov:40,near:.1,far:65}} gl={{alpha:false,antialias:false,powerPreference:'high-performance'}} fallback={<div aria-hidden="true" inert><Unavailable retry={()=>location.reload()}/></div>}><Scene engine={engine} phase={phase} tier={tier} onLost={()=>setLost(true)}/></Canvas>}</SceneBoundary>
 }
