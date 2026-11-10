@@ -6,6 +6,7 @@ import { decorationCatalog, decorationTypes } from '../store/decorationCatalog'
 import type { DecorationType } from '../store/decorationCatalog'
 import type { BirthdayConfig, CakeStyle, LayerAppearance, LayerSelection, SettingsSection } from '../store/birthdayStore'
 import { GalaxyAppearance } from '../utils/galaxyAppearance'
+import { openingTiming } from '../utils/openingTiming'
 
 export type Phase = 'intro' | 'entering' | 'idle' | 'wishing' | 'blowout' | 'celebration' | 'message'
 export type Tier = 'desktop' | 'mobile' | 'low'
@@ -23,7 +24,7 @@ export class ExperienceEngine {
   private renderOpening() { this.openingRenderers.forEach(render => render()) }
   skipOpening = () => {
     if (this.snapshot.phase !== 'intro' || this.snapshot.settings) return
-    this.openingTime = Math.max(6.5, this.openingTime)
+    this.openingTime = Math.max(openingTiming.complete, this.openingTime)
     this.update({ openingStage: 'ready' }); this.renderOpening()
   }
   time = 0
@@ -60,7 +61,7 @@ export class ExperienceEngine {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const low = new URLSearchParams(location.search).get('quality') === 'low'
     this.snapshot = { phase: 'intro', openingStage: reduced ? 'ready' : 'title', paused: false, tier: low ? 'low' : mobile ? 'mobile' : 'desktop', reduced, config: normalizeConfig(defaultConfig,initialConfig), wishConfirmed: false, switching: false, lighting: false, editing: false, assembling: false, selectedLayer: 'all', canUndo: false, canRedo: false, settings: null }
-    this.openingTime = reduced ? 6.5 : 0
+    this.openingTime = reduced ? openingTiming.complete : 0
     this.sourceLayout=this.targetLayout=visualLayout(this.snapshot.config)
     this.refreshVisualCake()
     this.sky.update(this.snapshot.config,null,this.visualCake,0,1,true)
@@ -265,8 +266,8 @@ export class ExperienceEngine {
     // A resumed/backgrounded tab must never jump past an entrance or celebration.
     const dt = Math.min(delta, .06)
     if (this.snapshot.phase === 'intro' && !this.snapshot.settings) {
-      this.openingTime = this.snapshot.reduced ? 6.5 : this.openingTime + dt
-      const openingStage: OpeningStage = this.openingTime < 1.2 ? 'title' : this.openingTime < 6.5 ? 'forming' : 'ready'
+      this.openingTime = this.snapshot.reduced ? openingTiming.complete : this.openingTime + dt
+      const openingStage: OpeningStage = this.openingTime < openingTiming.title ? 'title' : this.openingTime < openingTiming.ready ? 'forming' : 'ready'
       if (openingStage !== this.snapshot.openingStage) this.update({ openingStage })
     }
     if (this.snapshot.switching) this.switchTimeline?.time(this.switchTime += dt, false)
