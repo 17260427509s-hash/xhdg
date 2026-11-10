@@ -1,0 +1,5 @@
+{
+  "fixture": "https://gift.example.test",
+  "absoluteUrlsPass": true,
+  "publicNetworkChecked": false
+}

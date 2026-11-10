@@ -25,6 +25,13 @@ async function seam(p,width,phase){
 let browser
 ;(async()=>{try{
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']})
+ if(task==='meta'){
+  const p=await browser.newPage({viewport:{width:1440,height:900}}),response=await p.request.get(url+'/'),html=await response.text();assert.equal(response.status(),200)
+  for(const key of ['og:title','og:description','og:image','og:type','og:url','twitter:card'])assert(html.includes('"'+key+'"'))
+  assert(html.includes('summary_large_image'));assert(!html.includes('href="data:,"'));const image=await p.request.get(url+'/share/galaxy-cake.jpg');assert.equal(image.status(),200);const meta=await sharp(await image.body()).metadata();assert.equal(meta.width,1200);assert.equal(meta.height,630)
+  for(const [name,size] of [['favicon-32.png',32],['apple-touch-icon.png',180],['icon-192.png',192],['icon-512.png',512]]){const response=await p.request.get(url+'/icons/'+name);assert.equal(response.status(),200);const details=await sharp(await response.body()).metadata();assert.equal(details.width,size);assert.equal(details.height,size)}
+  const manifest=await (await p.request.get(url+'/site.webmanifest')).json();assert.equal(manifest.start_url,'/create');const viewer=await (await p.request.get(url+'/birthday/00000000-0000-4000-8000-000000000000')).text();assert(viewer.includes('"og:title"'));report.runs.push({share:meta,manifest,scope:'Local assets and generic static metadata only; no public crawler or deployment'});await p.close()
+ }
  if(task==='mobile-modal'){
   for(const [width,height] of [[390,844],[375,667],[412,915],[360,640]]){
    const m=await browser.newPage({viewport:{width,height},deviceScaleFactor:1.5,isMobile:true,hasTouch:true});await enter(m);await m.getByRole('button',{name:'暂停',exact:true}).click();await m.waitForTimeout(250)
