@@ -51,7 +51,7 @@ pcm = array('h')
 for i, value in enumerate(score):
     fade = min(1, i / (RATE * .15), (len(score) - 1 - i) / (RATE * .35))
     pcm.append(round(max(-1, min(1, value / peak * .78 * fade)) * 32767))
-target = Path(__file__).resolve().parents[1] / 'public' / 'audio' / 'starlight-letter.wav'
+target = Path(__file__).resolve().parent / 'masters' / 'starlight-letter.wav'
 target.parent.mkdir(parents=True, exist_ok=True)
 with wave.open(str(target), 'wb') as output:
     output.setnchannels(1)

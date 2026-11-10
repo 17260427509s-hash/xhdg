@@ -125,6 +125,7 @@ async function layout(p, label) {
   await browser.close()
   const noGL=await chromium.launch({...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : process.platform === 'win32' && fs.existsSync('C:/Program Files/Google/Chrome/Application/chrome.exe') ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}),headless:true,args:['--disable-webgl','--disable-webgl2']})
   const unavailable=await noGL.newPage({viewport:{width:390,height:844}});await unavailable.goto(report.url)
+  const skip=unavailable.getByRole('button',{name:'跳过开场',exact:true});if(await skip.isVisible())await skip.click();await unavailable.getByRole('button',{name:'开启星河',exact:true}).click()
   await unavailable.getByRole('heading',{name:'星河暂时无法点亮',exact:true}).waitFor();assert(await unavailable.getByRole('button',{name:/重新尝试/}).isVisible());await shot(unavailable,'webgl-unavailable');report.checks.webglFallback=true
   await noGL.close();save();console.log('ALL CHECKS PASSED',JSON.stringify(report.performance))
 })().catch(e=>{report.failure=String(e.stack||e);save();console.error(e);process.exit(1)})

@@ -194,3 +194,6 @@
 .note-star{font-size:9px;top:2px;left:4px}.wish-note i{display:none}
 .opening-letter{background:linear-gradient(135deg,#fffcf5,#fff2ef)}
 @media(max-width:700px){.opening-composition{width:calc(100% - 24px);height:min(520px,calc(100dvh - 180px));top:45%}.opening-heart{inset:0}.wish-note{padding:4px;border-radius:5px}.wish-note p{font-size:10px;line-height:15px;letter-spacing:0}.note-star{font-size:7px;top:1px;left:2px}.opening-letter{width:min(230px,66%);top:51%}}
+.phase-intro::before{background-image:none;will-change:auto}
+.scene-loading{position:absolute;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;background:radial-gradient(ellipse,#19112a,#050507 65%);color:#dac8ec;text-align:center}
+.scene-loading>span{font-size:44px;color:#d2bbef}.scene-loading p{font-size:14px;letter-spacing:.16em}

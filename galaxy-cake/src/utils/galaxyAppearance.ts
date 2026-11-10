@@ -1,10 +1,19 @@
-import { Color, SRGBColorSpace } from 'three'
 import { cakePresets, layerAppearance } from '../store/birthdayStore'
 import type { BirthdayConfig } from '../store/birthdayStore'
 import { partProgress } from './cakeTransition'
 import type { CakeTransition, VisualCake } from './cakeTransition'
 
-const baseline=new Color(cakePresets.galaxy.color).getHSL({h:0,s:0,l:0},SRGBColorSpace)
+// Match Three 0.181 transfer constants without importing its rendering runtime.
+const linear=(v:number)=>v<.04045?v*.0773993808:(v*.9478672986+.0521327014)**2.4
+const srgb=(v:number)=>v<.0031308?v*12.92:1.055*v**.41666-.055
+function rgb(hex:string){return [0,2,4].map(i=>linear(parseInt(hex.slice(i+1,i+3),16)/255))}
+function hsl(r:number,g:number,b:number,out:{h:number;s:number;l:number}){
+  const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min,l=(max+min)/2
+  out.l=l;out.s=d===0?0:d/(l<=.5?max+min:2-max-min)
+  out.h=d===0?0:(max===r?(g-b)/d+(g<b?6:0):max===g?(b-r)/d+2:(r-g)/d+4)/6
+  return out
+}
+const base=rgb(cakePresets.galaxy.color),baseline=hsl(srgb(base[0]),srgb(base[1]),srgb(base[2]),{h:0,s:0,l:0})
 const tau=Math.PI*2
 
 /** Shared visual state. Neither the CSS sky nor the WebGL sky owns a clock. */
@@ -17,27 +26,28 @@ export class GalaxyAppearance {
   rotation=0
   zoom=1.055
   color=cakePresets.galaxy.color
-  private fromColor=new Color()
-  private toColor=new Color()
-  private mixed=new Color()
+  private fromConfig:BirthdayConfig|null=null
+  private toConfig:BirthdayConfig|null=null
+  private fromColors:number[][]=[]
+  private toColors:number[][]=[]
+  private mixed=[0,0,0]
   private hsl={h:0,s:0,l:0}
 
   update(config:BirthdayConfig,transition:CakeTransition|null,visual:VisualCake,time:number,delta:number,reduced:boolean){
     const from=transition?.from??config,progress=partProgress(transition,'body')
-    this.mixed.setRGB(0,0,0)
+    if(this.fromConfig!==from){this.fromConfig=from;this.fromColors=[0,1,2].map(i=>rgb(layerAppearance(from,Math.min(i,from.cakeLayers-1)).cakeColor))}
+    if(this.toConfig!==config){this.toConfig=config;this.toColors=[0,1,2].map(i=>rgb(layerAppearance(config,Math.min(i,config.cakeLayers-1)).cakeColor))}
+    this.mixed.fill(0)
     let total=0
     for(let i=0;i<3;i++){
       const tier=visual.tiers[i],weight=tier.width*tier.height*tier.active
       if(weight<.0001)continue
-      this.fromColor.set(layerAppearance(from,Math.min(i,from.cakeLayers-1)).cakeColor)
-      this.toColor.set(layerAppearance(config,Math.min(i,config.cakeLayers-1)).cakeColor)
-      this.fromColor.lerp(this.toColor,progress).multiplyScalar(weight)
-      this.mixed.add(this.fromColor);total+=weight
+      for(let channel=0;channel<3;channel++)this.mixed[channel]+=(this.fromColors[i][channel]+(this.toColors[i][channel]-this.fromColors[i][channel])*progress)*weight
+      total+=weight
     }
-    if(total>.0001)this.mixed.multiplyScalar(1/total)
-    else this.mixed.set(config.cakeColor)
-    this.color='#'+this.mixed.getHexString()
-    this.mixed.getHSL(this.hsl,SRGBColorSpace)
+    for(let channel=0;channel<3;channel++)this.mixed[channel]=srgb(total>.0001?this.mixed[channel]/total:this.toColors[0][channel])
+    this.color='#'+this.mixed.map(v=>Math.round(Math.max(0,Math.min(1,v))*255).toString(16).padStart(2,'0')).join('')
+    hsl(this.mixed[0],this.mixed[1],this.mixed[2],this.hsl)
     const hue=(this.hsl.h-baseline.h)*tau,saturation=Math.max(.16,Math.min(1.15,this.hsl.s/baseline.s))
     const blend=reduced?1:1-Math.exp(-Math.min(delta,.06)*8)
     const difference=Math.atan2(Math.sin(hue-this.hue),Math.cos(hue-this.hue))

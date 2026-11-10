@@ -18,7 +18,7 @@ import { SmokeParticles } from './SmokeParticles'
 import { ConfettiExplosion } from './ConfettiExplosion'
 import { GalaxyBackdrop } from './GalaxyBackdrop'
 
-function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onLost:()=>void}) {
+function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onLost:()=>void;onReady:()=>void}) {
   const controls=useRef<ElementRef<typeof OrbitControls>>(null!),lastReset=useRef(-1),lastPhase=useRef<Phase>('intro'),celebrationCamera=useMemo(()=>new Vector3(),[]),focusY=useRef(0),focusZoom=useRef(1)
   const {camera,size,gl,scene}=useThree(),mobile=size.width<700
   const introBackground=useMemo(()=>new Color('#050507'),[])
@@ -26,6 +26,7 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
   const distance=mobile?3.3/(Math.tan(20*Math.PI/180)*(size.width/size.height)):8.2
   const target=useMemo(()=>new Vector3(0,mobile?.42:-.08,0),[mobile])
   const budget=engine.getBudget()
+  useEffect(()=>{onReady()},[onReady])
   const composer=useRef<Composer>(null!)
   const capture=useRef<{longEdge:number;resolve:(blob:Blob)=>void;reject:(error:Error)=>void}|null>(null)
   useEffect(()=>{
@@ -61,7 +62,6 @@ function Scene({engine,phase,tier,onLost}:{engine:ExperienceEngine;phase:Phase;t
   },[gl,onLost])
   useEffect(()=>{lastReset.current=-1},[size.width,size.height])
   useFrame((_,delta)=>{
-    engine.tick(delta)
     const shadowMoving=phase==='entering'||engine.snapshot.switching||engine.snapshot.assembling
     if(shadowMoving||shadowState.current.moving||shadowState.current.config!==engine.snapshot.config||shadowState.current.tier!==tier){
       gl.shadowMap.needsUpdate=true
@@ -135,7 +135,7 @@ class SceneBoundary extends Component<{children:ReactNode},{failed:boolean}> {
   static getDerivedStateFromError(){return {failed:true}}
   render(){return this.state.failed?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):this.props.children}
 }
-export function GalaxyScene({engine,phase,tier}:{engine:ExperienceEngine;phase:Phase;tier:Tier}) {
+export function GalaxyScene({engine,phase,tier,onReady}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onReady:()=>void}) {
   const [lost,setLost]=useState(false)
-  return <SceneBoundary>{lost?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):<Canvas shadows="variance" dpr={[1,budgets[tier].dpr]} camera={{position:[0,3.4,8.2],fov:40,near:.1,far:65}} gl={{alpha:false,antialias:false,powerPreference:'high-performance'}} fallback={<div aria-hidden="true" inert><Unavailable retry={()=>location.reload()}/></div>}><Scene engine={engine} phase={phase} tier={tier} onLost={()=>setLost(true)}/></Canvas>}</SceneBoundary>
+  return <SceneBoundary>{lost?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):<Canvas shadows="variance" dpr={[1,budgets[tier].dpr]} camera={{position:[0,3.4,8.2],fov:40,near:.1,far:65}} gl={{alpha:false,antialias:false,powerPreference:'high-performance'}} fallback={<div aria-hidden="true" inert><Unavailable retry={()=>location.reload()}/></div>}><Scene engine={engine} phase={phase} tier={tier} onLost={()=>setLost(true)} onReady={onReady}/></Canvas>}</SceneBoundary>
 }

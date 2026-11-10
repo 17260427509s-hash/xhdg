@@ -7,8 +7,8 @@ import { openingCards, createHeartPath, convoyEase, openingLayout } from '../uti
 import { openingTiming } from '../utils/openingTiming'
 import { Icon } from './Icons'
 
-export function BirthdayOpening({ engine, onEnter, music }: {
-  engine: ExperienceEngine; onEnter: () => void; music: { enabled: boolean; toggle: () => void }
+export function BirthdayOpening({ engine, onEnter, music,loading=false }: {
+  engine: ExperienceEngine; onEnter: () => void; music: { enabled: boolean; toggle: () => void };loading?:boolean
 }) {
   const root = useRef<HTMLElement>(null!), enterButton = useRef<HTMLButtonElement>(null!), skipButton = useRef<HTMLButtonElement>(null!)
   const [layout,setLayout]=useState(()=>{const mobile=innerWidth<=700;return openingLayout(mobile?innerWidth-24:Math.min(960,innerWidth*.94),mobile?Math.min(520,innerHeight-180):Math.min(680,innerHeight-170),mobile)})
@@ -58,7 +58,7 @@ export function BirthdayOpening({ engine, onEnter, music }: {
     return () => { unsubscribe?.(); context.revert() }
   }, [engine, cards, reduced,layout])
   useLayoutEffect(() => { if (ready && document.activeElement === skipButton.current) enterButton.current.focus() }, [ready])
-  return <section ref={root} className="birthday-opening" data-opening-stage={openingStage} aria-label="生日祝福开场" aria-hidden={leaving} inert={leaving || Boolean(settings)}>
+  return <section ref={root} className="birthday-opening" data-opening-stage={openingStage} aria-label="生日祝福开场" aria-hidden={leaving||loading} inert={leaving || loading || Boolean(settings)}>
     <div className="opening-paper-glow" aria-hidden="true"/>
     <div className="opening-composition">
       <header className="opening-heading"><h1>生日快乐</h1><p className="opening-script" aria-hidden="true">Happy Birthday</p><p className="opening-dedication">给 <span>{recipientName(config)}</span></p></header>
@@ -70,7 +70,7 @@ export function BirthdayOpening({ engine, onEnter, music }: {
       </article>
     </div>
     <footer className="opening-footer">
-      <div className="opening-enter" inert={!ready}><button ref={enterButton} className="opening-primary" disabled={!ready || leaving} onClick={onEnter}>开启星河 <Icon name="arrow"/></button></div>
+      <div className="opening-enter" inert={!ready}><button ref={enterButton} className="opening-primary" disabled={!ready || leaving || loading} onClick={onEnter}>开启星河 <Icon name="arrow"/></button></div>
       <div className="opening-options">{!engine.readOnly ? <button onClick={() => engine.openSettings('blessing')}>定制这份生日祝福</button> : null}<button aria-pressed={music.enabled} onClick={music.toggle}><Icon name={music.enabled ? 'music' : 'muted'}/>{music.enabled ? '背景音乐已开启' : '背景音乐已关闭'}</button></div>
     </footer>
     <button ref={skipButton} className="opening-skip" hidden={ready} onClick={engine.skipOpening}>跳过开场 <span aria-hidden="true">↗</span></button>

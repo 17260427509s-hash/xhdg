@@ -80,7 +80,7 @@ let browser
   report.checks.fullHeartCustomLetterAndOriginalCards = true
   await p.waitForTimeout(500); assert.equal((await state(p)).phase, 'intro'); report.checks.waitsForUserInsteadOfAutoEntering = true
   await p.locator('.opening-primary').dblclick()
-  assert.equal((await state(p)).phase, 'entering'); const reset = (await state(p)).resetId
+  await p.waitForFunction(()=>window.__GALAXY__.phase==='entering',null,{timeout:60000});const reset = (await state(p)).resetId
   await p.waitForFunction(() => window.__GALAXY__.phaseTime > .8)
   assert.equal(await p.locator('.birthday-opening').getAttribute('aria-hidden'), 'true')
   assert(Number(await p.locator('.birthday-opening').evaluate(e => getComputedStyle(e).opacity)) < .01)

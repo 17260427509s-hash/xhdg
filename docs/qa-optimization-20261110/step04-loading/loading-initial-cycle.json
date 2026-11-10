@@ -1,0 +1,12 @@
+{
+  "task": "loading",
+  "testedAt": "2026-11-10T06:48:01.184Z",
+  "url": "http://localhost:4174",
+  "checks": {},
+  "runs": [],
+  "errors": [
+    "TypeError: Class extends value undefined is not a constructor or null\n    at http://localhost:4174/assets/N8AO-CWIaTRTp.js:1091:88905"
+  ],
+  "warnings": [],
+  "failure": "page.waitForFunction: Timeout 60000ms exceeded.\n    at E:\\生日网址\\xhdg-handoff\\galaxy-cake\\scripts\\verify-optimization.cjs:31:222"
+}

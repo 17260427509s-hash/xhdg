@@ -7,7 +7,7 @@ export function useMusic(initialEnabled:boolean,paused:boolean) {
   const play=useCallback(()=>{
     if(!armed.current||!preferences.current.enabled||preferences.current.paused||document.hidden)return
     if(!audio.current){
-      const element=new Audio('/audio/starlight-letter.wav');element.loop=true;element.volume=.32;element.preload='metadata'
+      const element=new Audio('/audio/starlight-letter.m4a');element.loop=true;element.volume=.32;element.preload='metadata'
       element.onplay=()=>{setPlaying(true);setError('')};element.onpause=()=>setPlaying(false)
       element.onerror=()=>{setPlaying(false);setError('音乐暂时无法播放，可稍后重试。')}
       audio.current=element

@@ -1,0 +1,10 @@
+{
+  "task": "loading",
+  "testedAt": "2026-11-10T06:59:25.402Z",
+  "url": "http://localhost:4174",
+  "checks": {},
+  "runs": [],
+  "errors": [],
+  "warnings": [],
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(cold.readyAt<6000)\n\n    at E:\\生日网址\\xhdg-handoff\\galaxy-cake\\scripts\\verify-optimization.cjs:30:490"
+}
