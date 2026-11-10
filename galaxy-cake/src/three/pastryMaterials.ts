@@ -28,10 +28,10 @@ export function usePastryMaterial(cream: boolean) {
   const material = useMemo(() => {
     galaxyMap.colorSpace=SRGBColorSpace;galaxyMap.wrapS=RepeatWrapping;galaxyMap.anisotropy=8
     const bump = pastryTexture(cream)
-    const mat = new MeshPhysicalMaterial({ color: 'white', roughness: cream ? .22 : .57, metalness: 0,
-      bumpMap: bump, bumpScale: cream ? .004 : .035, clearcoat: cream ? .5 : .06,
-      clearcoatRoughness: cream?.18:.4, sheen: cream ? .3 : .08, sheenColor: '#fff0df', sheenRoughness: .65,
-      specularIntensity: cream ? .8 : .32, envMapIntensity: cream ? 1.1 : .65 })
+    const mat = new MeshPhysicalMaterial({ color: 'white', roughness: cream ? .34 : .57, metalness: 0,
+      bumpMap: bump, bumpScale: cream ? .004 : .035, clearcoat: cream ? .24 : .06,
+      clearcoatRoughness: cream?.3:.4, sheen: cream ? .3 : .08, sheenColor: '#fff0df', sheenRoughness: .65,
+      specularIntensity: cream ? .45 : .32, envMapIntensity: cream ? .6 : .65 })
     const nebula={value:0}
     mat.userData.nebula=nebula
     const grain={value:1};mat.userData.grain=grain

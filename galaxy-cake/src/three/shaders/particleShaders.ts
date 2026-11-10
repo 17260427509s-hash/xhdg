@@ -27,10 +27,10 @@ void main() {
   } else if(uMode>1.5&&uMode<2.5) {
     float phase=fract(sin(aSeed*761.4)*437.5);
     float age=fract(uTime*(.34+aSeed*.14)+phase);
-    float spread=.018+age*.14;
+    float spread=.025+age*.27;
     vec3 candle=uCandles[int(mod(floor(aSeed*100.),float(uCandleCount)))];
-    p=candle+vec3(sin(aSeed*87.+age*2.7)*spread,
-      .23+age*.95,cos(aSeed*23.+age*1.9)*spread*.75);
+    p=candle+vec3(sin(aSeed*87.+age*2.7)*spread+aVelocity.x*age*.12*uReduced,
+      .23+age*.95,cos(aSeed*23.+age*1.9)*spread*.8+aVelocity.z*age*.1*uReduced);
     vAlpha=pow(1.-age,2.)*smoothstep(0.,.07,age)*(.35+.65*step(.6,aSeed));
     if(uGather<1.) {
       p=candle+vec3(sin(aSeed*87.)*.3*(1.-uGather),

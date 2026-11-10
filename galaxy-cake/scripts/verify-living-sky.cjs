@@ -77,12 +77,15 @@ let browser
   assert.match(await m.locator('main').evaluate(e=>e.style.getPropertyValue('--sky-filter')),/hue-rotate/)
   assert(await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))
   assert(await m.locator('dialog button').evaluateAll(buttons=>buttons.every(b=>{const r=b.getBoundingClientRect();return r.width>=44&&r.height>=44})))
+  // Isolate the two background render paths. Independent foreground star glows
+  // are intentionally absent from the CSS image and must not bias this check.
+  await m.getByRole('tab',{name:'星河',exact:true}).click();await m.getByLabel('漂浮星点',{exact:true}).uncheck();await settle(m);await m.waitForTimeout(250)
   const rect={left:8,top:75,width:85,height:70},rendered=await pixels(m,rect)
   const hidden=await m.addStyleTag({content:'.scene{visibility:hidden!important}'})
   const backdropOnly=await pixels(m,rect);await hidden.evaluate(e=>e.remove())
-  const seamError=difference(rendered,backdropOnly);report.layouts.push({width,height,seamError})
+  const seamError=difference(rendered,backdropOnly);report.layouts.push({width,height,seamError,isolatedNearParticles:true})
   assert(seamError<6,'CSS and WebGL use matching color and background coordinates')
-  await close(m);await m.getByRole('button',{name:'继续',exact:true}).click();await shot(m,`mobile-${width}-pink`);await m.close();save()
+  await m.getByLabel('漂浮星点',{exact:true}).check();await close(m);await m.getByRole('button',{name:'继续',exact:true}).click();await shot(m,`mobile-${width}-pink`);await m.close();save()
  }
  report.checks.mobileFullPageMotionColorAndNoSeams=true
  const reduced=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});await enter(reduced)

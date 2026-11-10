@@ -53,7 +53,7 @@ function PastryMesh({engine,kind,from,to,index,material}:{engine:ExperienceEngin
     if(mesh.current.morphTargetInfluences)mesh.current.morphTargetInfluences[0]=t
     sourceColor.set(kind==='body'?a.cakeColor:a.creamColor);targetColor.set(kind==='body'?b.cakeColor:b.creamColor)
     material.color.copy(sourceColor).lerp(targetColor,t)
-    if(kind==='cream')material.color.multiplyScalar(.96)
+    if(kind==='cream')material.color.multiplyScalar(.86)
     if(kind==='body'){
       material.roughness=recipes[from.cakeStyle].bodyRoughness+(recipes[to.cakeStyle].bodyRoughness-recipes[from.cakeStyle].bodyRoughness)*t
       material.clearcoat=(recipes[from.cakeStyle].bodyCoat??.06)*(1-t)+(recipes[to.cakeStyle].bodyCoat??.06)*t

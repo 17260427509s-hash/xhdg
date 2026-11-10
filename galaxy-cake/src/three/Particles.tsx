@@ -44,7 +44,7 @@ export function ParticleLayer({engine,count,layer}:{engine:ExperienceEngine;coun
     material.uniforms.uGather.value=gather
     material.uniforms.uCandleCount.value=engine.visualCake.candle.count
     for(let i=0;i<3;i++)material.uniforms.uCandles.value[i].fromArray(engine.visualCake.candle.anchors[i])
-    material.uniforms.uOpacity.value=layer==='far'?.8:layer==='sparks'?engine.snapshot.phase==='entering'?Math.max(gather*.8,engine.motion.ignition):engine.motion.ignition:layer==='burst'?(engine.snapshot.reduced?.35:1):engine.snapshot.phase==='intro'?0:Math.min(engine.time*.7,1)
+    material.uniforms.uOpacity.value=layer==='far'?.48:layer==='sparks'?engine.snapshot.phase==='entering'?Math.max(gather*.8,engine.motion.ignition):engine.motion.ignition:layer==='burst'?(engine.snapshot.reduced?.35:1):engine.snapshot.phase==='intro'?0:Math.min(engine.time*.7,1)
     material.uniforms.uAge.value=engine.snapshot.phase==='celebration'||engine.snapshot.phase==='message'?engine.phaseTime-1.7:-1
     if(layer==='near'||layer==='dust'||layer==='burst')material.uniforms.uOpacity.value*=Math.min(engine.motion.energy,1.6)
     if(layer==='near')material.uniforms.uOpacity.value*=.62

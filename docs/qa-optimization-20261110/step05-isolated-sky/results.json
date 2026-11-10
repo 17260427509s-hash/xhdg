@@ -1,0 +1,126 @@
+{
+  "testedAt": "2026-11-10T07:40:27.741Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "pageIdentityAndRendering": true,
+    "backgroundActuallyMoves": true,
+    "pauseFreezesRenderedBackground": true,
+    "presetChangesBackgroundPixels": true,
+    "customColorChangesBackgroundPixels": true,
+    "neutralColorDesaturatesSky": true,
+    "layerColorsAndUndoRedoFollowWhilePaused": true,
+    "recolorDoesNotAllocateTextures": true,
+    "resumeRestartsSky": true,
+    "draftRestoresSkyColor": true,
+    "hdIncludesColoredSkyAndRestoresState": true
+  },
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "colors": {
+    "blue": [
+      23.557307692307692,
+      20.306215384615385,
+      33.462553846153845
+    ],
+    "pink": [
+      34.35452307692308,
+      18.646907692307693,
+      17.851
+    ],
+    "teal": [
+      12.833015384615384,
+      24.28803076923077,
+      29.410430769230768
+    ],
+    "neutral": [
+      23.632784615384615,
+      21.53873846153846,
+      21.164692307692306
+    ]
+  },
+  "layouts": [
+    {
+      "width": 390,
+      "height": 844,
+      "seamError": 5.521512605042017,
+      "isolatedNearParticles": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "seamError": 6.935406162464986,
+      "isolatedNearParticles": true
+    }
+  ],
+  "resources": [
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    },
+    {
+      "geometries": 81,
+      "textures": 55
+    }
+  ],
+  "browser": "156.0.8078.80",
+  "motionDifference": 8.771866666666666,
+  "export": {
+    "width": 3200,
+    "height": 2003,
+    "sky": {
+      "hue": 1.1092636028103047,
+      "saturation": 0.701550418700993,
+      "time": 5.443800000000017,
+      "panX": 0.008470344817328328,
+      "panY": -0.0005920338365297775,
+      "rotation": 0.0023596444097547177,
+      "zoom": 1.0566042556870638,
+      "color": "#b274b1"
+    }
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: CSS and WebGL use matching color and background coordinates\n    at E:\\生日网址\\xhdg-handoff\\galaxy-cake\\scripts\\verify-living-sky.cjs:87:3"
+}

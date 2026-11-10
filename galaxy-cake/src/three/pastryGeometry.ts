@@ -20,10 +20,10 @@ export function frostingGeometry(style: CakeStyle = 'galaxy') {
   const edge = recipes[style].edge
   const rng = random(451), segments = 512
   const drips = Array.from({ length: 18 }, (_, i) => {
-    const angle=(i+(rng()-.5)*.38)/18*Math.PI*2
-    const depth=.09+Math.pow(rng(),.8)*.25
+    const angle=(i+(rng()-.5)*.66)/18*Math.PI*2
+    const depth=.2*(.6+.8*rng())
     // Deeper drops keep the same rounded tip curvature instead of becoming cones.
-    return {angle,depth,width:.14+rng()*.04,lean:(rng()-.5)*.025}
+    return {angle,depth,width:.12+rng()*.09,lean:(rng()-.5)*.035}
   })
   const radius = [0, .3, .7, 1.05, 1.23, 1.32, 1.365, 1.388, 1.397, 1.399, 1.396, 1.389, 1.375, 1.358, 1.343, 1.338]
   const height = [.584, .587, .588, .586, .582, .575, .563, .548, .532, .518, .501, .489, .487, .497, .519, .54]

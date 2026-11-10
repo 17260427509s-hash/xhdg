@@ -32,7 +32,7 @@ function layout(kind: Detail, shape: CakeShape, style: CakeStyle, cakeColor:stri
     const a = i % n / n * Math.PI * 2 + .12
     let turn=a+rng()*2
     let radius = 1.325, y = -.509, size = .025 + rng() * .016, color = '#eed8bd'
-    if (kind === 'flowers') { radius = recipe.flowerRadius+(rng()-.5)*.035; y = .586; size = i < n ? .85+rng()*.25 : 0; color = '#fff0df' }
+    if (kind === 'flowers') { radius = recipe.flowerRadius+(rng()-.5)*.035; y = .586; size = i < n ? .88+rng()*.24 : 0;turn=a+(rng()-.5)*Math.PI/6;color = '#fff0df' }
     if(kind==='foot'){size=i%5===0?.05+rng()*.02:.016+rng()*.021;y=-.514+size*.4;color=['#ead6ab','#d0bded','#faf0dc','#a9bfe9','#c6a2ce'][i%5]}
     if (kind === 'pearls') {
       radius = n > 30 ? 1.316 : style === 'strawberry' ? 1.3 : 1.115

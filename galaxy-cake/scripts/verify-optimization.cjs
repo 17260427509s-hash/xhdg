@@ -10,6 +10,7 @@ function watch(p){p.on('pageerror',e=>report.errors.push(e.message));p.on('conso
 async function enter(p,target=url+'/create?qa=1'){watch(p);await p.goto(target);assert.match(await p.title(),/星河生日蛋糕/);const skip=p.getByRole('button',{name:'跳过开场',exact:true});if(await skip.isVisible())await skip.click();await p.getByRole('button',{name:'开启星河',exact:true}).click();await p.waitForFunction(()=>window.__GALAXY__?.phase==='idle',null,{timeout:60000});assert.equal(await p.locator('.unavailable').isVisible(),false);assert.equal(await p.locator('vite-error-overlay').count(),0)}
 async function open(p){await p.getByRole('button',{name:'蛋糕',exact:true}).click();await settle(p)}
 async function click(p,name){await p.getByRole('dialog').getByRole('button',{name,exact:true}).click();await settle(p)}
+async function dragVisual(p){const b=await p.locator('canvas').boundingBox();await p.mouse.move(b.x+b.width*.5,b.y+b.height*.5);await p.mouse.down();await p.mouse.move(b.x+b.width*.64,b.y+b.height*.53,{steps:14});await p.mouse.up();await p.waitForTimeout(300)}
 async function freeze(p,value){await p.evaluate(value=>{if(value)Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});else delete document.hidden;document.dispatchEvent(new Event('visibilitychange'))},value)}
 async function seam(p,width,phase){
  await freeze(p,true);const snapshot=await state(p),rect=await p.locator('.scene').boundingBox();assert.equal(rect.y,0);assert.equal(rect.height,p.viewportSize().height)
@@ -24,6 +25,16 @@ async function seam(p,width,phase){
 let browser
 ;(async()=>{try{
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']})
+ if(task==='visual'){
+  const p=await browser.newPage({viewport:{width:1440,height:900}});await enter(p);await p.getByRole('button',{name:'暂停',exact:true}).click();const buffer=await shot(p,'visual-1440-idle'),before=fs.readFileSync(path.resolve('../docs/qa-optimization-20261110/before/optimization-plan-idle-1440.png'))
+  // Fixed plain top area excludes the candle, gold stars, cream flowers AND the
+  // emissive orbit crossing at y=363. The same mask is applied before and after.
+  const measure=async image=>{const {data,info}=await sharp(image).removeAlpha().raw().toBuffer({resolveWithObject:true});let n=0,hot=0,body=0,bodyN=0;for(let y=352;y<=360;y++)for(let x=660;x<=780;x++){if(((x-720)/60)**2+((y-356)/4)**2>1||(x>705&&x<735&&y<355))continue;n++;if(data[(y*info.width+x)*3]>250)hot++}for(let y=455;y<525;y++)for(let x=600;x<840;x++){const i=(y*info.width+x)*3;body+=.2126*data[i]+.7152*data[i+1]+.0722*data[i+2];bodyN++}return {creamPixels:n,overexposed:hot/n,bodyLuma:body/bodyN}}
+  const original=await measure(before),current=await measure(buffer);report.runs.push({original,current,stats:(await state(p)).stats,creamMask:{cx:720,cy:356,rx:60,ry:4,excludedCandle:{left:705,right:735,bottom:355},orbitExcludedAtY:363},bodyRectangle:{left:600,top:455,width:240,height:70}});assert(current.overexposed<.05);assert(current.bodyLuma>=original.bodyLuma*.7)
+  await dragVisual(p);await shot(p,'visual-oblique');await p.close()
+  const m=await browser.newPage({viewport:{width:390,height:844}});await enter(m);await m.getByRole('button',{name:'暂停',exact:true}).click();await shot(m,'visual-390-idle');report.runs.push({mobileStats:(await state(m)).stats});await m.close()
+  const low=await browser.newPage({viewport:{width:390,height:844}});await enter(low,url+'/create?qa=1&quality=low');await low.waitForTimeout(800);const prior=JSON.parse(fs.readFileSync(path.resolve('../docs/qa-optimization-20261110/step04-browser/results.json'))).low.stats,currentLow=(await state(low)).stats;report.runs.push({priorLow:prior,currentLow});assert.equal(currentLow.points,prior.points);assert(currentLow.calls<=prior.calls+2);await low.close()
+ }
  if(task==='loading'){
   const context=await browser.newContext({viewport:{width:1440,height:900}})
   await context.addInitScript(()=>{window.__LONG_TASKS__=[];new PerformanceObserver(list=>window.__LONG_TASKS__.push(...list.getEntries().map(e=>({start:e.startTime,duration:e.duration})))).observe({type:'longtask',buffered:true});const A=window.Audio;window.Audio=function(...args){const a=new A(...args);window.__QA_AUDIO__=a;return a};window.Audio.prototype=A.prototype})

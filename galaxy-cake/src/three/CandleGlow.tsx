@@ -12,10 +12,10 @@ export function CandleGlow({engine}:{engine:ExperienceEngine}) {
     transparent:true,depthWrite:false,side:DoubleSide,blending:AdditiveBlending,toneMapped:false,
     uniforms:{uPower:{value:0}},vertexShader,
     fragmentShader:`varying vec2 vUv;uniform float uPower;void main(){
-      float r=length((vUv-.5)*2.);float core=exp(-r*r*11.);float halo=exp(-r*r*3.5);
-      float a=(core*.045+halo*.012)*(1.-smoothstep(.75,1.,r))*uPower;
-      vec3 c=mix(vec3(1.2,.34,.09),vec3(2.1,1.25,.48),core);
-      if(a<.005)discard;gl_FragColor=vec4(c,a);
+      float r=length((vUv-.5)*2.);float core=exp(-r*r*22.);float halo=exp(-r*r*5.);
+      float a=(core*.018+halo*.002)*(1.-smoothstep(.75,1.,r))*uPower;
+      vec3 c=mix(vec3(1.2,.34,.09),vec3(1.5,.9,.35),core);
+      if(a<.001)discard;gl_FragColor=vec4(c,a);
     }`,
   }),[])
   const auraMaterial=useMemo(()=>new ShaderMaterial({

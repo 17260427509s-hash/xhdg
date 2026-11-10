@@ -102,18 +102,19 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
   return <>
     <color attach="background" args={['#050507']}/>
     <GalaxyBackdrop engine={engine}/>
-    <Environment resolution={tier==='desktop'?256:128} frames={1} environmentIntensity={.8}>
-      <Lightformer form="rect" intensity={2} color="#e0e8ff" position={[-3,4,4]} target={[0,0,0]} scale={4}/>
-      <Lightformer form="rect" intensity={1.5} color="#bca0ff" position={[4,2,-3]} target={[0,0,0]} scale={3}/>
-      <Lightformer form="circle" intensity={.8} color="#ffd8ad" position={[0,5,1]} target={[0,0,0]} scale={3}/>
-      <Lightformer form="rect" intensity={3} color="#fff5e8" position={[2,4,5]} target={[0,0,0]} scale={[1.5,3,1]}/>
-      <Lightformer form="rect" intensity={1.6} color="#fff5eb" position={[0,1,6]} target={[0,0,0]} scale={[7,5,1]}/>
+    <Environment resolution={tier==='desktop'?256:128} frames={1} environmentIntensity={.65}>
+      <Lightformer form="rect" intensity={1.2} color="#e0e8ff" position={[-3,4,4]} target={[0,0,0]} scale={4}/>
+      <Lightformer form="rect" intensity={.8} color="#bca0ff" position={[4,2,-3]} target={[0,0,0]} scale={3}/>
+      <Lightformer form="circle" intensity={.6} color="#ffd8ad" position={[0,5,1]} target={[0,0,0]} scale={3}/>
+      <Lightformer form="rect" intensity={1.15} color="#fff5e8" position={[2,4,5]} target={[0,0,0]} scale={[1.5,3,1]}/>
+      <Lightformer form="rect" intensity={.8} color="#fff5eb" position={[0,1,6]} target={[0,0,0]} scale={[7,5,1]}/>
     </Environment>
     <ambientLight intensity={.3} color="#e1e3ff"/>
     <hemisphereLight args={['#d6dfff','#392941',.3]}/>
-    <directionalLight castShadow shadow-mapSize={tier==='desktop'?[2048,2048]:[1024,1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.002} shadow-bias={-.0001} shadow-radius={10} shadow-blurSamples={12} position={[-3,4.8,5]} intensity={2.6} color="#fff9f0"/>
-    <directionalLight position={[4,2,-3]} intensity={.95} color="#c1afff"/>
-    <directionalLight position={[-4,0,1]} intensity={.65} color="#b3c4ff"/>
+    <directionalLight castShadow shadow-mapSize={tier==='desktop'?[2048,2048]:[1024,1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={3} shadow-camera-bottom={-3} shadow-normalBias={.002} shadow-bias={-.0001} shadow-radius={10} shadow-blurSamples={12} position={[-3,4.8,5]} intensity={1.5} color="#fff9f0"/>
+    <directionalLight position={[4,2,-3]} intensity={.7} color="#c1afff"/>
+    <directionalLight position={[-4,.6,4]} intensity={1.05} color="#d4dcff"/>
+    <directionalLight position={[-1,3,-4]} intensity={.55} color="#ffd29a"/>
     <Atmosphere engine={engine}/>
     <ParticleLayer engine={engine} layer="far" count={budget.far}/>
     <ParticleLayer engine={engine} layer="near" count={budget.near}/>

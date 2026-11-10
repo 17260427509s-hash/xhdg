@@ -12,6 +12,7 @@ export function GalaxyBackdrop({engine}:{engine:ExperienceEngine}) {
   const map=useTexture('/textures/galaxy-backdrop.webp')
   const {gl,size}=useThree()
   const owner=useRef<HTMLElement|null>(null),lastStyle=useRef({filter:'',transform:'',reveal:''})
+  const needsLayout=useRef(true)
   const material=useMemo(()=>{
     map.colorSpace=SRGBColorSpace
     return new ShaderMaterial({depthTest:false,depthWrite:false,toneMapped:false,
@@ -24,14 +25,15 @@ export function GalaxyBackdrop({engine}:{engine:ExperienceEngine}) {
           float co=cos(uCamera.z),si=sin(uCamera.z);
           p=mat2(co,si,-si,co)*p/uCamera.w;
           vec2 sourceUv=(p/uViewport+.5)*uCrop.zw+uCrop.xy;
-          vec3 sky=galaxyColor(texture2D(uMap,sourceUv).rgb,uHue,uSaturation);
+          vec3 sky=skyLinear(skyDisplay(galaxyColor(texture2D(uMap,sourceUv).rgb,uHue,uSaturation))*.6);
           gl_FragColor=vec4(mix(vec3(.0012,.0012,.0021),sky,uReveal),1.);
           #include <colorspace_fragment>
         }`,
     })
   },[map])
-  useLayoutEffect(()=>{
-    const element=gl.domElement.closest('main'),bounds=gl.domElement.getBoundingClientRect(),viewport=element?.getBoundingClientRect()
+  const updateRect=()=>{
+    const element=gl.domElement.closest('main'),bounds=(gl.domElement.closest('.scene')??gl.domElement).getBoundingClientRect(),viewport=element?.getBoundingClientRect()
+    if(!bounds.width||!bounds.height||!viewport?.width||!viewport.height)return false
     owner.current=element
     if(viewport){
       material.uniforms.uRect.value.set((bounds.left-viewport.left)/viewport.width,1-(bounds.bottom-viewport.top)/viewport.height,bounds.width/viewport.width,bounds.height/viewport.height)
@@ -41,14 +43,19 @@ export function GalaxyBackdrop({engine}:{engine:ExperienceEngine}) {
       // Match CSS cover, retaining the left spiral in portrait without stretching stars.
       material.uniforms.uCrop.value.set(aspect<1?(1-aspect)*.12:0,aspect>1?(1-1/aspect)*.5:0,Math.min(1,aspect),Math.min(1,1/aspect))
     }
-  },[gl,size.width,size.height,material,map])
+    return true
+  }
+  useLayoutEffect(()=>{needsLayout.current=true},[size.width,size.height,material,map])
   useEffect(()=>()=>{material.dispose();for(const property of ['--sky-reveal','--sky-filter','--sky-transform'])owner.current?.style.removeProperty(property)},[material])
   useFrame(()=>{
+    // Lazy Canvas can commit under a hidden Suspense subtree with a zero rect.
+    // Retry only until the visible container is measurable, then stop DOM reads.
+    if(needsLayout.current&&updateRect())needsLayout.current=false
     const sky=engine.sky,viewport=material.uniforms.uViewport.value,reveal=.07+.93*engine.motion.reveal
     material.uniforms.uReveal.value=reveal
     material.uniforms.uHue.value=sky.hue;material.uniforms.uSaturation.value=sky.saturation
     material.uniforms.uCamera.value.set(sky.panX,sky.panY,sky.rotation,sky.zoom)
-    const filter=`hue-rotate(${sky.hue.toFixed(6)}rad) saturate(${sky.saturation.toFixed(6)})`
+    const filter=`hue-rotate(${sky.hue.toFixed(6)}rad) saturate(${sky.saturation.toFixed(6)}) brightness(.6)`
     const transform=`translate3d(${(sky.panX*viewport.x).toFixed(4)}px,${(sky.panY*viewport.y).toFixed(4)}px,0) rotate(${sky.rotation.toFixed(6)}rad) scale(${sky.zoom.toFixed(6)})`
     const opacity=reveal.toFixed(5),style=owner.current?.style
     if(style){
