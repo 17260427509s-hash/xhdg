@@ -1,4 +1,4 @@
-import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Component, lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { useExperience } from '../experience/useExperience'
@@ -28,6 +28,8 @@ export function BirthdayExperience({initialGift,readOnly=false,preview=false,dra
   const editing=settings!==null&&phase==='idle'
   const name=recipientName(config),wish=config.message.trim()||'愿新的一岁，继续闪闪发光。'
   const idle=phase==='idle',message=phase==='message'
+  const suspended=giftOpen||phase==='wishing'
+  useLayoutEffect(()=>{engine.renderSuspended=suspended;return()=>{engine.renderSuspended=false}},[engine,suspended])
   const enter=()=>{music.begin();if(sceneReady.current){engine.enter();return}if(requested.current)return;requested.current=true;performance.mark('galaxy-request');setSceneRequested(true)}
   const ready=useCallback(()=>{if(sceneReady.current)return;sceneReady.current=true;performance.mark('galaxy-ready');engine.enter();performance.mark('galaxy-enter')},[engine])
   useEffect(()=>{
@@ -44,7 +46,7 @@ export function BirthdayExperience({initialGift,readOnly=false,preview=false,dra
   },[])
   useEffect(()=>{document.title=`星河生日蛋糕 · 给${name}`;document.querySelector('meta[name="description"]')?.setAttribute('content',`给${name}的一份星河生日惊喜。`)},[name])
   return <main className={`experience stage-two stage-three ${readOnly?'viewer-mode':''} phase-${phase} ${editing?'is-editing':''}`} data-phase={phase} data-quality={tier}>
-    {sceneRequested?<SceneLoaderBoundary><Suspense fallback={null}><div className="scene" aria-label="实时三维星河生日蛋糕，可用鼠标或手指拖动旋转"><GalaxyScene engine={engine} phase={phase} tier={tier} onReady={ready}/></div></Suspense></SceneLoaderBoundary>:null}
+    {sceneRequested?<SceneLoaderBoundary><Suspense fallback={null}><div className="scene" aria-label="实时三维星河生日蛋糕，可用鼠标或手指拖动旋转"><GalaxyScene engine={engine} phase={phase} tier={tier} onReady={ready} suspended={suspended}/></div></Suspense></SceneLoaderBoundary>:null}
     {phase==='intro'||phase==='entering'?<BirthdayOpening engine={engine} onEnter={enter} music={music} loading={sceneRequested&&phase==='intro'}/>:null}
     {sceneRequested&&phase==='intro'?<div className="scene-loading" role="status"><span aria-hidden="true">✧</span><p>星光正在汇聚</p></div>:null}
     {phase!=='intro'?<p className={`recipient ${message||phase==='celebration'?'recipient-hidden':''}`}>给 {name}</p>:null}

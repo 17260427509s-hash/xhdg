@@ -32,11 +32,12 @@ export class ExperienceEngine {
   orbitTime = 0
   lastInteraction = -10
   hidden = false
+  renderSuspended = false
   dragging = false
   resetId = 0
   motion = { reveal: 0, rings: 0, ignition: 0, energy: 1, camera: 0, messageReveal: 0, cakeReveal: 1, creamReveal: 1, decorReveal: 1, flameShake: 0, spread: 0, editorFocus: 0 }
   blownAt = -1
-  stats = { fps: 0, calls: 0, points: 0, geometries: 0, textures: 0, rotation: [0, 0, 0], camera: [0, 0, 0], frames: 0, flames: 0, smoke: 0, confetti: 0 }
+  stats = { fps: 0, calls: 0, points: 0, geometries: 0, textures: 0, rotation: [0, 0, 0], camera: [0, 0, 0], frames: 0, renderFrames:0,flames: 0, smoke: 0, confetti: 0,subject:{left:0,top:0,right:0,bottom:0,width:0,height:0,occupancy:0} }
   private timeline: gsap.core.Timeline | undefined
   private timelineTime = 0
   private switchTimeline: gsap.core.Timeline | undefined
@@ -262,7 +263,7 @@ export class ExperienceEngine {
   }
   toggle = () => { if (this.snapshot.phase === 'idle') this.update({ paused: !this.snapshot.paused }) }
   tick(delta: number) {
-    if (this.hidden) return
+    if (this.hidden||this.renderSuspended) return
     // A resumed/backgrounded tab must never jump past an entrance or celebration.
     const dt = Math.min(delta, .06)
     if (this.snapshot.phase === 'intro' && !this.snapshot.settings) {

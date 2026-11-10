@@ -17,14 +17,16 @@ import { CandleGlow } from './CandleGlow'
 import { SmokeParticles } from './SmokeParticles'
 import { ConfettiExplosion } from './ConfettiExplosion'
 import { GalaxyBackdrop } from './GalaxyBackdrop'
+import { SubjectFraming } from './subjectFraming'
 
-function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onLost:()=>void;onReady:()=>void}) {
+function Scene({engine,phase,tier,onLost,onReady,suspended}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onLost:()=>void;onReady:()=>void;suspended:boolean}) {
   const controls=useRef<ElementRef<typeof OrbitControls>>(null!),lastReset=useRef(-1),lastPhase=useRef<Phase>('intro'),celebrationCamera=useMemo(()=>new Vector3(),[]),focusY=useRef(0),focusZoom=useRef(1)
-  const {camera,size,gl,scene}=useThree(),mobile=size.width<700
+  const {camera,size,gl,scene,invalidate}=useThree(),mobile=size.width<700
+  const framing=useMemo(()=>new SubjectFraming(),[])
   const introBackground=useMemo(()=>new Color('#050507'),[])
   const litBackground=useMemo(()=>new Color('#050507'),[])
-  const distance=mobile?3.3/(Math.tan(20*Math.PI/180)*(size.width/size.height)):8.2
-  const target=useMemo(()=>new Vector3(0,mobile?.42:-.08,0),[mobile])
+  const distance=mobile?(engine.snapshot.editing?3.3:2.15)/(Math.tan(20*Math.PI/180)*(size.width/size.height)):8.2
+  const target=useMemo(()=>new Vector3(0,mobile?.72:-.08,0),[mobile])
   const budget=engine.getBudget()
   useEffect(()=>{onReady()},[onReady])
   const composer=useRef<Composer>(null!)
@@ -33,9 +35,10 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
     engine.captureScene=(longEdge)=>new Promise((resolve,reject)=>{
       if(capture.current||document.hidden||!['idle','message'].includes(engine.snapshot.phase)||engine.snapshot.editing||engine.snapshot.switching||engine.snapshot.assembling){reject(new Error('请等待蛋糕合拢后再导出。'));return}
       capture.current={longEdge,resolve,reject}
+      invalidate()
     })
     return()=>{engine.captureScene=null;capture.current?.reject(new Error('画面已关闭，请重新尝试。'));capture.current=null}
-  },[engine])
+  },[engine,invalidate])
   useFrame(()=>{
     const request=capture.current
     if(!request||!composer.current)return
@@ -49,7 +52,7 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
       const data=gl.domElement.toDataURL('image/png')
       void fetch(data).then(response=>response.blob()).then(request.resolve).catch(()=>request.reject(new Error('图片未能生成，请重试。')))
     } catch {request.reject(new Error('当前设备无法导出此分辨率，请稍后重试。'))}
-    finally {gl.setPixelRatio(dpr);gl.setSize(original.x,original.y,false);composer.current.setSize(original.x,original.y);gl.autoClear=autoClear;gl.info.reset()}
+    finally {gl.setPixelRatio(dpr);gl.setSize(original.x,original.y,false);composer.current.setSize(original.x,original.y);composer.current.render(0);gl.autoClear=autoClear;gl.info.reset()}
   },2)
   const shadowState=useRef({config:engine.snapshot.config,tier,moving:false})
   useEffect(()=>{
@@ -62,6 +65,7 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
   },[gl,onLost])
   useEffect(()=>{lastReset.current=-1},[size.width,size.height])
   useFrame((_,delta)=>{
+    engine.stats.renderFrames++
     const shadowMoving=phase==='entering'||engine.snapshot.switching||engine.snapshot.assembling
     if(shadowMoving||shadowState.current.moving||shadowState.current.config!==engine.snapshot.config||shadowState.current.tier!==tier){
       gl.shadowMap.needsUpdate=true
@@ -91,6 +95,8 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
       controls.current.target.copy(target);controls.current.target.y+=shift
     }
     lastPhase.current=phase
+    camera.lookAt(controls.current.target);camera.updateMatrixWorld()
+    engine.stats.subject=framing.update(engine,camera,size.width,size.height)
     engine.stats.rotation=controls.current.object.rotation.toArray().slice(0,3) as number[]
     engine.stats.camera=camera.position.toArray()
     engine.stats.calls=gl.info.render.calls
@@ -98,7 +104,7 @@ function Scene({engine,phase,tier,onLost,onReady}:{engine:ExperienceEngine;phase
     engine.stats.geometries=gl.info.memory.geometries;engine.stats.textures=gl.info.memory.textures
     gl.info.reset()
   },-2)
-  const active=phase==='idle'||phase==='message'
+  const active=!suspended&&(phase==='idle'||phase==='message')
   return <>
     <color attach="background" args={['#050507']}/>
     <GalaxyBackdrop engine={engine}/>
@@ -136,7 +142,7 @@ class SceneBoundary extends Component<{children:ReactNode},{failed:boolean}> {
   static getDerivedStateFromError(){return {failed:true}}
   render(){return this.state.failed?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):this.props.children}
 }
-export function GalaxyScene({engine,phase,tier,onReady}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onReady:()=>void}) {
+export function GalaxyScene({engine,phase,tier,onReady,suspended}:{engine:ExperienceEngine;phase:Phase;tier:Tier;onReady:()=>void;suspended:boolean}) {
   const [lost,setLost]=useState(false)
-  return <SceneBoundary>{lost?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):<Canvas shadows="variance" dpr={[1,budgets[tier].dpr]} camera={{position:[0,3.4,8.2],fov:40,near:.1,far:65}} gl={{alpha:false,antialias:false,powerPreference:'high-performance'}} fallback={<div aria-hidden="true" inert><Unavailable retry={()=>location.reload()}/></div>}><Scene engine={engine} phase={phase} tier={tier} onLost={()=>setLost(true)} onReady={onReady}/></Canvas>}</SceneBoundary>
+  return <SceneBoundary>{lost?createPortal(<Unavailable retry={()=>location.reload()}/>,document.body):<Canvas frameloop={suspended?'demand':'always'} shadows="variance" dpr={[1,budgets[tier].dpr]} camera={{position:[0,3.4,8.2],fov:40,near:.1,far:65}} gl={{alpha:false,antialias:false,powerPreference:'high-performance'}} fallback={<div aria-hidden="true" inert><Unavailable retry={()=>location.reload()}/></div>}><Scene engine={engine} phase={phase} tier={tier} onLost={()=>setLost(true)} onReady={onReady} suspended={suspended}/></Canvas>}</SceneBoundary>
 }
