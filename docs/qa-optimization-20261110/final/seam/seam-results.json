@@ -1,0 +1,104 @@
+{
+  "task": "seam",
+  "testedAt": "2026-11-10T08:38:18.258Z",
+  "url": "http://localhost:4174",
+  "checks": {},
+  "runs": [
+    {
+      "width": 1440,
+      "phase": "idle",
+      "camera": [
+        -0.12919737806850953,
+        2.1339999999999995,
+        7.895543021065753
+      ],
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "width": 1440,
+      "phase": "celebration",
+      "time": 3.710299999999999,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "above": 3.9173084722222233,
+      "below": 3.9205108796296297,
+      "difference": 0.0008168342100631884,
+      "passes": true
+    },
+    {
+      "width": 1440,
+      "phase": "message",
+      "time": 7.010200000000029,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "above": 2.8783674999999977,
+      "below": 3.2847699074074113,
+      "difference": 0.12372324968362153,
+      "passes": false
+    },
+    {
+      "width": 390,
+      "phase": "idle",
+      "camera": [
+        -0.08898254911857091,
+        2.437596075992905,
+        6.12544639354055
+      ],
+      "scene": {
+        "x": 0,
+        "y": 286,
+        "width": 390,
+        "height": 420
+      }
+    },
+    {
+      "width": 390,
+      "phase": "celebration",
+      "time": 3.7104999999999992,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "above": 2.6329801709401712,
+      "below": 3.8419478632478667,
+      "difference": 0.3146757153767492,
+      "passes": false
+    },
+    {
+      "width": 390,
+      "phase": "message",
+      "time": 7.004199999999285,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "above": 2.5550076923076936,
+      "below": 1.450885811965811,
+      "difference": 0.4321403351019406,
+      "passes": false
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ],
+  "failure": "AssertionError [ERR_ASSERTION]: All four former-boundary sky strips must differ by less than 10%\n    at E:\\生日网址\\xhdg-handoff\\galaxy-cake\\scripts\\verify-optimization.cjs:81:19"
+}

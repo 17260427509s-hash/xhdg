@@ -73,7 +73,8 @@ let browser
     assert.equal(observed.textClipped.length,0,'All card text fits')
     assert(Number(await p.locator('.opening-heading').evaluate(e=>getComputedStyle(e).opacity))===0)
     assert.equal(await p.locator('.opening-letter').evaluate(e=>getComputedStyle(e).backgroundImage.includes('rgba')),false)
-    const first = observed.samples[0], left = observed.samples[1], right = observed.samples[3]
+    // 3.5s is the right flank; 4.5s is already returning into the upper notch.
+    const first = observed.samples[0], left = observed.samples[1], right = observed.samples[2]
     assert(first.cards[0].x < first.heart.x - first.heart.width * .15)
     assert(right.cards[0].x > right.heart.x + right.heart.width * .15)
     assert(left.cards[0].y > left.cards[1].y && left.cards[1].y > left.cards[2].y, 'At least three cards follow in order down the left side')

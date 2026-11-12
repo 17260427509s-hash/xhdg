@@ -1,0 +1,809 @@
+{
+  "testedAt": "2026-11-10T08:28:25.756Z",
+  "url": "http://localhost:4174/?qa=1",
+  "browser": "Local Google Chrome / Playwright (Browser plugin unavailable)",
+  "checks": {
+    "identity": true,
+    "nonBlankAndNoOverlay": true,
+    "pauseFreezesAllAnimation": true,
+    "manualRotationWhilePaused": true,
+    "resume": true,
+    "fiveSecondAutoRotateCooldown": true,
+    "fiveReplayCyclesStable": true,
+    "mobileTouchFlow": true,
+    "lowBudget": true,
+    "reducedMotion": true,
+    "visibilityListenerSimulation": true,
+    "automaticLowTierUnderSyntheticLoad": true,
+    "consoleClean": true,
+    "webglFallback": true
+  },
+  "performance": {
+    "desktopIdle": {
+      "fps": 59.73477758756462,
+      "p50ms": 16.69999999999709,
+      "p95ms": 16.799999999999272,
+      "frames": 150
+    },
+    "desktopCelebration": {
+      "fps": 54.4506789734594,
+      "p50ms": 16.69999999999709,
+      "p95ms": 16.80000000000291,
+      "frames": 164
+    },
+    "mobile390Idle": {
+      "fps": 59.89697719928862,
+      "p50ms": 16.69999999999891,
+      "p95ms": 16.799999999999272,
+      "frames": 150
+    },
+    "mobile390Celebration": {
+      "fps": 54.10967998941741,
+      "p50ms": 16.700000000000728,
+      "p95ms": 16.799999999999272,
+      "frames": 163
+    }
+  },
+  "cycles": [
+    {
+      "cycle": 1,
+      "reset": 2,
+      "phase": "message",
+      "geometries": 63,
+      "textures": 44,
+      "budget": {
+        "near": 300,
+        "far": 700,
+        "dust": 1740,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 256,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 2,
+      "reset": 3,
+      "phase": "message",
+      "geometries": 63,
+      "textures": 44,
+      "budget": {
+        "near": 300,
+        "far": 700,
+        "dust": 1740,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 256,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 3,
+      "reset": 4,
+      "phase": "message",
+      "geometries": 63,
+      "textures": 44,
+      "budget": {
+        "near": 300,
+        "far": 700,
+        "dust": 1740,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 256,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 4,
+      "reset": 5,
+      "phase": "message",
+      "geometries": 63,
+      "textures": 44,
+      "budget": {
+        "near": 300,
+        "far": 700,
+        "dust": 1740,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 256,
+        "burst": 350,
+        "dpr": 2
+      }
+    },
+    {
+      "cycle": 5,
+      "reset": 6,
+      "phase": "message",
+      "geometries": 63,
+      "textures": 44,
+      "budget": {
+        "near": 300,
+        "far": 700,
+        "dust": 1740,
+        "surface": 3200,
+        "orbitDust": 400,
+        "sparks": 256,
+        "burst": 350,
+        "dpr": 2
+      }
+    }
+  ],
+  "errors": [],
+  "layouts": [
+    {
+      "label": "desktop",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 76,
+          "height": 44,
+          "bottom": 800.5
+        },
+        {
+          "text": "星河",
+          "width": 76,
+          "height": 44,
+          "bottom": 800.5
+        },
+        {
+          "text": "祝福",
+          "width": 76,
+          "height": 44,
+          "bottom": 800.5
+        },
+        {
+          "text": "蜡烛",
+          "width": 76,
+          "height": 44,
+          "bottom": 800.5
+        },
+        {
+          "text": "暂停",
+          "width": 74.8125,
+          "height": 44,
+          "bottom": 800.5
+        },
+        {
+          "text": "重播",
+          "width": 74.8125,
+          "height": 44,
+          "bottom": 800.5
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 198.609375,
+          "height": 50,
+          "bottom": 803.5
+        }
+      ]
+    },
+    {
+      "label": "mobile-390",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 54.15625,
+          "height": 44,
+          "bottom": 739.5
+        },
+        {
+          "text": "星河",
+          "width": 54.171875,
+          "height": 44,
+          "bottom": 739.5
+        },
+        {
+          "text": "祝福",
+          "width": 54.171875,
+          "height": 44,
+          "bottom": 739.5
+        },
+        {
+          "text": "蜡烛",
+          "width": 54.15625,
+          "height": 44,
+          "bottom": 739.5
+        },
+        {
+          "text": "暂停",
+          "width": 54.171875,
+          "height": 44,
+          "bottom": 739.5
+        },
+        {
+          "text": "重播",
+          "width": 54.171875,
+          "height": 44,
+          "bottom": 739.5
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 350,
+          "height": 50,
+          "bottom": 798.5
+        }
+      ]
+    },
+    {
+      "label": "mobile-375",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 51.65625,
+          "height": 44,
+          "bottom": 567.5
+        },
+        {
+          "text": "星河",
+          "width": 51.671875,
+          "height": 44,
+          "bottom": 567.5
+        },
+        {
+          "text": "祝福",
+          "width": 51.671875,
+          "height": 44,
+          "bottom": 567.5
+        },
+        {
+          "text": "蜡烛",
+          "width": 51.65625,
+          "height": 44,
+          "bottom": 567.5
+        },
+        {
+          "text": "暂停",
+          "width": 51.671875,
+          "height": 44,
+          "bottom": 567.5
+        },
+        {
+          "text": "重播",
+          "width": 51.671875,
+          "height": 44,
+          "bottom": 567.5
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 335,
+          "height": 50,
+          "bottom": 626.5
+        }
+      ]
+    },
+    {
+      "label": "android-412",
+      "width": 412,
+      "height": 915,
+      "scrollWidth": 412,
+      "buttons": [
+        {
+          "text": "蛋糕",
+          "width": 57.828125,
+          "height": 44,
+          "bottom": 808.5
+        },
+        {
+          "text": "星河",
+          "width": 57.828125,
+          "height": 44,
+          "bottom": 808.5
+        },
+        {
+          "text": "祝福",
+          "width": 57.828125,
+          "height": 44,
+          "bottom": 808.5
+        },
+        {
+          "text": "蜡烛",
+          "width": 57.84375,
+          "height": 44,
+          "bottom": 808.5
+        },
+        {
+          "text": "暂停",
+          "width": 57.828125,
+          "height": 44,
+          "bottom": 808.5
+        },
+        {
+          "text": "重播",
+          "width": 57.828125,
+          "height": 44,
+          "bottom": 808.5
+        },
+        {
+          "text": "开启生日惊喜",
+          "width": 371.984375,
+          "height": 50,
+          "bottom": 867.5
+        }
+      ]
+    }
+  ],
+  "low": {
+    "phase": "idle",
+    "openingStage": "ready",
+    "paused": false,
+    "tier": "low",
+    "reduced": false,
+    "config": {
+      "cakeStyle": "galaxy",
+      "cakeShape": "round",
+      "cakeLayers": 1,
+      "cakeColor": "#3d4192",
+      "layerOverrides": {},
+      "recipient": "小雨",
+      "birthday": "2026-11-20",
+      "age": 22,
+      "sender": "小李",
+      "message": "生日快乐，希望新的一岁继续闪闪发光。",
+      "candleType": "regular",
+      "flameEnabled": true,
+      "galaxyEnabled": true,
+      "galaxyTheme": "dream",
+      "galaxyCount": 300,
+      "galaxySpeed": 1
+    },
+    "wishConfirmed": false,
+    "switching": false,
+    "lighting": false,
+    "editing": false,
+    "assembling": false,
+    "selectedLayer": "all",
+    "canUndo": false,
+    "canRedo": false,
+    "settings": null,
+    "decorations": [
+      [
+        {
+          "type": "stars",
+          "x": 0.8178178176568996,
+          "y": 0.593,
+          "z": 0.2690646684792594,
+          "rotation": 1.290315398564126,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": -0.16696375492593238,
+          "y": 0.593,
+          "z": -0.4777993567686594,
+          "rotation": 4.9179553747301386,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.06645534795976431,
+          "y": 0.593,
+          "z": -0.7944567413380852,
+          "rotation": 5.095798997488017,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.30666706837411967,
+          "y": 0.593,
+          "z": -0.5731513480447796,
+          "rotation": 3.9302647091522767,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.17797894772364106,
+          "y": 0.593,
+          "z": 0.7110709175498131,
+          "rotation": 6.12989534535167,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": -0.6733479881668127,
+          "y": 0.593,
+          "z": -0.03833219111566642,
+          "rotation": 1.7532584623895155,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": -0.5003204531208667,
+          "y": 0.593,
+          "z": 0.354843419075405,
+          "rotation": 5.8322199568111825,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.6120778587667438,
+          "y": 0.593,
+          "z": 0.5250486397520501,
+          "rotation": 0.15215188617106806,
+          "radius": 0.085,
+          "scale": 1
+        }
+      ],
+      [],
+      []
+    ],
+    "openingTime": 6.420799999998526,
+    "time": 5.313700000000011,
+    "phaseTime": 0.8001000000000007,
+    "orbitTime": 5.313700000000011,
+    "blownAt": -1,
+    "motion": {
+      "reveal": 1,
+      "rings": 1,
+      "ignition": 1,
+      "energy": 1,
+      "camera": 0,
+      "messageReveal": 0,
+      "cakeReveal": 1,
+      "creamReveal": 1,
+      "decorReveal": 1,
+      "flameShake": 0,
+      "spread": 0,
+      "editorFocus": 0
+    },
+    "sky": {
+      "hue": 0,
+      "saturation": 1,
+      "time": 5.29700000000001,
+      "panX": 0.003263690723567788,
+      "panY": -0.00015496717389886695,
+      "rotation": 0.0009216738949340771,
+      "zoom": 1.0556308946854773,
+      "color": "#3d4192"
+    },
+    "budget": {
+      "near": 150,
+      "far": 300,
+      "dust": 600,
+      "surface": 1000,
+      "orbitDust": 180,
+      "sparks": 64,
+      "burst": 120,
+      "dpr": 1
+    },
+    "transition": null,
+    "visualCake": {
+      "tiers": [
+        {
+          "y": 0,
+          "width": 1,
+          "height": 1,
+          "surface": 0.594,
+          "active": 1
+        },
+        {
+          "y": 0.594,
+          "width": 0.001,
+          "height": 0.001,
+          "surface": 0.594594,
+          "active": 0
+        },
+        {
+          "y": 0.594,
+          "width": 0.001,
+          "height": 0.001,
+          "surface": 0.594594,
+          "active": 0
+        }
+      ],
+      "candle": {
+        "y": 0,
+        "scale": 1,
+        "lift": 0,
+        "anchors": [
+          [
+            0,
+            1.408,
+            0
+          ],
+          [
+            0,
+            1.408,
+            0
+          ],
+          [
+            0,
+            1.408,
+            0
+          ]
+        ],
+        "count": 1
+      },
+      "topSurface": 0.594,
+      "topWidth": 1,
+      "topIndex": 0
+    },
+    "resetId": 1,
+    "renderSuspended": false,
+    "stats": {
+      "fps": 0,
+      "calls": 56,
+      "points": 2774,
+      "geometries": 55,
+      "textures": 34,
+      "rotation": [
+        -0.273369485610555,
+        -0.010050792775070202,
+        -0.002818077905839495
+      ],
+      "camera": [
+        -0.06394530847314868,
+        2.437596075992903,
+        6.125758925366785
+      ],
+      "frames": 690,
+      "renderFrames": 309,
+      "flames": 1,
+      "smoke": 0,
+      "confetti": 0,
+      "subject": {
+        "left": 32.44676524023497,
+        "top": 101.71631842999828,
+        "right": 357.4241499494715,
+        "bottom": 404.7085908999739,
+        "width": 324.9773847092365,
+        "height": 302.9922724699756,
+        "occupancy": 0.721410172547561
+      }
+    }
+  },
+  "autoLow": {
+    "phase": "idle",
+    "openingStage": "ready",
+    "paused": false,
+    "tier": "low",
+    "reduced": false,
+    "config": {
+      "cakeStyle": "galaxy",
+      "cakeShape": "round",
+      "cakeLayers": 1,
+      "cakeColor": "#3d4192",
+      "layerOverrides": {},
+      "recipient": "小雨",
+      "birthday": "2026-11-20",
+      "age": 22,
+      "sender": "小李",
+      "message": "生日快乐，希望新的一岁继续闪闪发光。",
+      "candleType": "regular",
+      "flameEnabled": true,
+      "galaxyEnabled": true,
+      "galaxyTheme": "dream",
+      "galaxyCount": 300,
+      "galaxySpeed": 1
+    },
+    "wishConfirmed": false,
+    "switching": false,
+    "lighting": false,
+    "editing": false,
+    "assembling": false,
+    "selectedLayer": "all",
+    "canUndo": false,
+    "canRedo": false,
+    "settings": null,
+    "decorations": [
+      [
+        {
+          "type": "stars",
+          "x": 0.8178178176568996,
+          "y": 0.593,
+          "z": 0.2690646684792594,
+          "rotation": 1.290315398564126,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": -0.16696375492593238,
+          "y": 0.593,
+          "z": -0.4777993567686594,
+          "rotation": 4.9179553747301386,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.06645534795976431,
+          "y": 0.593,
+          "z": -0.7944567413380852,
+          "rotation": 5.095798997488017,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.30666706837411967,
+          "y": 0.593,
+          "z": -0.5731513480447796,
+          "rotation": 3.9302647091522767,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.17797894772364106,
+          "y": 0.593,
+          "z": 0.7110709175498131,
+          "rotation": 6.12989534535167,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": -0.6733479881668127,
+          "y": 0.593,
+          "z": -0.03833219111566642,
+          "rotation": 1.7532584623895155,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": -0.5003204531208667,
+          "y": 0.593,
+          "z": 0.354843419075405,
+          "rotation": 5.8322199568111825,
+          "radius": 0.085,
+          "scale": 1
+        },
+        {
+          "type": "stars",
+          "x": 0.6120778587667438,
+          "y": 0.593,
+          "z": 0.5250486397520501,
+          "rotation": 0.15215188617106806,
+          "radius": 0.085,
+          "scale": 1
+        }
+      ],
+      [],
+      []
+    ],
+    "openingTime": 6.4242000000000115,
+    "time": 11.494200000000038,
+    "phaseTime": 6.9869999999999965,
+    "orbitTime": 11.494200000000038,
+    "blownAt": -1,
+    "motion": {
+      "reveal": 1,
+      "rings": 1,
+      "ignition": 1,
+      "energy": 1,
+      "camera": 0,
+      "messageReveal": 0,
+      "cakeReveal": 1,
+      "creamReveal": 1,
+      "decorReveal": 1,
+      "flameShake": 0,
+      "spread": 0,
+      "editorFocus": 0
+    },
+    "sky": {
+      "hue": 0,
+      "saturation": 1,
+      "time": 11.477500000000038,
+      "panX": 0.006744279922345411,
+      "panY": -0.0007160107739799259,
+      "rotation": 0.0019549754373749946,
+      "zoom": 1.056329424440083,
+      "color": "#3d4192"
+    },
+    "budget": {
+      "near": 150,
+      "far": 300,
+      "dust": 600,
+      "surface": 1000,
+      "orbitDust": 180,
+      "sparks": 64,
+      "burst": 120,
+      "dpr": 1
+    },
+    "transition": null,
+    "visualCake": {
+      "tiers": [
+        {
+          "y": 0,
+          "width": 1,
+          "height": 1,
+          "surface": 0.594,
+          "active": 1
+        },
+        {
+          "y": 0.594,
+          "width": 0.001,
+          "height": 0.001,
+          "surface": 0.594594,
+          "active": 0
+        },
+        {
+          "y": 0.594,
+          "width": 0.001,
+          "height": 0.001,
+          "surface": 0.594594,
+          "active": 0
+        }
+      ],
+      "candle": {
+        "y": 0,
+        "scale": 1,
+        "lift": 0,
+        "anchors": [
+          [
+            0,
+            1.408,
+            0
+          ],
+          [
+            0,
+            1.408,
+            0
+          ],
+          [
+            0,
+            1.408,
+            0
+          ]
+        ],
+        "count": 1
+      },
+      "topSurface": 0.594,
+      "topWidth": 1,
+      "topIndex": 0
+    },
+    "resetId": 1,
+    "renderSuspended": false,
+    "stats": {
+      "fps": 43.99560043995609,
+      "calls": 56,
+      "points": 2774,
+      "geometries": 56,
+      "textures": 34,
+      "rotation": [
+        -0.27467902427718366,
+        -0.09697245489789252,
+        -0.027277466999215447
+      ],
+      "camera": [
+        -0.6160035245616409,
+        2.437596075992905,
+        6.095043155869711
+      ],
+      "frames": 977,
+      "renderFrames": 592,
+      "flames": 1,
+      "smoke": 0,
+      "confetti": 0,
+      "subject": {
+        "left": 32.76276466195788,
+        "top": 101.62436004575285,
+        "right": 356.04045173420434,
+        "bottom": 404.1763302546383,
+        "width": 323.27768707224647,
+        "height": 302.55197020888545,
+        "occupancy": 0.7203618338306796
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "startedAt": "2026-11-10T08:28:25.387Z",
+  "url": "http://localhost:4174",
+  "build": "5b62ea1452a81f96ca5c1a0b7ff2b335b886183a8fe11f7d0ad4b93c761193a5",
+  "runs": [
+    {
+      "name": "core",
+      "script": "verify-browser.cjs",
+      "startedAt": "2026-11-10T08:28:25.389Z",
+      "finishedAt": "2026-11-10T08:31:49.129Z",
+      "exit": 0
+    },
+    {
+      "name": "opening",
+      "script": "verify-birthday-opening.cjs",
+      "startedAt": "2026-11-10T08:31:49.130Z",
+      "finishedAt": "2026-11-10T08:33:41.695Z",
+      "exit": 0
+    },
+    {
+      "name": "heart",
+      "script": "verify-heart-convoy.cjs",
+      "startedAt": "2026-11-10T08:33:41.696Z",
+      "finishedAt": "2026-11-10T08:33:49.601Z",
+      "exit": 1
+    },
+    {
+      "name": "sky",
+      "script": "verify-living-sky.cjs",
+      "startedAt": "2026-11-10T08:33:49.602Z",
+      "finishedAt": "2026-11-10T08:36:21.383Z",
+      "exit": 0
+    },
+    {
+      "name": "stage-three",
+      "script": "verify-stage-three.cjs",
+      "startedAt": "2026-11-10T08:36:21.384Z",
+      "finishedAt": "2026-11-10T08:38:17.822Z",
+      "exit": 0
+    },
+    {
+      "name": "seam",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-10T08:38:17.823Z",
+      "finishedAt": "2026-11-10T08:38:59.517Z",
+      "exit": 1
+    },
+    {
+      "name": "accessibility",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-10T08:38:59.518Z",
+      "finishedAt": "2026-11-10T08:39:12.986Z",
+      "exit": 0
+    },
+    {
+      "name": "loading",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-10T08:39:12.986Z",
+      "finishedAt": "2026-11-10T08:39:53.639Z",
+      "exit": 0
+    },
+    {
+      "name": "mobile-modal",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-10T08:39:53.640Z",
+      "finishedAt": "2026-11-10T08:40:59.049Z",
+      "exit": 0
+    },
+    {
+      "name": "meta",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-10T08:40:59.049Z",
+      "finishedAt": "2026-11-10T08:41:00.748Z",
+      "exit": 0
+    },
+    {
+      "name": "visual",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-10T08:41:00.749Z",
+      "finishedAt": "2026-11-10T08:41:31.472Z",
+      "exit": 0
+    },
+    {
+      "name": "catalog",
+      "script": "verify-cake-catalog.cjs",
+      "startedAt": "2026-11-10T08:41:31.472Z",
+      "finishedAt": "2026-11-10T08:45:17.179Z",
+      "exit": 0
+    },
+    {
+      "name": "layers",
+      "script": "verify-layer-editor.cjs",
+      "startedAt": "2026-11-10T08:45:17.180Z",
+      "finishedAt": "2026-11-10T08:45:54.998Z",
+      "exit": 1
+    }
+  ],
+  "finishedAt": "2026-11-10T08:45:54.999Z",
+  "passed": false
+}

@@ -1,0 +1,169 @@
+{
+  "task": "visual",
+  "testedAt": "2026-11-10T08:41:01.145Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "visual": true,
+    "noRuntimeErrors": true
+  },
+  "runs": [
+    {
+      "original": {
+        "creamPixels": 344,
+        "overexposed": 0.7412790697674418,
+        "bodyLuma": 59.01240517857114
+      },
+      "current": {
+        "creamPixels": 344,
+        "overexposed": 0,
+        "bodyLuma": 52.83936844047642
+      },
+      "stats": {
+        "fps": 0,
+        "calls": 84,
+        "points": 15492,
+        "geometries": 57,
+        "textures": 44,
+        "rotation": [
+          -0.2733924450681352,
+          -0.016271747336422206,
+          -0.004562590664859599
+        ],
+        "camera": [
+          -0.13344038438373076,
+          2.1339999999999986,
+          7.895472450956646
+        ],
+        "frames": 347,
+        "renderFrames": 336,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0,
+        "subject": {
+          "left": 442.9568599432159,
+          "top": 142.86940059673086,
+          "right": 997.205136734337,
+          "bottom": 627.8731294902155,
+          "width": 554.248276791121,
+          "height": 485.00372889348466,
+          "occupancy": 0.5388930321038718
+        }
+      },
+      "creamMask": {
+        "patches": [
+          [
+            685,
+            344,
+            18,
+            4
+          ],
+          [
+            755,
+            340,
+            14,
+            3
+          ]
+        ],
+        "excludes": "wick, gold stars, piped flowers and orbit; same patches before/after"
+      },
+      "bodyRectangle": {
+        "left": 600,
+        "top": 455,
+        "width": 240,
+        "height": 70
+      }
+    },
+    {
+      "mobileStats": {
+        "fps": 0,
+        "calls": 56,
+        "points": 5280,
+        "geometries": 55,
+        "textures": 34,
+        "rotation": [
+          -0.2733839304776236,
+          -0.01428442411981511,
+          -0.004005261854548737
+        ],
+        "camera": [
+          -0.09087902245131921,
+          2.4375960759929045,
+          6.125418550390238
+        ],
+        "frames": 355,
+        "renderFrames": 321,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0,
+        "subject": {
+          "left": 32.42903135287828,
+          "top": 101.71182463182832,
+          "right": 357.3875897961383,
+          "bottom": 404.70268396320716,
+          "width": 324.95855844326,
+          "height": 302.99085933137883,
+          "occupancy": 0.7214068079318543
+        }
+      }
+    },
+    {
+      "priorLow": {
+        "fps": 0,
+        "calls": 56,
+        "points": 2774,
+        "geometries": 55,
+        "textures": 34,
+        "rotation": [
+          -0.273369485610555,
+          -0.010050792775070197,
+          -0.002818077905839494
+        ],
+        "camera": [
+          -0.14231548885768178,
+          4.242649871453967,
+          13.63337509668838
+        ],
+        "frames": 688,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0
+      },
+      "currentLow": {
+        "fps": 0,
+        "calls": 56,
+        "points": 2774,
+        "geometries": 55,
+        "textures": 34,
+        "rotation": [
+          -0.2733703160808744,
+          -0.010341272624902894,
+          -0.0028995296551497392
+        ],
+        "camera": [
+          -0.06579333888939656,
+          2.437596075992903,
+          6.125739355436561
+        ],
+        "frames": 352,
+        "renderFrames": 306,
+        "flames": 1,
+        "smoke": 0,
+        "confetti": 0,
+        "subject": {
+          "left": 32.44544275062517,
+          "top": 101.7160100683048,
+          "right": 357.42174504516015,
+          "bottom": 404.708251274109,
+          "width": 324.976302294535,
+          "height": 302.9922412058042,
+          "occupancy": 0.7214100981090577
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ]
+}
