@@ -1,0 +1,58 @@
+{
+  "task": "accessibility",
+  "testedAt": "2026-11-12T02:34:20.343Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "contextLostVisible": true,
+    "retryReloads": true,
+    "accessibility": true,
+    "noRuntimeErrors": true
+  },
+  "runs": [
+    {
+      "focus": [
+        {
+          "tag": "BUTTON",
+          "text": "蛋糕",
+          "w": 76,
+          "h": 44,
+          "hidden": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "星河",
+          "w": 76,
+          "h": 44,
+          "hidden": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "祝福",
+          "w": 76,
+          "h": 44,
+          "hidden": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "蜡烛",
+          "w": 76,
+          "h": 44,
+          "hidden": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "暂停",
+          "w": 74.8125,
+          "h": 44,
+          "hidden": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero",
+    "THREE.WebGLRenderer: WEBGL_lose_context extension not supported."
+  ]
+}

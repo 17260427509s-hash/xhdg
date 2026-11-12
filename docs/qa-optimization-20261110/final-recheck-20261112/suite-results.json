@@ -1,0 +1,86 @@
+{
+  "startedAt": "2026-11-12T02:24:10.192Z",
+  "url": "http://localhost:4174",
+  "build": "a0e8ecfb3bdfcc080507d3c10f27a73339597bc42408d4ef4b60ad51aca7d854",
+  "runs": [
+    {
+      "name": "core",
+      "script": "verify-browser.cjs",
+      "startedAt": "2026-11-12T02:24:10.194Z",
+      "finishedAt": "2026-11-12T02:27:30.223Z",
+      "exit": 0
+    },
+    {
+      "name": "opening",
+      "script": "verify-birthday-opening.cjs",
+      "startedAt": "2026-11-12T02:27:30.224Z",
+      "finishedAt": "2026-11-12T02:29:15.085Z",
+      "exit": 0
+    },
+    {
+      "name": "heart",
+      "script": "verify-heart-convoy.cjs",
+      "startedAt": "2026-11-12T02:29:15.086Z",
+      "finishedAt": "2026-11-12T02:30:04.752Z",
+      "exit": 0
+    },
+    {
+      "name": "sky",
+      "script": "verify-living-sky.cjs",
+      "startedAt": "2026-11-12T02:30:04.753Z",
+      "finishedAt": "2026-11-12T02:32:29.061Z",
+      "exit": 0
+    },
+    {
+      "name": "stage-three",
+      "script": "verify-stage-three.cjs",
+      "startedAt": "2026-11-12T02:32:29.062Z",
+      "finishedAt": "2026-11-12T02:34:19.951Z",
+      "exit": 0
+    },
+    {
+      "name": "accessibility",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:34:19.952Z",
+      "finishedAt": "2026-11-12T02:34:32.061Z",
+      "exit": 0
+    },
+    {
+      "name": "loading",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:34:32.062Z",
+      "finishedAt": "2026-11-12T02:35:11.243Z",
+      "exit": 0
+    },
+    {
+      "name": "mobile-modal",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:35:11.243Z",
+      "finishedAt": "2026-11-12T02:36:11.396Z",
+      "exit": 0
+    },
+    {
+      "name": "meta",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:36:11.396Z",
+      "finishedAt": "2026-11-12T02:36:12.855Z",
+      "exit": 0
+    },
+    {
+      "name": "visual",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:36:12.855Z",
+      "finishedAt": "2026-11-12T02:36:40.384Z",
+      "exit": 0
+    },
+    {
+      "name": "layers",
+      "script": "verify-layer-editor.cjs",
+      "startedAt": "2026-11-12T02:36:40.384Z",
+      "finishedAt": "2026-11-12T02:38:42.959Z",
+      "exit": 0
+    }
+  ],
+  "finishedAt": "2026-11-12T02:38:42.960Z",
+  "passed": true
+}

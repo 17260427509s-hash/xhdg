@@ -1,0 +1,10 @@
+{
+  "source": "E:\\生日网址\\xhdg-handoff\\docs\\qa-optimization-20261110\\final-recheck-20261112",
+  "generatedAt": "2026-11-12T02:37:23.051Z",
+  "images": [
+    "desktop-before-after.webp",
+    "mobile-before-after.webp",
+    "celebration-before-after.webp"
+  ],
+  "note": "Actual browser screenshots. Idle before/after are captured after entry and pause; automatic orbit elapsed time can vary slightly. Celebration phase is approximately 3.7 seconds. No concept image is used as a rendered result."
+}

@@ -1,0 +1,88 @@
+{
+  "task": "loading",
+  "testedAt": "2026-11-12T02:34:32.441Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "loading": true,
+    "noRuntimeErrors": true
+  },
+  "runs": [
+    {
+      "cold": {
+        "readyAt": 5818.100000000093,
+        "openingTime": 5.605199999999729,
+        "longTasks": [
+          {
+            "start": 52.10000000009313,
+            "duration": 77
+          }
+        ],
+        "canvas": 0
+      },
+      "initialRequests": [
+        "http://localhost:4174/create?qa=1",
+        "http://localhost:4174/assets/index-KClEapgI.js",
+        "http://localhost:4174/assets/_commonjsHelpers-CqkleIqs.js",
+        "http://localhost:4174/assets/ui-B5wBvDc3.js",
+        "http://localhost:4174/assets/index-CxZ90I7s.css",
+        "http://localhost:4174/icons/favicon-32.png"
+      ]
+    },
+    {
+      "cold": {
+        "readyAt": 5818.100000000093,
+        "openingTime": 5.605199999999729,
+        "longTasks": [
+          {
+            "start": 52.10000000009313,
+            "duration": 77
+          }
+        ],
+        "canvas": 0
+      },
+      "feedbackMs": 65.95269999999982,
+      "marks": {
+        "request": 6371.200000000186,
+        "ready": 7144.200000000186,
+        "enter": 7144.4000000003725
+      },
+      "coldWaitMs": 773,
+      "audioBytes": 388627,
+      "loops": {
+        "loops": 2,
+        "duration": 48,
+        "rate": 4
+      },
+      "requests": [
+        "http://localhost:4174/create?qa=1",
+        "http://localhost:4174/assets/index-KClEapgI.js",
+        "http://localhost:4174/assets/_commonjsHelpers-CqkleIqs.js",
+        "http://localhost:4174/assets/ui-B5wBvDc3.js",
+        "http://localhost:4174/assets/index-CxZ90I7s.css",
+        "http://localhost:4174/icons/favicon-32.png",
+        "http://localhost:4174/assets/GalaxyScene-C9jElWS3.js",
+        "http://localhost:4174/assets/renderer-DjJaMCGW.js",
+        "http://localhost:4174/assets/three-qjpiotAI.js",
+        "http://localhost:4174/assets/decode-DpCuph2h.js",
+        "http://localhost:4174/assets/decorationLayout-PzxpNIcK.js",
+        "http://localhost:4174/audio/starlight-letter.m4a",
+        "http://localhost:4174/icons/apple-touch-icon.png",
+        "http://localhost:4174/textures/galaxy-backdrop.webp",
+        "http://localhost:4174/textures/galaxy-icing.webp",
+        "http://localhost:4174/textures/galaxy-backdrop.webp"
+      ]
+    },
+    {
+      "injectedChunkFailure": true,
+      "expectedConsole": [
+        "Failed to load resource: net::ERR_FAILED",
+        "TypeError: Failed to fetch dynamically imported module: http://localhost:4174/assets/GalaxyScene-C9jElWS3.js"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ]
+}

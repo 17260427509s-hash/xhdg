@@ -1,0 +1,63 @@
+{
+  "runtimeCommit": "06eb345",
+  "buildSHA256": "a0e8ecfb3bdfcc080507d3c10f27a73339597bc42408d4ef4b60ad51aca7d854",
+  "buildUnchanged": true,
+  "browser": "Local Chrome 156 / isolated Playwright; Browser plugin not available",
+  "productionTasks": [
+    {
+      "name": "core",
+      "exit": 0
+    },
+    {
+      "name": "opening",
+      "exit": 0
+    },
+    {
+      "name": "heart",
+      "exit": 0
+    },
+    {
+      "name": "sky",
+      "exit": 0
+    },
+    {
+      "name": "stage-three",
+      "exit": 0
+    },
+    {
+      "name": "accessibility",
+      "exit": 0
+    },
+    {
+      "name": "loading",
+      "exit": 0
+    },
+    {
+      "name": "mobile-modal",
+      "exit": 0
+    },
+    {
+      "name": "meta",
+      "exit": 0
+    },
+    {
+      "name": "visual",
+      "exit": 0
+    },
+    {
+      "name": "layers",
+      "exit": 0
+    }
+  ],
+  "seamMaxRelativeDifference": 0.07493567797894557,
+  "framingSamples": 24,
+  "framingPassed": true,
+  "catalogEvidence": "final/catalog/browser-results.json (17eee20; catalog unchanged afterward)",
+  "limitations": [
+    "No public deployment or social crawler test",
+    "No real phone GPU/performance conclusion",
+    "Supabase unconfigured",
+    "Cold-load measurements are local; public network wait remains variable",
+    "Existing ANGLE shader warnings retained"
+  ]
+}
