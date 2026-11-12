@@ -20,7 +20,7 @@ async function seam(p,width,phase){
  const {data,info}=await sharp(buffer).removeAlpha().raw().toBuffer({resolveWithObject:true}),boundary=width>700?110:115
  const mean=(start,end)=>{let sum=0;for(let y=start;y<end;y++)for(let x=0;x<info.width;x++){const i=(y*info.width+x)*info.channels;sum+=.2126*data[i]+.7152*data[i+1]+.0722*data[i+2]}return sum/((end-start)*info.width)}
  const above=mean(boundary-3,boundary),below=mean(boundary,boundary+3),difference=Math.abs(above-below)/Math.max(above,below,.001)
- report.runs.push({width,phase,time:snapshot.phaseTime,scene:rect,above,below,difference});assert(difference<.1,`Sky seam ${width}/${phase}: ${difference}`);await freeze(p,false)
+ report.runs.push({width,phase,time:snapshot.phaseTime,scene:rect,above,below,difference,passes:difference<.1});await freeze(p,false)
 }
 let browser
 ;(async()=>{try{
@@ -46,6 +46,22 @@ let browser
     await m.getByRole('button',{name:'开启生日惊喜',exact:true}).click();await m.getByRole('button',{name:'我许好愿了',exact:true}).click();await m.getByRole('button',{name:'吹灭蜡烛',exact:true}).click();await m.waitForFunction(()=>window.__GALAXY__.phase==='celebration'&&window.__GALAXY__.phaseTime>3.7);await shot(m,'mobile-390-celebration');await m.waitForFunction(()=>window.__GALAXY__.phase==='message');await shot(m,'mobile-390-message');report.checks.modalFreezeExportRestoreAndWishFlow=true
    }
    await m.close()
+  }
+ }
+ if(task==='framing'){
+  for(const [width,height] of [[390,844],[375,667],[412,915],[360,640]]){
+   const p=await browser.newPage({viewport:{width,height},isMobile:true,hasTouch:true,deviceScaleFactor:1.5});await enter(p)
+   for(const style of ['default','彩虹心愿']){
+    if(style!=='default'){await open(p);await click(p,style);await click(p,'完成')}
+    await p.getByRole('button',{name:'开启生日惊喜',exact:true}).click();await p.getByRole('button',{name:'我许好愿了',exact:true}).click();await p.getByRole('button',{name:'吹灭蜡烛',exact:true}).click()
+    for(const time of [1.6,3.7,7.1]){
+     await p.waitForFunction(t=>window.__GALAXY__.phase==='celebration'&&window.__GALAXY__.phaseTime>t||window.__GALAXY__.phase==='message'&&t>=7,time);await freeze(p,true)
+     const s=await state(p),b=s.stats.subject,title=await p.locator('.birthday-message').boundingBox(),replay=await p.locator('.again').count()?await p.locator('.again').boundingBox():null,scene=await p.locator('.scene').boundingBox();report.runs.push({width,height,style,phase:s.phase,time:s.phaseTime,subject:b,title,replay,scene})
+     await shot(p,`framing-${width}-${style}-${time}`);assert.equal(scene.y,0);assert.equal(scene.height,height);assert(b.left>=0&&b.right<=width&&b.top>=0&&b.bottom<=height,'The physical gift fits during celebration and message');assert(b.top>title.y+title.height,'Birthday title stays above the candle');if(replay)assert(b.bottom<replay.y,'Replay stays below the platter');await freeze(p,false)
+    }
+    await p.getByRole('button',{name:'再看一次',exact:true}).click();await p.waitForFunction(()=>window.__GALAXY__.phase==='idle')
+   }
+   await p.close()
   }
  }
  if(task==='visual'){
@@ -78,5 +94,6 @@ let browser
   const p=await browser.newPage({viewport:{width,height}});await enter(p);await p.getByRole('button',{name:'暂停',exact:true}).click();await shot(p,`seam-${width}-idle`);const idle=await state(p);report.runs.push({width,phase:'idle',camera:idle.stats.camera,scene:await p.locator('.scene').boundingBox()});await p.getByRole('button',{name:'继续',exact:true}).click()
   await p.getByRole('button',{name:'开启生日惊喜',exact:true}).click();await p.getByRole('button',{name:'我许好愿了',exact:true}).click();await p.getByRole('button',{name:'吹灭蜡烛',exact:true}).click();await p.waitForFunction(()=>window.__GALAXY__.phase==='celebration'&&window.__GALAXY__.phaseTime>3.7);await seam(p,width,'celebration');await p.waitForFunction(()=>window.__GALAXY__.phase==='message');await seam(p,width,'message');await p.close()
  }
+ if(task==='seam')assert(report.runs.filter(r=>r.phase==='celebration'||r.phase==='message').every(r=>r.passes),'All four former-boundary sky strips must differ by less than 10%')
  report.checks[task]=true;assert.equal(report.errors.length,0);report.checks.noRuntimeErrors=true
  }catch(e){report.failure=e.stack;throw e}finally{fs.writeFileSync(path.join(out,task+'-results.json'),JSON.stringify(report,null,2));await browser?.close()}})().then(()=>console.log('OPTIMIZATION PASSED',task)).catch(e=>{console.error(e);process.exitCode=1})

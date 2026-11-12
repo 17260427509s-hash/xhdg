@@ -1,0 +1,106 @@
+{
+  "task": "seam",
+  "testedAt": "2026-11-12T02:19:25.376Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "seam": true,
+    "noRuntimeErrors": true
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "phase": "idle",
+      "camera": [
+        -0.13288721245448282,
+        2.1339999999999986,
+        7.8954817806620206
+      ],
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "width": 1440,
+      "phase": "celebration",
+      "time": 3.710299999999997,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "above": 4.868134259259195,
+      "below": 4.840246435185165,
+      "difference": 0.005728647278161538,
+      "passes": true
+    },
+    {
+      "width": 1440,
+      "phase": "message",
+      "time": 7.005300000000303,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900
+      },
+      "above": 4.165405370370472,
+      "below": 4.103850277777886,
+      "difference": 0.014777695594873536,
+      "passes": true
+    },
+    {
+      "width": 390,
+      "phase": "idle",
+      "camera": [
+        -0.09087902245131921,
+        2.4375960759929045,
+        6.125418550390238
+      ],
+      "scene": {
+        "x": 0,
+        "y": 286,
+        "width": 390,
+        "height": 420
+      }
+    },
+    {
+      "width": 390,
+      "phase": "celebration",
+      "time": 3.710299999999997,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "above": 3.363184102564113,
+      "below": 3.442322735042738,
+      "difference": 0.02298989332783825,
+      "passes": true
+    },
+    {
+      "width": 390,
+      "phase": "message",
+      "time": 7.003500000000211,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "above": 2.5300232478632605,
+      "below": 2.734970085470097,
+      "difference": 0.07493567797894557,
+      "passes": true
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value\n(85,12-86): warning X3595: gradient instruction used in a loop with varying iteration; partial derivatives may have undefined value",
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ]
+}

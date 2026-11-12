@@ -1,0 +1,23 @@
+{
+  "startedAt": "2026-11-12T02:18:54.467Z",
+  "url": "http://localhost:4174",
+  "build": "a0e8ecfb3bdfcc080507d3c10f27a73339597bc42408d4ef4b60ad51aca7d854",
+  "runs": [
+    {
+      "name": "seam",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:18:54.469Z",
+      "finishedAt": "2026-11-12T02:18:54.529Z",
+      "exit": 1
+    },
+    {
+      "name": "framing",
+      "script": "verify-optimization.cjs",
+      "startedAt": "2026-11-12T02:18:54.530Z",
+      "finishedAt": "2026-11-12T02:18:54.585Z",
+      "exit": 1
+    }
+  ],
+  "finishedAt": "2026-11-12T02:18:54.586Z",
+  "passed": false
+}

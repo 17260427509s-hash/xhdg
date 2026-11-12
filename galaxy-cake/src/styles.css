@@ -228,6 +228,8 @@
 /* Celebration and message share a full-page sky; text stays in the overlay. */
 .stage-two.phase-celebration .scene,.stage-two.phase-message .scene{inset:0}
 .birthday-message{z-index:2;background:radial-gradient(ellipse at 50% 25%,#050507b3,transparent 72%)}
+.celebration-shade{position:absolute;inset:0 0 auto;height:280px;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 28%,#08080b66,transparent 85%);backdrop-filter:blur(10px);mask-image:linear-gradient(#000 0 55%,transparent);opacity:var(--message,0)}
+@media(max-width:700px){.celebration-shade{height:240px}}
 /* Adaptive wish cards leave enough room to read the complete heart silhouette. */
 .opening-composition{width:min(960px,94vw);height:min(680px,calc(100dvh - 170px));top:46%}
 .opening-heart{inset:0}

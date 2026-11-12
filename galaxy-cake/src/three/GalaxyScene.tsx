@@ -26,6 +26,7 @@ function Scene({engine,phase,tier,onLost,onReady,suspended}:{engine:ExperienceEn
   const introBackground=useMemo(()=>new Color('#050507'),[])
   const litBackground=useMemo(()=>new Color('#050507'),[])
   const distance=mobile?(engine.snapshot.editing?3.3:2.15)/(Math.tan(20*Math.PI/180)*(size.width/size.height)):8.2
+  const framingDistance=useRef(distance)
   const target=useMemo(()=>new Vector3(0,mobile?.72:-.08,0),[mobile])
   const budget=engine.getBudget()
   useEffect(()=>{onReady()},[onReady])
@@ -73,10 +74,14 @@ function Scene({engine,phase,tier,onLost,onReady,suspended}:{engine:ExperienceEn
     }
     if(scene.background instanceof Color)scene.background.copy(introBackground).lerp(litBackground,engine.motion.reveal)
     document.documentElement.style.setProperty('--message',String(engine.motion.messageReveal))
+    // Capture relative zoom BEFORE a resize resets the camera. CSS and the R3F
+    // resize observer may commit on different frames when celebration fills the page.
+    if(phase==='celebration'&&lastPhase.current!=='celebration')celebrationCamera.copy(camera.position).sub(controls.current.target).multiplyScalar(1/framingDistance.current)
     if(lastReset.current!==engine.resetId){
       focusY.current=0;focusZoom.current=1
       camera.position.set(0,target.y+distance*.27,distance*.963)
       controls.current.target.copy(target);controls.current.update();lastReset.current=engine.resetId
+      framingDistance.current=distance
     }
     const focus=engine.motion.editorFocus*(.78+(engine.snapshot.config.cakeLayers-1)*.23)
     const shift=(focus-focusY.current)*(1-Math.exp(-Math.min(delta,.06)*10))
@@ -88,10 +93,9 @@ function Scene({engine,phase,tier,onLost,onReady,suspended}:{engine:ExperienceEn
     camera.position.sub(controls.current.target).multiplyScalar(nextZoom/focusZoom.current).add(controls.current.target)
     focusZoom.current=nextZoom
     controls.current.autoRotate=phase==='idle'&&!engine.snapshot.editing&&!engine.snapshot.assembling&&!engine.snapshot.paused&&!engine.snapshot.reduced&&!engine.dragging&&engine.time-engine.lastInteraction>5
-    if(phase==='celebration'&&lastPhase.current!=='celebration')celebrationCamera.copy(camera.position).sub(target)
     if(phase==='celebration'||phase==='message'){
-      const progress=Math.min(1,engine.phaseTime/1.7),shift=progress*progress*(3-2*progress)*(mobile?1.3:.65)
-      camera.position.copy(celebrationCamera).multiplyScalar(1-engine.motion.camera*.12).add(target);camera.position.y+=shift
+      const progress=Math.min(1,engine.phaseTime/1.7),space=mobile?Math.max(.5,Math.min(1.3,(size.height-500)*.004)):.65,shift=progress*progress*(3-2*progress)*space
+      camera.position.copy(celebrationCamera).multiplyScalar(distance*(1-engine.motion.camera*(mobile?.06:.12))).add(target);camera.position.y+=shift
       controls.current.target.copy(target);controls.current.target.y+=shift
     }
     lastPhase.current=phase

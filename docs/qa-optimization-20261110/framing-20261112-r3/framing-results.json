@@ -1,0 +1,751 @@
+{
+  "task": "framing",
+  "testedAt": "2026-11-12T02:21:13.930Z",
+  "url": "http://localhost:4174",
+  "checks": {
+    "framing": true,
+    "noRuntimeErrors": true
+  },
+  "runs": [
+    {
+      "width": 390,
+      "height": 844,
+      "style": "default",
+      "phase": "celebration",
+      "time": 1.600100000000002,
+      "subject": {
+        "left": 26.635858780893134,
+        "top": 475.048159658418,
+        "right": 362.79945990625623,
+        "bottom": 731.7330979251667,
+        "width": 336.1636011253631,
+        "height": 256.6849382667487,
+        "occupancy": 0.3041290737757686
+      },
+      "title": {
+        "x": 8,
+        "y": 78.296875,
+        "width": 374,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "style": "default",
+      "phase": "celebration",
+      "time": 3.7051000000001846,
+      "subject": {
+        "left": 26.673870583363453,
+        "top": 476.2217709113714,
+        "right": 362.760493485311,
+        "bottom": 732.9444405504194,
+        "width": 336.0866229019475,
+        "height": 256.722669639048,
+        "occupancy": 0.30417377919318483
+      },
+      "title": {
+        "x": 8,
+        "y": 63.296875,
+        "width": 374,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "style": "default",
+      "phase": "message",
+      "time": 7.014700000000494,
+      "subject": {
+        "left": 33.49500861383748,
+        "top": 473.9321431683744,
+        "right": 355.92280037230995,
+        "bottom": 718.708520668751,
+        "width": 322.4277917584725,
+        "height": 244.7763775003766,
+        "occupancy": 0.2900194046212993
+      },
+      "title": {
+        "x": 8,
+        "y": 63.296875,
+        "width": 374,
+        "height": 151.984375
+      },
+      "replay": {
+        "x": 118.3984375,
+        "y": 767,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 1.6002000000000014,
+      "subject": {
+        "left": 26.629276335066173,
+        "top": 440.174021482726,
+        "right": 362.80356532026565,
+        "bottom": 731.7351287602069,
+        "width": 336.1742889851995,
+        "height": 291.56110727748086,
+        "occupancy": 0.34545154890696783
+      },
+      "title": {
+        "x": 8,
+        "y": 78.296875,
+        "width": 374,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 3.701700000000191,
+      "subject": {
+        "left": 26.667231072579078,
+        "top": 441.3636486617693,
+        "right": 362.76466136196706,
+        "bottom": 732.9440657008323,
+        "width": 336.097430289388,
+        "height": 291.58041703906304,
+        "occupancy": 0.3454744277714017
+      },
+      "title": {
+        "x": 8,
+        "y": 63.296875,
+        "width": 374,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "style": "彩虹心愿",
+      "phase": "message",
+      "time": 7.009000000000402,
+      "subject": {
+        "left": 33.48892424150816,
+        "top": 440.53926458385456,
+        "right": 355.9153898654243,
+        "bottom": 718.7081709868994,
+        "width": 322.4264656239161,
+        "height": 278.16890640304484,
+        "occupancy": 0.3295840123258825
+      },
+      "title": {
+        "x": 8,
+        "y": 63.296875,
+        "width": 374,
+        "height": 151.984375
+      },
+      "replay": {
+        "x": 118.3984375,
+        "y": 767,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "style": "default",
+      "phase": "celebration",
+      "time": 1.6002000000000012,
+      "subject": {
+        "left": 24.681087323000074,
+        "top": 329.29038995806167,
+        "right": 350.58469787923354,
+        "bottom": 579.7739045556705,
+        "width": 325.90361055623345,
+        "height": 250.4835145976088,
+        "occupancy": 0.3755375031448408
+      },
+      "title": {
+        "x": 8,
+        "y": 48.34375,
+        "width": 359,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "style": "default",
+      "phase": "celebration",
+      "time": 3.7064000000001887,
+      "subject": {
+        "left": 24.7019434918,
+        "top": 329.8842371906508,
+        "right": 350.563901731122,
+        "bottom": 580.3976473716126,
+        "width": 325.86195823932195,
+        "height": 250.51341018096178,
+        "occupancy": 0.37558232410938797
+      },
+      "title": {
+        "x": 8,
+        "y": 33.34375,
+        "width": 359,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "style": "default",
+      "phase": "message",
+      "time": 7.015000000000489,
+      "subject": {
+        "left": 31.545886668143314,
+        "top": 330.03902198852353,
+        "right": 343.70389469321213,
+        "bottom": 568.708638597963,
+        "width": 312.1580080250688,
+        "height": 238.66961660943952,
+        "occupancy": 0.35782551215808023
+      },
+      "title": {
+        "x": 8,
+        "y": 33.34375,
+        "width": 359,
+        "height": 143.296875
+      },
+      "replay": {
+        "x": 110.8984375,
+        "y": 590,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 1.600200000000001,
+      "subject": {
+        "left": 24.53365195752561,
+        "top": 294.7444045193187,
+        "right": 350.46729510218495,
+        "bottom": 579.7815141279359,
+        "width": 325.93364314465936,
+        "height": 285.0371096086172,
+        "occupancy": 0.42734199341621765
+      },
+      "title": {
+        "x": 8,
+        "y": 48.34375,
+        "width": 359,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 3.7069000000000036,
+      "subject": {
+        "left": 24.554480146610803,
+        "top": 295.34915390971037,
+        "right": 350.4464671270846,
+        "bottom": 580.4052652773676,
+        "width": 325.8919869804738,
+        "height": 285.0561113676572,
+        "occupancy": 0.4273704818105805
+      },
+      "title": {
+        "x": 8,
+        "y": 33.34375,
+        "width": 359,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "style": "彩虹心愿",
+      "phase": "message",
+      "time": 7.01160000000021,
+      "subject": {
+        "left": 31.42439902511824,
+        "top": 296.99908386575885,
+        "right": 343.57661415580804,
+        "bottom": 568.7157274595282,
+        "width": 312.1522151306898,
+        "height": 271.7166435937694,
+        "occupancy": 0.4073712797507787
+      },
+      "title": {
+        "x": 8,
+        "y": 33.34375,
+        "width": 359,
+        "height": 143.296875
+      },
+      "replay": {
+        "x": 110.8984375,
+        "y": 590,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "style": "default",
+      "phase": "celebration",
+      "time": 1.6001000000000019,
+      "subject": {
+        "left": 27.903826328895846,
+        "top": 513.5615210543926,
+        "right": 383.4728364186704,
+        "bottom": 784.0868648250605,
+        "width": 355.56901008977457,
+        "height": 270.52534377066786,
+        "occupancy": 0.29565611341056597
+      },
+      "title": {
+        "x": 8,
+        "y": 83.625,
+        "width": 396,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 915
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "style": "default",
+      "phase": "celebration",
+      "time": 3.7077000000002798,
+      "subject": {
+        "left": 27.942835783497003,
+        "top": 514.8021693871527,
+        "right": 383.4340995229703,
+        "bottom": 785.3668897732878,
+        "width": 355.4912637394733,
+        "height": 270.56472038613504,
+        "occupancy": 0.29569914796298913
+      },
+      "title": {
+        "x": 8,
+        "y": 68.625,
+        "width": 396,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 915
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "style": "default",
+      "phase": "message",
+      "time": 7.0056000000005865,
+      "subject": {
+        "left": 35.16742832161906,
+        "top": 512.3816670040039,
+        "right": 376.25896095656617,
+        "bottom": 770.3831790398277,
+        "width": 341.0915326349471,
+        "height": 258.0015120358238,
+        "occupancy": 0.28196886561292217
+      },
+      "title": {
+        "x": 8,
+        "y": 68.625,
+        "width": 396,
+        "height": 151.984375
+      },
+      "replay": {
+        "x": 129.3984375,
+        "y": 838,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 915
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 1.6001000000000027,
+      "subject": {
+        "left": 28.200158105086057,
+        "top": 476.7342323112445,
+        "right": 383.79753300024583,
+        "bottom": 784.094425797731,
+        "width": 355.59737489515976,
+        "height": 307.3601934864865,
+        "occupancy": 0.3359127797666519
+      },
+      "title": {
+        "x": 8,
+        "y": 83.625,
+        "width": 396,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 915
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 3.7148000000003734,
+      "subject": {
+        "left": 28.239034647184692,
+        "top": 477.99384433730324,
+        "right": 383.7586574677257,
+        "bottom": 785.3744631205066,
+        "width": 355.51962282054103,
+        "height": 307.3806187832033,
+        "occupancy": 0.33593510249530417
+      },
+      "title": {
+        "x": 8,
+        "y": 68.625,
+        "width": 396,
+        "height": 151.984375
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 915
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "style": "彩虹心愿",
+      "phase": "message",
+      "time": 7.01490000000049,
+      "subject": {
+        "left": 35.439524568683254,
+        "top": 477.1211620077093,
+        "right": 376.55835072746396,
+        "bottom": 770.3902470932723,
+        "width": 341.11882615878073,
+        "height": 293.26908508556295,
+        "occupancy": 0.3205126612956972
+      },
+      "title": {
+        "x": 8,
+        "y": 68.625,
+        "width": 396,
+        "height": 151.984375
+      },
+      "replay": {
+        "x": 129.3984375,
+        "y": 838,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 915
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "style": "default",
+      "phase": "celebration",
+      "time": 1.6002000000000016,
+      "subject": {
+        "left": 23.238605218557847,
+        "top": 306.7423836162829,
+        "right": 337.0089829260129,
+        "bottom": 546.9750188045942,
+        "width": 313.77037770745505,
+        "height": 240.23263518831135,
+        "occupancy": 0.3753634924817365
+      },
+      "title": {
+        "x": 8,
+        "y": 47,
+        "width": 344,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "style": "default",
+      "phase": "celebration",
+      "time": 3.714700000000189,
+      "subject": {
+        "left": 23.254203079316106,
+        "top": 307.22262124159204,
+        "right": 336.99342937595725,
+        "bottom": 547.4819262589914,
+        "width": 313.73922629664116,
+        "height": 240.25930501739936,
+        "occupancy": 0.3754051640896865
+      },
+      "title": {
+        "x": 8,
+        "y": 32,
+        "width": 344,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "style": "default",
+      "phase": "message",
+      "time": 7.006800000000301,
+      "subject": {
+        "left": 29.890882963476606,
+        "top": 307.7711537663982,
+        "right": 330.3701073699333,
+        "bottom": 536.6777332283874,
+        "width": 300.4792244064567,
+        "height": 228.90657946198922,
+        "occupancy": 0.35766653040935814
+      },
+      "title": {
+        "x": 8,
+        "y": 32,
+        "width": 344,
+        "height": 143.296875
+      },
+      "replay": {
+        "x": 103.3984375,
+        "y": 563,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 1.6002000000000014,
+      "subject": {
+        "left": 23.25248749022412,
+        "top": 273.3549963786594,
+        "right": 337.0176215814529,
+        "bottom": 546.9737153297476,
+        "width": 313.7651340912288,
+        "height": 273.6187189510882,
+        "occupancy": 0.42752924836107536
+      },
+      "title": {
+        "x": 8,
+        "y": 47,
+        "width": 344,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "style": "彩虹心愿",
+      "phase": "celebration",
+      "time": 3.713600000000188,
+      "subject": {
+        "left": 23.26808710307177,
+        "top": 273.8437442944522,
+        "right": 337.00207030510285,
+        "bottom": 547.4806215349689,
+        "width": 313.7339832020311,
+        "height": 273.6368772405167,
+        "occupancy": 0.4275576206883073
+      },
+      "title": {
+        "x": 8,
+        "y": 32,
+        "width": 344,
+        "height": 143.296875
+      },
+      "replay": null,
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "style": "彩虹心愿",
+      "phase": "message",
+      "time": 7.000300000000402,
+      "subject": {
+        "left": 29.864363234655436,
+        "top": 275.84538644332827,
+        "right": 330.37966018990596,
+        "bottom": 536.6765187996098,
+        "width": 300.5152969552505,
+        "height": 260.8311323562815,
+        "occupancy": 0.40754864430668986
+      },
+      "title": {
+        "x": 8,
+        "y": 32,
+        "width": 344,
+        "height": 143.296875
+      },
+      "replay": {
+        "x": 103.3984375,
+        "y": 563,
+        "width": 153.203125,
+        "height": 48
+      },
+      "scene": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "THREE.WebGLProgram: Program Info Log: (221,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(220,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(221,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero\n(207,10-70): warning X4008: floating point division by zero"
+  ]
+}

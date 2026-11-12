@@ -51,6 +51,7 @@ export function BirthdayExperience({initialGift,readOnly=false,preview=false,dra
     {sceneRequested&&phase==='intro'?<div className="scene-loading" role="status"><span aria-hidden="true">✧</span><p>星光正在汇聚</p></div>:null}
     {phase!=='intro'?<p className={`recipient ${message||phase==='celebration'?'recipient-hidden':''}`}>给 {name}</p>:null}
     {phase==='entering'?<p className="entering-status" role="status">星光正在为你汇聚</p>:null}
+    {phase==='celebration'||message?<div className="celebration-shade" aria-hidden="true"/>:null}
     <div id="birthday-message" className="birthday-message" aria-hidden={phase!=='celebration'&&!message}>
       <h1 lang="en">Happy Birthday</h1><p className="birthday-name">{name}</p><p className="birthday-wish">{wish}</p>{config.sender.trim()||config.birthday?<p className="birthday-from">{[config.sender.trim()?`来自 ${config.sender.trim()}`:'',config.birthday.replaceAll('-','.')].filter(Boolean).join(' · ')}</p>:null}
     </div>
